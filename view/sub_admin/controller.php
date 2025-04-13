@@ -128,6 +128,34 @@ if (isset($_GET['pgtitle'])) {
     $core->setTitle(Validator::sanitize($_GET['pgtitle']));
 }
 
+// Debug mode for created_by field
+if (isset($_POST['action']) && $_POST['action'] == 'processUser') {
+    SubAdmin::log("Processing user from subadmin. Auth UID: " . App::Auth()->uid);
+    SubAdmin::log("POST data: " . print_r($_POST, true));
+}
+
+// Process actions
+switch (Filter::$action):
+    // Process User
+    case "processUser":
+        // Ensure created_by is set explicitly for sub-admin created users
+        if (App::Auth()->type == 'sub_admin') {
+            SubAdmin::log("Setting created_by explicitly to: " . App::Auth()->uid);
+            $_POST['created_by'] = App::Auth()->uid;
+        }
+        App::User()->processUser();
+        break;
+
+    // Process Membership
+    case "processMembership":
+        // Ensure created_by is set explicitly for sub-admin created memberships
+        if (App::Auth()->type == 'sub_admin' && !isset($_POST['created_by'])) {
+            $_POST['created_by'] = App::Auth()->uid;
+        }
+        App::Membership()->processMembership();
+        break;
+endswitch;
+
 // Process Ajax requests
 if (isset($_POST['action'])):
     switch ($_POST['action']):

@@ -22,6 +22,22 @@ class SubAdmin extends Admin
         // The parent Admin class doesn't have a constructor, so we don't call parent::__construct()
         // We can initialize things needed for SubAdmin here
     }
+    
+    /**
+     * Log message to a dedicated subadmin log file
+     * 
+     * @param string $message Message to log
+     * @return void
+     */
+    public static function log(string $message): void 
+    {
+        $logFile = BASEPATH . 'subadmin_debug.log';
+        $timestamp = date('[Y-m-d H:i:s]');
+        $logMessage = $timestamp . ' ' . $message . PHP_EOL;
+        
+        // Append to log file
+        file_put_contents($logFile, $logMessage, FILE_APPEND);
+    }
 
     /**
      * index
@@ -109,28 +125,31 @@ class SubAdmin extends Admin
         $tpl->caption = Language::$word->META_T2;
         $tpl->subtitle = null;
         
-        $where = 'WHERE type = \'member\' AND created_by = ' . App::Auth()->uid;
+        // Start debugging
+        SubAdmin::log("Starting userIndex method for sub-admin ID: " . App::Auth()->uid);
         
+        $sub_admin_id = App::Auth()->uid;
+        
+        // Use the select method instead of rawQuery
         $find = isset($_POST['find']) ? Validator::sanitize($_POST['find'], 'string', 20) : null;
         $counter = 0;
-        $and = null;
         
         if (isset($_GET['letter']) and $find) {
             $letter = Validator::sanitize($_GET['letter'], 'string', 2);
-            $counter = Database::Go()->count(User::mTable, "$where AND `fname` LIKE '%" . trim($find) . "%' OR `lname` LIKE '%" . trim($find) . "%' OR `email` LIKE '%" . trim($find) . "%' AND `fname` REGEXP '^" . $letter . "'")->run();
-            $and = "AND `fname` LIKE '%" . trim($find) . "%' OR `lname` LIKE '%" . trim($find) . "%' OR `email` LIKE '%" . trim($find) . "%' AND `fname` REGEXP '^" . $letter . "'";
+            $counter = Database::Go()->count(User::mTable, "WHERE type = 'member' AND created_by = " . $sub_admin_id . " AND (`fname` LIKE '%" . trim($find) . "%' OR `lname` LIKE '%" . trim($find) . "%' OR `email` LIKE '%" . trim($find) . "%') AND `fname` REGEXP '^" . $letter . "'")->run();
             
         } elseif (isset($_POST['find'])) {
-            $counter = Database::Go()->count(User::mTable, "$where AND `fname` LIKE '%" . trim($find) . "%' OR `lname` LIKE '%" . trim($find) . "%' OR `email` LIKE '%" . trim($find) . "%'")->run();
-            $and = "AND `fname` LIKE '%" . trim($find) . "%' OR `lname` LIKE '%" . trim($find) . "%' OR `email` LIKE '%" . trim($find) . "%'";
+            $counter = Database::Go()->count(User::mTable, "WHERE type = 'member' AND created_by = " . $sub_admin_id . " AND (`fname` LIKE '%" . trim($find) . "%' OR `lname` LIKE '%" . trim($find) . "%' OR `email` LIKE '%" . trim($find) . "%')")->run();
             
         } elseif (isset($_GET['letter'])) {
             $letter = Validator::sanitize($_GET['letter'], 'string', 2);
-            $and = "AND `fname` REGEXP '^" . $letter . "'";
-            $counter = Database::Go()->count(User::mTable, "$where AND `fname` REGEXP '^" . $letter . "' LIMIT 1")->run();
+            $counter = Database::Go()->count(User::mTable, "WHERE type = 'member' AND created_by = " . $sub_admin_id . " AND `fname` REGEXP '^" . $letter . "' LIMIT 1")->run();
         } else {
-            $counter = Database::Go()->count(User::mTable, $where)->run();
+            $counter = Database::Go()->count(User::mTable, "WHERE type = 'member' AND created_by = " . $sub_admin_id)->run();
         }
+        
+        // Log the counter value
+        SubAdmin::log("Counter value (total users found): " . $counter);
         
         if (isset($_GET['order']) and count(explode('|', $_GET['order'])) == 2) {
             list($sort, $order) = explode('|', $_GET['order']);
@@ -152,15 +171,67 @@ class SubAdmin extends Admin
         $pager->path = Url::url(Router::$path, '?');
         $pager->paginate();
         
-        $sql = "
-        SELECT u.*,u.id as id,  u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb
-        FROM   `" . User::mTable . '` as u
-        LEFT JOIN ' . Membership::mTable . " as m on m.id = u.membership_id
-        $where
-        $and
-        ORDER BY $sorting" . $pager->limit;
+        // Build query using the select method instead of rawQuery
+        $query = Database::Go()->select(User::mTable . " as u", 
+            ["u.*", "u.id as id", "u.active as active", "CONCAT(fname,' ',lname) as fullname", "m.title as mtitle", "m.thumb"])
+            ->where('u.type', 'member', '=')
+            ->where('u.created_by', $sub_admin_id, '=');
+            
+        // Add search conditions
+        if (isset($_POST['find'])) {
+            $query->orWhere("u.fname LIKE '%" . trim($find) . "%' OR u.lname LIKE '%" . trim($find) . "%' OR u.email LIKE '%" . trim($find) . "%'");
+        }
         
+        if (isset($_GET['letter']) && !empty($_GET['letter'])) {
+            $letter = Validator::sanitize($_GET['letter'], 'string', 2);
+            $query->where("u.fname", "^" . $letter, "REGEXP");
+        }
+        
+        // Join with membership table
+        $sql = "SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `" . User::mTable . "` as u 
+                LEFT JOIN `" . Membership::mTable . "` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = " . $sub_admin_id;
+        
+        if (isset($_POST['find'])) {
+            $sql .= " AND (u.fname LIKE '%" . trim($find) . "%' OR u.lname LIKE '%" . trim($find) . "%' OR u.email LIKE '%" . trim($find) . "%')";
+        }
+        
+        if (isset($_GET['letter']) && !empty($_GET['letter'])) {
+            $letter = Validator::sanitize($_GET['letter'], 'string', 2);
+            $sql .= " AND u.fname REGEXP '^" . $letter . "'";
+        }
+        
+        $sql .= " ORDER BY " . $sorting . $pager->limit;
+        
+        SubAdmin::log("SQL Query: " . $sql);
+        
+        // Execute the direct query
         $tpl->data = Database::Go()->rawQuery($sql)->run();
+        
+        // Log how many results were returned
+        if (is_array($tpl->data)) {
+            SubAdmin::log("Number of users returned: " . count($tpl->data));
+            if (!empty($tpl->data)) {
+                $firstUser = $tpl->data[0];
+                SubAdmin::log("First user: ID=" . $firstUser->id . ", Name=" . $firstUser->fname . " " . $firstUser->lname);
+            }
+        } else {
+            SubAdmin::log("No users found or invalid result format - Data type: " . gettype($tpl->data));
+            
+            // Try a different approach - fetch all users created by this sub-admin
+            SubAdmin::log("Trying alternative approach...");
+            $simple_sql = "SELECT * FROM `" . User::mTable . "` WHERE type = 'member' AND created_by = " . $sub_admin_id;
+            $result = Database::Go()->rawQuery($simple_sql)->run();
+            
+            if (is_array($result)) {
+                SubAdmin::log("Alternative approach found " . count($result) . " users");
+                $tpl->data = $result;
+            } else {
+                SubAdmin::log("Alternative approach failed too. Data type: " . gettype($result));
+            }
+        }
+        
         $tpl->pager = $pager;
         $tpl->template = 'sub_admin/user';
     }

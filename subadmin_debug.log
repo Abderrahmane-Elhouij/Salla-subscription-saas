@@ -1,0 +1,106 @@
+[2025-04-13 10:45:48] Starting userIndex method for sub-admin ID: 2
+[2025-04-13 10:45:48] WHERE clause with param binding: WHERE type = 'member' AND created_by = ? [param: 2]
+[2025-04-13 10:50:25] Starting userIndex method for sub-admin ID: 2
+[2025-04-13 10:50:25] Counter value (total users found): 5
+[2025-04-13 10:50:25] SQL Query: 
+        SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb
+        FROM `users` as u
+        LEFT JOIN memberships as m on m.id = u.membership_id
+        WHERE type = 'member' AND created_by = 2
+        
+        ORDER BY  created DESC LIMIT 0,12
+[2025-04-13 10:50:25] No users found or invalid result format
+[2025-04-13 10:51:09] Setting created_by from POST: 2
+[2025-04-13 10:51:12] Starting userIndex method for sub-admin ID: 2
+[2025-04-13 10:51:12] Counter value (total users found): 6
+[2025-04-13 10:51:12] SQL Query: 
+        SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb
+        FROM `users` as u
+        LEFT JOIN memberships as m on m.id = u.membership_id
+        WHERE type = 'member' AND created_by = 2
+        
+        ORDER BY  created DESC LIMIT 0,12
+[2025-04-13 10:51:12] No users found or invalid result format
+[2025-04-13 10:51:15] Starting userIndex method for sub-admin ID: 2
+[2025-04-13 10:51:15] Counter value (total users found): 6
+[2025-04-13 10:51:15] SQL Query: 
+        SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb
+        FROM `users` as u
+        LEFT JOIN memberships as m on m.id = u.membership_id
+        WHERE type = 'member' AND created_by = 2
+        
+        ORDER BY  created DESC LIMIT 0,12
+[2025-04-13 10:51:15] No users found or invalid result format
+[2025-04-13 10:51:17] Starting userIndex method for sub-admin ID: 2
+[2025-04-13 10:51:17] Counter value (total users found): 6
+[2025-04-13 10:51:17] SQL Query: 
+        SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb
+        FROM `users` as u
+        LEFT JOIN memberships as m on m.id = u.membership_id
+        WHERE type = 'member' AND created_by = 2
+        
+        ORDER BY  created DESC LIMIT 0,12
+[2025-04-13 10:51:17] No users found or invalid result format
+[2025-04-13 10:51:18] Starting userIndex method for sub-admin ID: 2
+[2025-04-13 10:51:18] Counter value (total users found): 6
+[2025-04-13 10:51:18] SQL Query: 
+        SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb
+        FROM `users` as u
+        LEFT JOIN memberships as m on m.id = u.membership_id
+        WHERE type = 'member' AND created_by = 2
+        
+        ORDER BY  created DESC LIMIT 0,12
+[2025-04-13 10:51:18] No users found or invalid result format
+[2025-04-13 10:51:24] Starting userIndex method for sub-admin ID: 2
+[2025-04-13 10:51:24] Counter value (total users found): 6
+[2025-04-13 10:51:24] SQL Query: 
+        SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb
+        FROM `users` as u
+        LEFT JOIN memberships as m on m.id = u.membership_id
+        WHERE type = 'member' AND created_by = 2
+        
+        ORDER BY  created DESC LIMIT 0,12
+[2025-04-13 10:51:24] No users found or invalid result format
+[2025-04-13 11:02:58] Starting userIndex method for sub-admin ID: 2
+[2025-04-13 11:02:58] Counter value (total users found): 6
+[2025-04-13 11:02:58] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-04-13 11:02:58] Number of users returned: 6
+[2025-04-13 11:03:39] Starting userIndex method for sub-admin ID: 3
+[2025-04-13 11:03:39] Counter value (total users found): 0
+[2025-04-13 11:03:39] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 3 ORDER BY  created DESC
+[2025-04-13 11:03:39] Number of users returned: 0
+[2025-04-13 11:04:41] Setting created_by from POST: 3
+[2025-04-13 11:04:52] Starting userIndex method for sub-admin ID: 3
+[2025-04-13 11:04:52] Counter value (total users found): 1
+[2025-04-13 11:04:52] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 3 ORDER BY  created DESC LIMIT 0,12
+[2025-04-13 11:04:52] Number of users returned: 1
+[2025-04-13 11:05:02] Starting userIndex method for sub-admin ID: 3
+[2025-04-13 11:05:02] Counter value (total users found): 1
+[2025-04-13 11:05:02] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 3 ORDER BY  created DESC LIMIT 0,12
+[2025-04-13 11:05:02] Number of users returned: 1
+[2025-04-13 11:05:05] Starting userIndex method for sub-admin ID: 3
+[2025-04-13 11:05:05] Counter value (total users found): 1
+[2025-04-13 11:05:05] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 3 ORDER BY  created DESC LIMIT 0,12
+[2025-04-13 11:05:05] Number of users returned: 1
+[2025-04-13 11:10:02] Starting userIndex method for sub-admin ID: 2
+[2025-04-13 11:10:02] Counter value (total users found): 6
+[2025-04-13 11:10:02] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-04-13 11:10:02] Number of users returned: 6

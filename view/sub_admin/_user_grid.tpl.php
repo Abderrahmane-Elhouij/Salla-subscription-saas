@@ -25,11 +25,11 @@
    </div>
    <div class="columns mobile-hide phone-hide"></div>
    <div class="columns auto mobile-50 phone-100">
-      <a href="<?php echo Url::url('/admin/users', 'new/'); ?>" class="wojo small secondary fluid button">
+      <a href="<?php echo Url::url('/sub_admin/users', 'new/'); ?>" class="wojo small secondary fluid button">
          <i class="icon plus alt"></i><?php echo Language::$word->M_TITLE5; ?></a>
    </div>
    <div class="columns auto mobile-25 phone-50">
-      <a href="<?php echo Url::url('/admin/users'); ?>" class="wojo small primary icon button">
+      <a href="<?php echo Url::url('/sub_admin/users'); ?>" class="wojo small primary icon button">
          <i class="icon list"></i>
       </a>
       <a class="wojo secondary passive inverted small icon button">
@@ -37,7 +37,7 @@
       </a>
    </div>
    <div class="columns auto mobile-25 phone-50">
-      <a href="<?php echo ADMINVIEW . '/helper.php?action=exportUsers'; ?>"
+      <a href="<?php echo BASEPATH . 'view/sub_admin/helper.php?action=exportUsers'; ?>"
          class="wojo small primary inverted fluid button">
          <i class="icon wysiwyg table"></i><?php echo Language::$word->EXPORT; ?></a>
    </div>
@@ -72,7 +72,7 @@
 </div>
 <?php if (!$this->data): ?>
    <div class="center-align">
-      <img src="<?php echo ADMINVIEW; ?>/images/notfound.svg" alt="" class="wojo big inline image">
+      <img src="<?php echo BASEPATH; ?>view/sub_admin/images/notfound.svg" alt="" class="wojo big inline image">
       <div class="margin-small-top">
          <p class="wojo small icon alert inverted attached compact message">
             <i class="icon exclamation triangle"></i><?php echo Language::$word->M_INFO6; ?></p>
@@ -87,7 +87,7 @@
                   <div class="row align-middle">
                      <div class="columns">
                         <?php if (Auth::hasPrivileges('edit_user')): ?>
-                           <a class="grey" href="<?php echo Url::url('/admin/users/edit', $row->id . '/'); ?>"><span
+                           <a class="grey" href="<?php echo Url::url('/sub_admin/users/edit', $row->id . '/'); ?>"><span
                                 class="text-weight-500"><?php echo $row->fullname; ?></span>
                            </a>
                         <?php else: ?>
@@ -100,10 +100,10 @@
                            <i class="icon three dots"></i>
                         </a>
                         <div class="wojo dropdown small pointing top-right" id="userDrop_<?php echo $row->id; ?>">
-                           <a class="item" href="<?php echo Url::url('/admin/users/edit', $row->id . '/'); ?>">
+                           <a class="item" href="<?php echo Url::url('/sub_admin/users/edit', $row->id . '/'); ?>">
                               <i class="icon pencil"></i>
                               <?php echo Language::$word->EDIT; ?></a>
-                           <a class="item" href="<?php echo Url::url('/admin/users/history', $row->id . '/'); ?>">
+                           <a class="item" href="<?php echo Url::url('/sub_admin/users/history', $row->id . '/'); ?>">
                               <i class="icon time history"></i>
                               <?php echo Language::$word->HISTORY; ?></a>
                            <?php if (Auth::hasPrivileges('delete_user')): ?>
@@ -119,7 +119,7 @@
                </div>
                <div class="content">
                   <div class="center-align margin-bottom">
-                     <a href="<?php echo Url::url('/admin/users/edit', $row->id . '/'); ?>">
+                     <a href="<?php echo Url::url('/sub_admin/users/edit', $row->id . '/'); ?>">
                         <img src="<?php echo UPLOADURL; ?>/avatars/<?php echo $row->avatar ?? 'default.svg'; ?>" alt=""
                              class="wojo basic circular normal inline image">
                      </a>
@@ -137,11 +137,11 @@
                   <div class="wojo small list">
                      <div class="item"><?php echo Language::$word->M_EMAIL; ?>:
                         <div class="description">
-                           <a href="<?php echo Url::url('/admin/mailer', '?email=' . urlencode($row->email)); ?>"><?php echo $row->email; ?></a>
+                           <a href="<?php echo Url::url('/sub_admin/mailer', '?email=' . urlencode($row->email)); ?>"><?php echo $row->email; ?></a>
                         </div>
                      </div>
                      <div class="item"><?php echo Language::$word->MEMBERSHIP; ?>:
-                        <div class="description"><?php echo ($row->membership_id)? '<a href="' . Url::url('/admin/memberships/' . $row->membership_id) . '">' . $row->mtitle . '</a> @' . Date::doDate('short_date', $row->mem_expire) : '-/-'; ?></div>
+                        <div class="description"><?php echo ($row->membership_id)? '<a href="' . Url::url('/sub_admin/memberships/' . $row->membership_id) . '">' . $row->mtitle . '</a> @' . Date::doDate('short_date', $row->mem_expire) : '-/-'; ?></div>
                      </div>
                      <div class="item">ip:
                         <span class="description"><?php echo $row->lastip; ?></span>

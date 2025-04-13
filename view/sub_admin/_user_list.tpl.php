@@ -37,7 +37,7 @@
       </a>
    </div>
    <div class="columns auto mobile-25 phone-50">
-      <a href="<?php echo ADMINVIEW . '/helper.php?action=exportUsers'; ?>" class="wojo small primary inverted fluid button">
+      <a href="<?php echo BASEPATH . 'view/sub_admin/helper.php?action=exportUsers'; ?>" class="wojo small primary inverted fluid button">
          <i class="icon wysiwyg table"></i> <?php echo Language::$word->EXPORT; ?>
       </a>
    </div>
@@ -72,7 +72,7 @@
 </div>
 <?php if (!$this->data): ?>
    <div class="center-align">
-      <img src="<?php echo ADMINVIEW; ?>/images/notfound.svg" alt="" class="wojo big inline image">
+      <img src="<?php echo BASEPATH; ?>view/sub_admin/images/notfound.svg" alt="" class="wojo big inline image">
       <div class="margin-small-top">
          <p class="wojo small icon alert inverted attached compact message">
             <i class="icon exclamation triangle"></i><?php echo Language::$word->M_INFO6; ?></p>
@@ -130,7 +130,7 @@
                      <div class="item">
                         <?php echo Language::$word->M_EMAIL1; ?>:
                         <span class="description">
-                           <a href="<?php echo Url::url('/admin/mailer', '?email=' . urlencode($row->email)); ?>"><?php echo $row->email; ?></a>
+                           <a href="<?php echo Url::url('/sub_admin/mailer', '?email=' . urlencode($row->email)); ?>"><?php echo $row->email; ?></a>
                         </span>
                      </div>
                      <div class="item">
@@ -141,7 +141,7 @@
                   <div class="wojo small divided horizontal block list justify-center">
                      <div class="item">
                         <?php echo Language::$word->MEMBERSHIP; ?>:
-                        <span class="description"><?php echo ($row->membership_id)? '<a href="' . Url::url('/admin/memberships/edit/' . $row->membership_id) . '">' . $row->mtitle . '</a>' : '-/-'; ?></span>
+                        <span class="description"><?php echo ($row->membership_id)? '<a href="' . Url::url('/sub_admin/memberships/edit/' . $row->membership_id) . '">' . $row->mtitle . '</a>' : '-/-'; ?></span>
                      </div>
                      <div class="item">
                         <?php echo Language::$word->MEM_EXP; ?>:

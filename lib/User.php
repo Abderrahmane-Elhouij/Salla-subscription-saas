@@ -385,6 +385,23 @@
                 $hash = App::Auth()->doHash($safe->password);
                 $username = Utility::randomString();
                 
+                // Enhanced debug logging for subadmin user creation
+                if (App::Auth()->type == 'sub_admin') {
+                    SubAdmin::log("SubAdmin creating user: " . App::Auth()->uid . ", email: " . $safe->email);
+                    SubAdmin::log("POST created_by value: " . (isset($_POST['created_by']) ? $_POST['created_by'] : 'not set'));
+                    SubAdmin::log("Raw POST data: " . print_r($_POST, true));
+                }
+                
+                // More robust created_by handling - always set it for subadmins
+                $created_by = null;
+                if (App::Auth()->type == 'sub_admin') {
+                    $created_by = App::Auth()->uid;
+                    SubAdmin::log("Setting created_by to subadmin ID: " . $created_by);
+                } elseif (isset($_POST['created_by']) && is_numeric($_POST['created_by'])) {
+                    $created_by = Validator::sanitize($_POST['created_by'], 'int');
+                    SubAdmin::log("Setting created_by from POST: " . $created_by);
+                }
+                
                 $data = array(
                     'username' => $username,
                     'email' => $safe->email,
@@ -402,8 +419,13 @@
                     'newsletter' => $safe->newsletter,
                     'notes' => $safe->notes,
                     'userlevel' => ($safe->type == 'staff' ? 8 : ($safe->type == 'editor' ? 7 : ($safe->type == 'sub_admin' ? 6 : 1))),
-                    'created_by' => App::Auth()->usertype == 'sub_admin' ? App::Auth()->uid : null,
+                    'created_by' => $created_by,
                 );
+                
+                // Log the final data being inserted
+                if (App::Auth()->type == 'sub_admin') {
+                    SubAdmin::log("Final user data before insert: created_by = " . (isset($data['created_by']) ? $data['created_by'] : 'null'));
+                }
                 
                 if ($_POST['membership_id'] > 0) {
                     $data['mem_expire'] = Membership::calculateDays($safe->membership_id);
@@ -414,7 +436,25 @@
                     $data['mem_expire'] = Database::toDate($safe->mem_expire_submit);
                 }
                 
+                // Add debugging for the SQL query
+                if (App::Auth()->type == 'sub_admin') {
+                    SubAdmin::log("About to insert user with data: " . json_encode($data));
+                }
+                
                 $last_id = Database::Go()->insert(User::mTable, $data)->run();
+                
+                // Debug logging for insertion result
+                if (App::Auth()->type == 'sub_admin') {
+                    SubAdmin::log("User insert result - Last ID: " . ($last_id ?: 'no ID returned'));
+                    
+                    // Verify the user was inserted with correct created_by
+                    $inserted_user = Database::Go()->select(User::mTable)->where('id', $last_id, '=')->first()->run();
+                    if ($inserted_user) {
+                        SubAdmin::log("Inserted user verified - ID: " . $inserted_user->id . ", created_by: " . $inserted_user->created_by);
+                    } else {
+                        SubAdmin::log("Error: Couldn't verify inserted user with ID: " . $last_id);
+                    }
+                }
                 
                 //manual transaction
                 if (Validator::post('add_trans')) {

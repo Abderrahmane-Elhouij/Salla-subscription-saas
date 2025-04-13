@@ -172,17 +172,10 @@
          <div class="field">
             <label><?php echo Language::$word->M_SUB9; ?></label>
             <div class="wojo checkbox radio fitted inline">
-               <input name="type" type="radio" value="staff" id="staff" checked="checked">
-               <label for="staff"><?php echo Language::$word->STAFF; ?></label>
-            </div>
-            <div class="wojo checkbox radio fitted inline">
-               <input name="type" type="radio" value="editor" id="editor">
-               <label for="editor"><?php echo Language::$word->EDITOR; ?></label>
-            </div>
-            <div class="wojo checkbox radio fitted inline">
-               <input name="type" type="radio" value="member" id="member">
+               <input name="type" type="radio" value="member" id="member" checked="checked">
                <label for="member"><?php echo Language::$word->MEMBER; ?></label>
             </div>
+            <!-- Removed staff and editor options for subadmins -->
          </div>
          <div class="field">
             <label><?php echo Language::$word->M_SUB10; ?></label>
@@ -210,9 +203,11 @@
       </div>
    </div>
    <div class="center-align margin-top">
-      <a href="<?php echo Url::url('/admin/users'); ?>"
+      <a href="<?php echo Url::url('/sub_admin/users'); ?>"
          class="wojo simple small button"><?php echo Language::$word->CANCEL; ?></a>
       <button type="button" data-action="processUser" name="dosubmit"
               class="wojo primary button"><?php echo Language::$word->M_TITLE5; ?></button>
    </div>
+   <!-- Adding hidden field to track the creating subadmin -->
+   <input type="hidden" name="created_by" value="<?php echo App::Auth()->uid; ?>">
 </form>

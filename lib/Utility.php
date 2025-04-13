@@ -101,11 +101,12 @@
                     'editor' => '<span class="wojo small inverted negative label">' . $type . '</span>',
                     'manager' => '<span class="wojo small inverted positive label">' . $type . '</span>',
                     'member' => '<span class="wojo small dark inverted label">' . $type . '</span>',
+                    'sub_admin' => '<span class="wojo small inverted violet label">' . $type . '</span>',
                     default => throw new Exception(sprintf('The requested action "%s" don\'t match any type.', $type)),
                 };
             } catch (Exception) {
+                return null;
             }
-            
         }
         
         /**
