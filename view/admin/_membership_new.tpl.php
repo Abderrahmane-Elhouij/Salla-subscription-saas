@@ -128,3 +128,45 @@
       <button type="button" data-action="processMembership" name="dosubmit" class="wojo primary button"><?php echo Language::$word->MEM_SUB1; ?></button>
    </div>
 </form>
+
+<!-- Fix for period dropdown submission -->
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+    // Make sure the period dropdown has a value selected
+    var periodSelect = document.querySelector('select[name="period"]');
+    if (periodSelect && !periodSelect.value) {
+        // Select the first option if none is selected
+        if (periodSelect.options.length > 0) {
+            periodSelect.value = periodSelect.options[0].value;
+        }
+    }
+    
+    // Add validation before form submission
+    var form = document.getElementById('wojo_form');
+    var submitButton = form.querySelector('button[data-action="processMembership"]');
+    
+    submitButton.addEventListener('click', function(e) {
+        // Make sure period has a value
+        if (!periodSelect.value) {
+            alert('Please select a membership period');
+            periodSelect.focus();
+            e.preventDefault();
+            return false;
+        }
+        
+        // Create a hidden input with period value if it doesn't exist
+        if (periodSelect.value) {
+            var hiddenPeriod = document.querySelector('input[name="period_hidden"]');
+            if (!hiddenPeriod) {
+                hiddenPeriod = document.createElement('input');
+                hiddenPeriod.type = 'hidden';
+                hiddenPeriod.name = 'period';
+                hiddenPeriod.value = periodSelect.value;
+                form.appendChild(hiddenPeriod);
+            } else {
+                hiddenPeriod.value = periodSelect.value;
+            }
+        }
+    });
+});
+</script>

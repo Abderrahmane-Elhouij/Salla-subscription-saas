@@ -36,8 +36,9 @@
             $tpl->subtitle = null;
             
             $where = match (App::Auth()->usertype) {
-                'owner' => 'WHERE (type = \'staff\' || type = \'editor\' || type = \'member\')',
-                'staff' => 'WHERE (type = \'editor\' || type = \'member\')',
+                'owner' => 'WHERE (type = \'staff\' || type = \'editor\' || type = \'member\' || type = \'sub_admin\')',
+                'staff' => 'WHERE (type = \'editor\' || type = \'member\' || type = \'sub_admin\')',
+                'sub_admin' => 'WHERE (type = \'member\')', 
                 'editor' => 'WHERE (type = \'member\')',
                 default => null,
             };
@@ -218,7 +219,7 @@
                 ->set('fname', Language::$word->M_FNAME)->required()->string()->min_len(3)->max_len(60)
                 ->set('lname', Language::$word->M_LNAME)->required()->string()->min_len(3)->max_len(60)
                 ->set('email', Language::$word->M_EMAIL)->required()->email()
-                ->set('type', Language::$word->M_SUB9)->required()->alpha()
+                ->set('type', Language::$word->M_SUB9)->required()->string()
                 ->set('active', Language::$word->STATUS)->required()->string()->exact_len(1)->lowercase()
                 ->set('newsletter', Language::$word->M_SUB10)->required()->numeric()
                 ->set('membership_id', Language::$word->M_SUB8)->numeric()
@@ -273,7 +274,7 @@
                     'user_files' => array_key_exists('user_files', $_POST) ? Utility::implodeFields($_POST['user_files']) : 0,
                     'newsletter' => $safe->newsletter,
                     'notes' => $safe->notes,
-                    'userlevel' => ($safe->type == 'staff' ? 8 : ($safe->type == 'editor' ? 7 : 1)),
+                    'userlevel' => ($safe->type == 'staff' ? 8 : ($safe->type == 'editor' ? 7 : ($safe->type == 'sub_admin' ? 6 : 1))),
                 );
                 
                 if (strlen($_POST['password']) !== 0) {
@@ -400,7 +401,8 @@
                     'user_files' => array_key_exists('user_files', $_POST) ? Utility::implodeFields($_POST['user_files']) : 0,
                     'newsletter' => $safe->newsletter,
                     'notes' => $safe->notes,
-                    'userlevel' => ($safe->type == 'staff' ? 8 : ($safe->type == 'editor' ? 7 : 1)),
+                    'userlevel' => ($safe->type == 'staff' ? 8 : ($safe->type == 'editor' ? 7 : ($safe->type == 'sub_admin' ? 6 : 1))),
+                    'created_by' => App::Auth()->usertype == 'sub_admin' ? App::Auth()->uid : null,
                 );
                 
                 if ($_POST['membership_id'] > 0) {

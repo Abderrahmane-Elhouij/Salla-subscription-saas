@@ -16,12 +16,41 @@
     $tpl = App::View(BASEPATH . 'view/');
     $core = App::Core();
     
+    // PUBLIC ROUTE FOR SUB-ADMIN REGISTRATION - Place this BEFORE all other routes
+    $router->match('GET|POST', '/subadmin-register', function () use ($tpl) {
+        $tpl->dir = 'sub_admin/';
+        $tpl->title = "Sub-Admin Registration";
+        $tpl->template = 'sub_admin/register';
+        $tpl->core = App::Core();
+        
+        if (isset($_POST['dosubmit']) && $_POST['dosubmit'] == '1') {
+            App::SubAdmin()->register();
+        }
+    });
+    
+    //direct routes outside normal mount - for special cases like registration
+    $router->match('GET|POST', '/sub_admin/register', function () use ($tpl) {
+        // Direct access to registration without going through the mount structure
+        $tpl->dir = 'sub_admin/';
+        $tpl->title = "Sub-Admin Registration";
+        $tpl->template = 'sub_admin/register';
+        
+        // Process registration if form submitted
+        if (isset($_POST['dosubmit']) && $_POST['dosubmit'] == '1') {
+            App::SubAdmin()->register();
+        }
+    });
+    
     //admin routes
     $router->mount('/admin', function () use ($router, $tpl) {
         //admin login
         $router->match('GET|POST', '/login', function () use ($tpl) {
             if (App::Auth()->is_Admin()) {
-                Url::redirect(SITEURL . '/admin/');
+                if (App::Auth()->is_SubAdmin()) {
+                    Url::redirect(SITEURL . '/sub_admin/');
+                } else {
+                    Url::redirect(SITEURL . '/admin/');
+                }
                 exit;
             }
             
@@ -141,6 +170,66 @@
         $router->get('/logout', function () {
             App::Auth()->logout();
             Url::redirect(SITEURL . '/admin/');
+        });
+    });
+    
+    //sub-admin routes
+    $router->mount('/sub_admin', function () use ($router, $tpl) {
+        // sub-admin registration page - move this BEFORE the login route for proper processing order
+        $router->match('GET|POST', '/register', function () use ($tpl) {
+            $tpl->dir = 'sub_admin/';
+            $tpl->title = "Sub-Admin Registration";
+            $tpl->template = 'sub_admin/register';
+            $tpl->core = App::Core();
+            
+            if (isset($_POST['dosubmit']) && $_POST['dosubmit'] == '1') {
+                App::SubAdmin()->register();
+            }
+        });
+        
+        //sub-admin login - uses same login page as admin
+        $router->match('GET|POST', '/login', function () use ($tpl) {
+            if (App::Auth()->is_Admin()) {
+                Url::redirect(SITEURL . '/sub_admin/');
+                exit;
+            }
+            
+            $tpl->template = 'admin/login';
+            $tpl->title = Language::$word->LOGIN;
+            $tpl->section = 'sub_admin'; // Add section identifier
+        });
+        
+        //sub-admin index
+        $router->get('/', 'SubAdmin@index');
+        
+        //sub-admin users - only shows users created by this sub-admin
+        $router->mount('/users', function () use ($router, $tpl) {
+            $router->match('GET|POST', '/', 'SubAdmin@userIndex');
+            $router->match('GET|POST', '/grid', 'SubAdmin@userIndex');
+            $router->get('/edit/(\d+)', 'SubAdmin@userEdit');
+            $router->get('/new', 'SubAdmin@userSave');
+        });
+        
+        //sub-admin memberships - only shows memberships created by this sub-admin
+        $router->mount('/memberships', function () use ($router, $tpl) {
+            $router->match('GET', '/', 'SubAdmin@membershipIndex');
+            $router->get('/edit/(\d+)', 'SubAdmin@membershipEdit');
+            $router->get('/new', 'SubAdmin@membershipSave');
+        });
+        
+        //sub-admin account
+        $router->mount('/account', function () use ($router, $tpl) {
+            $router->get('/', 'SubAdmin@account');
+            $router->get('/password', 'SubAdmin@password');
+        });
+        
+        //sub-admin files - limited access
+        $router->get('/files', 'SubAdmin@fileIndex');
+        
+        //logout
+        $router->get('/logout', function () {
+            App::Auth()->logout();
+            Url::redirect(SITEURL . '/sub_admin/');
         });
     });
     

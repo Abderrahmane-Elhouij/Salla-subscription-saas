@@ -49,7 +49,8 @@
                      text: json.message
                   });
                } else {
-                  window.location.href = config.surl + '/admin/';
+                  // Use the redirect URL from server response or fallback to default
+                  window.location.href = json.redirect || (config.surl + '/admin/');
                }
                $btn.removeClass('loading').prop('disabled', false);
             }

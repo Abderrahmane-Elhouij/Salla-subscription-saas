@@ -15,7 +15,7 @@ if (!defined('_WOJO')) {
 final class App
 {
     private static array $instances = array();
-        
+    private static $subAdmin;
         
     /**
      * __callStatic
@@ -50,5 +50,19 @@ final class App
         } catch (Exception $e) {
             Debug::addMessage('warnings', '<i>Warning</i>', $e->getMessage());
         }
+    }
+
+    /**
+     * SubAdmin
+     *
+     * @throws NotFoundException
+     * @return SubAdmin
+     */
+    public static function SubAdmin(): SubAdmin
+    {
+        if (!self::$subAdmin) {
+            self::$subAdmin = new SubAdmin();
+        }
+        return self::$subAdmin;
     }
 }

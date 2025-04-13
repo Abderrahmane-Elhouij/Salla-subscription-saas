@@ -425,6 +425,21 @@
         "ADM_TRASH": "Trash",
         "ADM_USERS": "Users"
     },
+    "Sub-Admin": {
+        "SUB_ADMIN_DASHBOARD": "Sub-Administrator Dashboard",
+        "SUB_ADMIN_WELCOME": "Welcome to your Sub-Administrator dashboard. From here you can manage users and memberships that you've created.",
+        "SUB_ADMIN_USERS": "Users",
+        "SUB_ADMIN_USERS_DESC": "You currently have [NUMBER] users that you've created.",
+        "SUB_ADMIN_MEMBERSHIPS": "Memberships",
+        "SUB_ADMIN_MEMBERSHIPS_DESC": "You currently have [NUMBER] membership plans that you've created.",
+        "SUB_ADMIN_REVENUE": "Revenue Stats",
+        "SUB_ADMIN_QUICK_MENU": "Quick Access",
+        "SUB_ADMIN_NEW_USER": "Create New User",
+        "SUB_ADMIN_NEW_MEMBERSHIP": "Create New Membership",
+        "SUB_ADMIN_VIEW_USERS": "View All Users",
+        "SUB_ADMIN_VIEW_MEMBERSHIPS": "View All Memberships",
+        "SUB_ADMIN_RESTRICTED": "You can only see memberships that you've created."
+    },
     "Memberships": {
         "MEM_ACT": "Activated",
         "MEM_ADDED_OK": "Membership [NAME] added successfully.",

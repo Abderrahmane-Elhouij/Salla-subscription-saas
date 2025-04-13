@@ -214,6 +214,11 @@
                   <label for="type_editor"><?php echo Language::$word->EDITOR; ?></label>
                </div>
                <div class="wojo checkbox radio fitted inline">
+                  <input name="type" type="radio" value="sub_admin"
+                         id="type_sub_admin" <?php echo Validator::getChecked($this->data->type, 'sub_admin'); ?>>
+                  <label for="type_sub_admin">Sub Admin</label>
+               </div>
+               <div class="wojo checkbox radio fitted inline">
                   <input name="type" type="radio" value="member"
                          id="type_member" <?php echo Validator::getChecked($this->data->type, 'member'); ?>>
                   <label for="type_member"><?php echo Language::$word->MEMBER; ?></label>

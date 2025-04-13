@@ -42,6 +42,15 @@
          */
         public function __construct()
         {
+            // Skip authentication check for public routes
+            if ($this->isPublicRoute()) {
+                $this->logged_in = false;
+                $this->username = null;
+                $this->sesid = sha1(session_id());
+                $this->userlevel = 0;
+                return;
+            }
+
             $this->logged_in = $this->loginCheck();
             
             if (!$this->logged_in) {
@@ -52,13 +61,65 @@
         }
         
         /**
+         * isPublicRoute
+         * Checks if the current route is a public route that should bypass authentication
+         * 
+         * @return bool
+         */
+        private function isPublicRoute(): bool
+        {
+            // Define public routes that should bypass authentication
+            $public_routes = [
+                '/subadmin-register',
+                '/sub_admin/register'
+            ];
+            
+            // Get the current URI
+            $current_uri = $_SERVER['REQUEST_URI'];
+            
+            // Extract the path from the URI (remove query string if present)
+            $path = parse_url($current_uri, PHP_URL_PATH);
+            
+            // Remove trailing slashes for consistent comparison
+            $path = rtrim($path, '/');
+            
+            // Get the script name and directory
+            $script_name = $_SERVER['SCRIPT_NAME'];
+            $base_dir = dirname($script_name);
+            
+            // If the app is in a subdirectory, remove it from the path
+            if ($base_dir !== '/' && $base_dir !== '\\') {
+                $path = str_replace($base_dir, '', $path);
+            }
+            
+            // Check if the current path matches any public route
+            foreach ($public_routes as $route) {
+                if ($path === $route || $path === rtrim($route, '/')) {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+        
+        /**
          * is_Admin
          *
          * @return bool
          */
         public function is_Admin(): bool
         {
-            return (in_array($this->userlevel, [9, 8, 7]));
+            return (in_array($this->userlevel, [9, 8, 7, 6]));
+        }
+        
+        /**
+         * is_SubAdmin
+         *
+         * @return bool
+         */
+        public function is_SubAdmin(): bool
+        {
+            return ($this->userlevel == 6 and $this->usertype == 'sub_admin');
         }
         
         /**
@@ -173,6 +234,15 @@
                 
                 $json['type'] = 'success';
                 $json['title'] = Language::$word->SUCCESS;
+                
+                // Set redirect URL based on user type
+                if ($row->type == 'member') {
+                    $json['redirect'] = Url::url('/dashboard');
+                } elseif ($row->type == 'sub_admin') {
+                    $json['redirect'] = SITEURL . '/sub_admin/';
+                } else {
+                    $json['redirect'] = SITEURL . '/admin/';
+                }
             } else {
                 $json['type'] = 'error';
                 $json['title'] = Language::$word->ERROR;

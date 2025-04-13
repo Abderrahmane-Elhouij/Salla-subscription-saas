@@ -130,31 +130,60 @@
             $validate
                 ->set('title', Language::$word->NAME)->required()->string()->min_len(3)->max_len(60)
                 ->set('description', Language::$word->DESCRIPTION)->required()->string()
-                ->set('body', Language::$word->DESCRIPTION)->text('advanced')
                 ->set('price', Language::$word->MEM_PRICE)->required()->float()
                 ->set('days', Language::$word->MEM_DAYS)->required()->numeric()
-                ->set('period', Language::$word->MEM_DAYS)->required()->string()->exact_len(1)
                 ->set('recurring', Language::$word->MEM_REC)->required()->numeric()
                 ->set('private', Language::$word->MEM_PRIVATE)->required()->numeric()
                 ->set('active', Language::$word->PUBLISHED)->required()->numeric();
             
             $safe = $validate->safe();
-            $thumb = File::upload('thumb', 3145728, 'png,jpg,jpeg');
+            
+            // Only try to upload a thumbnail if a file was actually uploaded
+            $thumb = null;
+            if (isset($_FILES['thumb']) && !empty($_FILES['thumb']['name'])) {
+                $thumb = File::upload('thumb', 3145728, 'png,jpg,jpeg');
+            }
             
             if (count(Message::$msgs) === 0) {
                 $data = array(
                     'title' => $safe->title,
                     'description' => $safe->description,
-                    'body' => $safe->body,
                     'price' => $safe->price,
                     'days' => $safe->days,
-                    'period' => $safe->period,
+                    'period' => isset($safe->period) ? $safe->period : 'D',
                     'recurring' => $safe->recurring,
                     'private' => $safe->private,
                     'active' => $safe->active,
                 );
                 
-                if (array_key_exists('thumb', $_FILES)) {
+                // Handle created_by for sub-admins
+                if (App::Auth()->usertype == 'sub_admin') {
+                    $data['created_by'] = App::Auth()->uid;
+                    
+                    // For editing, verify the membership belongs to this sub-admin
+                    if (Filter::$id) {
+                        $membership = Database::Go()->select(self::mTable)
+                            ->where('id', Filter::$id, '=')
+                            ->where('created_by', App::Auth()->uid, '=')
+                            ->first()->run();
+                        
+                        if (!$membership) {
+                            Message::msgReply(false, 'error', Language::$word->NOACCESS);
+                            return;
+                        }
+                    }
+                } else if (isset($_POST['created_by'])) {
+                    // Allow admin to set created_by
+                    $data['created_by'] = Validator::sanitize($_POST['created_by'], 'int');
+                }
+                
+                // Add body if present (usually only for admin)
+                if (isset($safe->body)) {
+                    $data['body'] = $safe->body;
+                }
+                
+                // Only process the thumbnail if it was uploaded
+                if ($thumb && array_key_exists('thumb', $_FILES) && !empty($_FILES['thumb']['name'])) {
                     $thumbPath = UPLOADS . '/memberships/';
                     $result = File::process($thumb, $thumbPath, 'MEM_');
                     $data['thumb'] = $result['fname'];
