@@ -52,7 +52,7 @@
             <a id="passreset" class="underlineHover"><?php echo Language::$word->M_PASSWORD_RES; ?>?</a>
             <?php if(strpos($_SERVER['REQUEST_URI'], 'sub_admin') !== false || (isset($this->section) && $this->section == 'sub_admin')): ?>
             <div style="margin-top:10px;">
-               <a href="<?php echo SITEURL; ?>/sub_admin_register.php" class="wojo small secondary button">Register as Sub Admin</a>
+               <a href="javascript:void(0);" id="registerSubAdminBtn" class="wojo small secondary button">Register as Sub Admin</a>
             </div>
             <?php endif; ?>
          </div>
@@ -77,14 +77,17 @@
          surl: "<?php echo SITEURL;?>"
       });
       
-      // Direct handling for the sub-admin registration button to bypass jQuery event handling
-      <?php if(isset($this->section) && $this->section == 'sub_admin'): ?>
-      document.getElementById('registerSubAdminBtn').onclick = function(e) {
-         e.preventDefault();
-         e.stopPropagation();
-         window.location.href = '<?php echo SITEURL; ?>/sub_admin_register.php';
-         return false;
-      };
+      <?php if(strpos($_SERVER['REQUEST_URI'], 'sub_admin') !== false || (isset($this->section) && $this->section == 'sub_admin')): ?>
+      // Make sure the registration button exists and has a direct click handler
+      if (document.getElementById('registerSubAdminBtn')) {
+         document.getElementById('registerSubAdminBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            // Use the completely standalone registration page that bypasses the framework
+            window.location.href = "<?php echo SITEURL; ?>/standalone_register.php";
+            return false;
+         });
+      }
       <?php endif; ?>
    });
 </script>

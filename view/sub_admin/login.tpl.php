@@ -79,7 +79,7 @@
       document.getElementById('registerSubAdminBtn').addEventListener('click', function(e) {
          e.preventDefault();
          e.stopPropagation();
-         window.location.href = "<?php echo SITEURL; ?>/sub_admin_register.php";
+         window.location.href = "<?php echo SITEURL; ?>/subadmin-register";
          return false;
       }, true);
    });

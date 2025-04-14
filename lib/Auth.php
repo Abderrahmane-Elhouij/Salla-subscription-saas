@@ -42,6 +42,15 @@
          */
         public function __construct()
         {
+            // Special case: Direct access to sub_admin_register.php should never be authenticated
+            if (basename($_SERVER['SCRIPT_FILENAME']) === 'sub_admin_register.php') {
+                $this->logged_in = false;
+                $this->username = null;
+                $this->sesid = sha1(session_id());
+                $this->userlevel = 0;
+                return;
+            }
+
             // Skip authentication check for public routes
             if ($this->isPublicRoute()) {
                 $this->logged_in = false;
@@ -71,7 +80,8 @@
             // Define public routes that should bypass authentication
             $public_routes = [
                 '/subadmin-register',
-                '/sub_admin/register'
+                '/sub_admin/register',
+                '/sub_admin_register.php'
             ];
             
             // Get the current URI
@@ -92,11 +102,25 @@
                 $path = str_replace($base_dir, '', $path);
             }
             
+            // Enhanced debug info
+            if (DEBUG) {
+                error_log("Current path: " . $path);
+                error_log("Public routes: " . implode(", ", $public_routes));
+            }
+            
             // Check if the current path matches any public route
             foreach ($public_routes as $route) {
-                if ($path === $route || $path === rtrim($route, '/')) {
+                if ($path === $route || $path === rtrim($route, '/') || 
+                    strpos($path, $route) !== false) {
+                    if (DEBUG) error_log("Public route match found: " . $route);
                     return true;
                 }
+            }
+            
+            // Special check for direct file access
+            if (basename($_SERVER['SCRIPT_FILENAME']) === 'sub_admin_register.php') {
+                if (DEBUG) error_log("Direct file access to sub_admin_register.php detected");
+                return true;
             }
             
             return false;

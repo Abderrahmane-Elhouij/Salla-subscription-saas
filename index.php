@@ -28,12 +28,15 @@
         }
     });
     
-    //direct routes outside normal mount - for special cases like registration
+    // Direct access route for sub-admin registration 
     $router->match('GET|POST', '/sub_admin/register', function () use ($tpl) {
-        // Direct access to registration without going through the mount structure
+        // Explicitly disable any redirects for this route
+        Session::set('no_redirect', true);
+        
         $tpl->dir = 'sub_admin/';
         $tpl->title = "Sub-Admin Registration";
         $tpl->template = 'sub_admin/register';
+        $tpl->core = App::Core();
         
         // Process registration if form submitted
         if (isset($_POST['dosubmit']) && $_POST['dosubmit'] == '1') {
