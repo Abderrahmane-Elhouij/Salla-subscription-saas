@@ -519,4 +519,44 @@ class SubAdmin extends Admin
         
         $tpl->template = 'sub_admin/continue_iterate';
     }
+
+    /**
+     * account
+     * Display the sub-admin's account information
+     * @return void
+     */
+    public function account(): void
+    {
+        $tpl = App::View(BASEPATH . 'view/');
+        $tpl->dir = 'sub_admin/';
+        $tpl->title = Language::$word->M_TITLE;
+        $tpl->caption = Language::$word->M_TITLE;
+        $tpl->crumbs = ['sub_admin', 'account'];
+        
+        // Get the user data
+        $tpl->data = Database::Go()->select(User::mTable)->where('id', App::Auth()->uid, '=')->first()->run();
+        
+        // Use a specific account template for sub-admin
+        $tpl->template = 'sub_admin/account';
+    }
+    
+    /**
+     * password
+     * Display form to change sub-admin's password
+     * @return void
+     */
+    public function password(): void
+    {
+        $tpl = App::View(BASEPATH . 'view/');
+        $tpl->dir = 'sub_admin/';
+        $tpl->title = Language::$word->M_SUB2;
+        $tpl->caption = Language::$word->M_SUB2;
+        $tpl->crumbs = ['sub_admin', 'password'];
+        
+        // Get the user data
+        $tpl->data = Database::Go()->select(User::mTable)->where('id', App::Auth()->uid, '=')->first()->run();
+        
+        // Use a specific password template for sub-admin
+        $tpl->template = 'sub_admin/password';
+    }
 }
