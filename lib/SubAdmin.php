@@ -46,6 +46,13 @@ class SubAdmin extends Admin
      */
     public function index(): void
     {
+        // Enforce Salla connection
+        $uid = App::Auth()->uid;
+        $store = Database::Go()->select('salla_merchants')->where('user_id', $uid, '=')->first()->run();
+        if (!$store) {
+            Url::redirect(SITEURL . '/sub_admin/connect');
+        }
+        
         $tpl = App::View(BASEPATH . 'view/');
         $tpl->dir = 'sub_admin/';
         $tpl->title = Language::$word->META_T1;
@@ -535,6 +542,8 @@ class SubAdmin extends Admin
         
         // Get the user data
         $tpl->data = Database::Go()->select(User::mTable)->where('id', App::Auth()->uid, '=')->first()->run();
+        // Load Salla store info if connected
+        $tpl->store = Database::Go()->select('salla_merchants')->where('user_id', App::Auth()->uid, '=')->first()->run();
         
         // Use a specific account template for sub-admin
         $tpl->template = 'sub_admin/account';
@@ -558,5 +567,88 @@ class SubAdmin extends Admin
         
         // Use a specific password template for sub-admin
         $tpl->template = 'sub_admin/password';
+    }
+
+    /**
+     * Initiate Salla OAuth authorization
+     * @return void
+     */
+    public function connectStore(): void
+    {
+        $core = App::Core();
+        $clientId = $core->salla_client_id;
+        $redirect = SITEURL . '/sub_admin/salla/callback';
+        $authUrl = ' https://accounts.salla.sa/oauth2/auth'
+            . '?client_id=' . urlencode($clientId)
+            . '&redirect_uri=' . urlencode($redirect)
+            . '&response_type=code';
+        Url::redirect($authUrl);
+    }
+
+    /**
+     * Handle Salla OAuth callback
+     * @return void
+     */
+    public function handleSallaCallback(): void
+    {
+        if (!isset($_GET['code'])) {
+            Message::msgError('Missing authorization code.');
+            Url::redirect(SITEURL . '/sub_admin');
+        }
+        $code = $_GET['code'];
+        $core = App::Core();
+        // Exchange code for tokens
+        $tokenUrl = 'https://core.salla.dev/oauth/token';
+        $post = [
+            'grant_type' => 'authorization_code',
+            'client_id' => $core->salla_client_id,
+            'client_secret' => $core->salla_client_secret,
+            'code' => $code,
+            'redirect_uri' => SITEURL . '/sub_admin/salla/callback'
+        ];
+        $ch = curl_init($tokenUrl);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $data = json_decode($response);
+        if (empty($data->access_token)) {
+            Message::msgError('Failed to authenticate with Salla.');
+            Url::redirect(SITEURL . '/sub_admin');
+        }
+        // Save tokens
+        $uid = App::Auth()->uid;
+        $expires = time() + ($data->expires_in ?? 3600);
+        Database::Go()->delete('salla_tokens')->where('user_id', $uid, '=')->run();
+        Database::Go()->insert('salla_tokens', [
+            'user_id' => $uid,
+            'access_token' => $data->access_token,
+            'refresh_token' => $data->refresh_token,
+            'expires_at' => $expires,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ])->run();
+        // Fetch merchant info
+        $apiUrl = 'https://core.salla.dev/api/v1/seller/merchants';
+        $ch = curl_init($apiUrl);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . $data->access_token]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $resp = curl_exec($ch);
+        curl_close($ch);
+        $m = json_decode($resp);
+        // Save merchant data
+        Database::Go()->delete('salla_merchants')->where('user_id', $uid, '=')->run();
+        Database::Go()->insert('salla_merchants', [
+            'user_id' => $uid,
+            'store_id' => $m->data->id,
+            'store_name' => $m->data->name,
+            'store_url' => $m->data->store_url,
+            'store_currency' => $m->data->currency,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ])->run();
+        Message::msgReply(true, 'success', 'Store connected successfully.');
+        Url::redirect(SITEURL . '/sub_admin');
     }
 }

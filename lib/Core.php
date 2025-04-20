@@ -59,6 +59,12 @@ class Core
     public int $smtp_port;
     public string $sendmail;
     public int $is_ssl;
+
+    // Add Salla credentials
+    public ?string $salla_client_id = "a09dcfec-90ae-40d4-9209-195dc515f74f";
+    public ?string $salla_client_secret = "a09dcfec-90ae-40d4-9209-195dc515f74f";
+    public ?string $salla_webhook_secret = "ebf13c55071a208426eece14b31b6f94";
+
     public string $backup;
     public string $wojov;
     public string $wojon;
@@ -149,7 +155,11 @@ class Core
             ->set('smtp_host', Language::$word->CG_SMTP_HOST)->string()
             ->set('smtp_user', Language::$word->CG_SMTP_USER)->string()
             ->set('smtp_pass', Language::$word->CG_SMTP_PASS)->string()
-            ->set('smtp_port', Language::$word->CG_SMTP_PORT)->numeric();
+            ->set('smtp_port', Language::$word->CG_SMTP_PORT)->numeric()
+            // Validate Salla credentials
+            ->set('salla_client_id', 'Salla Client ID')->string()
+            ->set('salla_client_secret', 'Salla Client Secret')->string()
+            ->set('salla_webhook_secret', 'Salla Webhook Secret')->string();
             
         switch ($_POST['mailer']) {
             case 'SMTP':
@@ -208,6 +218,10 @@ class Core
                 'inv_info' => $safe->inv_info,
                 'inv_note' => $safe->inv_note,
                 'offline_info' => $safe->offline_info,
+                // Add Salla credentials
+                'salla_client_id' => $safe->salla_client_id,
+                'salla_client_secret' => $safe->salla_client_secret,
+                'salla_webhook_secret' => $safe->salla_webhook_secret,
             );
                 
             if (array_key_exists('logo', $_FILES)) {
@@ -287,6 +301,12 @@ class Core
         $this->smtp_port = $row->smtp_port;
         $this->sendmail = $row->sendmail;
         $this->is_ssl = $row->is_ssl;
+
+        // Load Salla integration credentials
+        $this->salla_client_id = $row->salla_client_id;
+        $this->salla_client_secret = $row->salla_client_secret;
+        $this->salla_webhook_secret = $row->salla_webhook_secret;
+
         $this->backup = $row->backup;
         $this->wojov = $row->wojov;
         $this->wojon = $row->wojon;

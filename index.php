@@ -202,6 +202,10 @@
             $tpl->section = 'sub_admin'; // Add section identifier
         });
         
+        // Add Salla store connection routes
+        $router->get('/connect', 'SubAdmin@connectStore');
+        $router->get('/salla/callback', 'SubAdmin@handleSallaCallback');
+        
         //sub-admin index
         $router->get('/', 'SubAdmin@index');
         
