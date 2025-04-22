@@ -174,3 +174,363 @@
                 LEFT JOIN `memberships` as m ON m.id = u.membership_id 
                 WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
 [2025-04-21 18:20:17] Number of users returned: 1
+[2025-04-22 17:32:34] Starting Salla callback handling process
+[2025-04-22 17:32:35] Inserted new Salla tokens for user ID: 2
+[2025-04-22 17:32:37] Retrieved 20 products from Salla
+[2025-04-22 17:32:37] Created new membership (ID: 5) for Salla product ID: 587690179, Name: test
+[2025-04-22 17:32:38] Retrieved 0 orders containing product: test
+[2025-04-22 17:32:39] Created new membership (ID: 6) for Salla product ID: 1176128703, Name: فستان
+[2025-04-22 17:32:39] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 17:32:39] Retrieved 1 orders containing product: فستان
+[2025-04-22 17:32:39] Subscription details - Membership ID: 6, Salla Product ID: 1176128703, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:03:48] Starting Salla callback handling process
+[2025-04-22 18:03:49] Inserted new Salla tokens for user ID: 2
+[2025-04-22 18:03:51] Retrieved 20 products from Salla
+[2025-04-22 18:03:51] Found membership by title match. Will update with Salla product ID: 587690179
+[2025-04-22 18:03:51] Updated existing membership (ID: 5) for Salla product ID: 587690179, Name: test
+[2025-04-22 18:03:52] Retrieved 0 orders containing product: test
+[2025-04-22 18:03:52] Updated existing membership (ID: 5) for Salla product ID: 1176128703, Name: فستان
+[2025-04-22 18:03:54] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:03:54] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:03:54] Subscription details - Membership ID: 5, Salla Product ID: 1176128703, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:25:49] Starting Salla callback handling process
+[2025-04-22 18:25:50] Updated existing Salla tokens for user ID: 2
+[2025-04-22 18:25:52] Retrieved 20 products from Salla
+[2025-04-22 18:25:52] Updated existing membership (ID: 1) for Salla product ID: 587690179, Name: test
+[2025-04-22 18:25:52] Retrieved 0 orders containing product: test
+[2025-04-22 18:25:52] Updated existing membership (ID: 1) for Salla product ID: 1176128703, Name: فستان
+[2025-04-22 18:25:53] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:25:53] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:25:53] Subscription details - Membership ID: 1, Salla Product ID: 1176128703, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:31:36] Starting Salla callback handling process
+[2025-04-22 18:31:36] Updated existing Salla tokens for user ID: 2
+[2025-04-22 18:31:38] Retrieved 20 products from Salla
+[2025-04-22 18:31:38] Updated existing membership (ID: 1) for Salla product ID: 587690179, Name: test
+[2025-04-22 18:31:39] Retrieved 0 orders containing product: test
+[2025-04-22 18:31:39] Updated existing membership (ID: 1) for Salla product ID: 1176128703, Name: فستان
+[2025-04-22 18:31:40] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:31:40] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:31:40] Subscription details - Membership ID: 1, Salla Product ID: 1176128703, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:42:10] Starting Salla callback handling process
+[2025-04-22 18:42:11] Updated existing Salla tokens for user ID: 2
+[2025-04-22 18:42:12] Retrieved 20 products from Salla
+[2025-04-22 18:42:12] Updated existing membership (ID: 1) for Salla product ID: 587690179, Name: test
+[2025-04-22 18:42:13] Retrieved 0 orders containing product: test
+[2025-04-22 18:42:13] Updated existing membership (ID: 1) for Salla product ID: 1176128703, Name: فستان
+[2025-04-22 18:42:14] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:42:14] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:42:14] Subscription details - Membership ID: 1, Salla Product ID: 1176128703, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:42:14] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:42:14] Found membership by title match. Will update with Salla product ID: 1950166462
+[2025-04-22 18:42:14] Updated existing membership (ID: 5) for Salla product ID: 1950166462, Name: فستان
+[2025-04-22 18:42:15] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:42:15] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:42:15] Subscription details - Membership ID: 5, Salla Product ID: 1950166462, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:42:15] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:42:15] Found membership by title match. Will update with Salla product ID: 441454269
+[2025-04-22 18:42:15] Updated existing membership (ID: 5) for Salla product ID: 441454269, Name: فستان
+[2025-04-22 18:42:16] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:42:16] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:42:16] Subscription details - Membership ID: 5, Salla Product ID: 441454269, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:42:16] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:42:16] Created new membership (ID: 7) for Salla product ID: 1217130428, Name: بنطلون
+[2025-04-22 18:42:16] Retrieved 0 orders containing product: بنطلون
+[2025-04-22 18:42:16] Found membership by title match. Will update with Salla product ID: 2125381811
+[2025-04-22 18:42:16] Updated existing membership (ID: 5) for Salla product ID: 2125381811, Name: فستان
+[2025-04-22 18:42:18] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:42:18] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:42:18] Subscription details - Membership ID: 5, Salla Product ID: 2125381811, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:42:18] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:42:18] Created new membership (ID: 8) for Salla product ID: 750887346, Name: بلوزة
+[2025-04-22 18:42:18] Retrieved 0 orders containing product: بلوزة
+[2025-04-22 18:42:18] Found membership by title match. Will update with Salla product ID: 18768816
+[2025-04-22 18:42:18] Updated existing membership (ID: 5) for Salla product ID: 18768816, Name: فستان
+[2025-04-22 18:42:19] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:42:19] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:42:19] Subscription details - Membership ID: 5, Salla Product ID: 18768816, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:42:19] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:42:19] Created new membership (ID: 9) for Salla product ID: 925975735, Name: جاكيت
+[2025-04-22 18:42:20] Retrieved 0 orders containing product: جاكيت
+[2025-04-22 18:42:20] Found membership by title match. Will update with Salla product ID: 1700013494
+[2025-04-22 18:42:20] Updated existing membership (ID: 7) for Salla product ID: 1700013494, Name: بنطلون
+[2025-04-22 18:42:21] Retrieved 0 orders containing product: بنطلون
+[2025-04-22 18:42:21] Updated existing membership (ID: 7) for Salla product ID: 193922741, Name: بنطلون
+[2025-04-22 18:42:22] Retrieved 0 orders containing product: بنطلون
+[2025-04-22 18:42:22] Updated existing membership (ID: 7) for Salla product ID: 966977460, Name: تنورة
+[2025-04-22 18:42:23] Retrieved 0 orders containing product: تنورة
+[2025-04-22 18:42:23] Updated existing membership (ID: 7) for Salla product ID: 1875237035, Name: بلوزة
+[2025-04-22 18:42:24] Retrieved 0 orders containing product: بلوزة
+[2025-04-22 18:42:24] Updated existing membership (ID: 7) for Salla product ID: 502839722, Name: تنورة
+[2025-04-22 18:42:25] Retrieved 0 orders containing product: تنورة
+[2025-04-22 18:42:25] Updated existing membership (ID: 7) for Salla product ID: 1075026601, Name: تنورة
+[2025-04-22 18:42:26] Retrieved 0 orders containing product: تنورة
+[2025-04-22 18:42:26] Updated existing membership (ID: 7) for Salla product ID: 1983216552, Name: تنورة
+[2025-04-22 18:42:27] Retrieved 0 orders containing product: تنورة
+[2025-04-22 18:42:27] Updated existing membership (ID: 7) for Salla product ID: 610819247, Name: تنورة
+[2025-04-22 18:42:28] Retrieved 0 orders containing product: تنورة
+[2025-04-22 18:42:28] Updated existing membership (ID: 7) for Salla product ID: 1250114990, Name: فستان
+[2025-04-22 18:42:30] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:42:30] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:42:30] Subscription details - Membership ID: 7, Salla Product ID: 1250114990, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:42:30] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:42:30] Found membership by title match. Will update with Salla product ID: 2024152749
+[2025-04-22 18:42:30] Updated existing membership (ID: 5) for Salla product ID: 2024152749, Name: فستان
+[2025-04-22 18:42:32] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:42:32] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:42:32] Subscription details - Membership ID: 5, Salla Product ID: 2024152749, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:42:32] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:42:32] Found membership by title match. Will update with Salla product ID: 786038700
+[2025-04-22 18:42:32] Updated existing membership (ID: 5) for Salla product ID: 786038700, Name: فستان
+[2025-04-22 18:42:33] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:42:33] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:42:33] Subscription details - Membership ID: 5, Salla Product ID: 786038700, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:42:33] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:43:20] Starting Salla callback handling process
+[2025-04-22 18:43:21] Updated existing Salla tokens for user ID: 2
+[2025-04-22 18:43:23] Retrieved 20 products from Salla
+[2025-04-22 18:43:23] Updated existing membership (ID: 1) for Salla product ID: 587690179, Name: test
+[2025-04-22 18:43:23] Retrieved 0 orders containing product: test
+[2025-04-22 18:43:23] Updated existing membership (ID: 1) for Salla product ID: 1176128703, Name: فستان
+[2025-04-22 18:43:24] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:43:24] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:43:24] Subscription details - Membership ID: 1, Salla Product ID: 1176128703, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:43:24] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:43:24] Found membership by title match. Will update with Salla product ID: 1950166462
+[2025-04-22 18:43:24] Updated existing membership (ID: 5) for Salla product ID: 1950166462, Name: فستان
+[2025-04-22 18:43:25] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:43:25] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:43:25] Subscription details - Membership ID: 5, Salla Product ID: 1950166462, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:43:25] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:43:25] Found membership by title match. Will update with Salla product ID: 441454269
+[2025-04-22 18:43:25] Updated existing membership (ID: 5) for Salla product ID: 441454269, Name: فستان
+[2025-04-22 18:43:26] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:43:26] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:43:26] Subscription details - Membership ID: 5, Salla Product ID: 441454269, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:43:26] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:43:26] Created new membership (ID: 10) for Salla product ID: 1217130428, Name: بنطلون
+[2025-04-22 18:43:27] Retrieved 0 orders containing product: بنطلون
+[2025-04-22 18:43:27] Found membership by title match. Will update with Salla product ID: 2125381811
+[2025-04-22 18:43:27] Updated existing membership (ID: 5) for Salla product ID: 2125381811, Name: فستان
+[2025-04-22 18:43:28] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:43:28] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:43:28] Subscription details - Membership ID: 5, Salla Product ID: 2125381811, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:43:28] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:43:28] Found membership by title match. Will update with Salla product ID: 750887346
+[2025-04-22 18:43:28] Updated existing membership (ID: 8) for Salla product ID: 750887346, Name: بلوزة
+[2025-04-22 18:43:29] Retrieved 0 orders containing product: بلوزة
+[2025-04-22 18:43:29] Updated existing membership (ID: 8) for Salla product ID: 18768816, Name: فستان
+[2025-04-22 18:43:29] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:43:29] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:43:29] Subscription details - Membership ID: 8, Salla Product ID: 18768816, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:43:30] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:43:30] Found membership by title match. Will update with Salla product ID: 925975735
+[2025-04-22 18:43:30] Updated existing membership (ID: 9) for Salla product ID: 925975735, Name: جاكيت
+[2025-04-22 18:43:30] Retrieved 0 orders containing product: جاكيت
+[2025-04-22 18:43:30] Updated existing membership (ID: 9) for Salla product ID: 1700013494, Name: بنطلون
+[2025-04-22 18:43:31] Retrieved 0 orders containing product: بنطلون
+[2025-04-22 18:43:31] Updated existing membership (ID: 9) for Salla product ID: 193922741, Name: بنطلون
+[2025-04-22 18:43:32] Retrieved 0 orders containing product: بنطلون
+[2025-04-22 18:43:32] Updated existing membership (ID: 9) for Salla product ID: 966977460, Name: تنورة
+[2025-04-22 18:43:33] Retrieved 0 orders containing product: تنورة
+[2025-04-22 18:43:33] Updated existing membership (ID: 9) for Salla product ID: 1875237035, Name: بلوزة
+[2025-04-22 18:43:34] Retrieved 0 orders containing product: بلوزة
+[2025-04-22 18:43:34] Updated existing membership (ID: 9) for Salla product ID: 502839722, Name: تنورة
+[2025-04-22 18:43:34] Retrieved 0 orders containing product: تنورة
+[2025-04-22 18:43:34] Updated existing membership (ID: 9) for Salla product ID: 1075026601, Name: تنورة
+[2025-04-22 18:43:36] Retrieved 0 orders containing product: تنورة
+[2025-04-22 18:43:36] Updated existing membership (ID: 9) for Salla product ID: 1983216552, Name: تنورة
+[2025-04-22 18:43:36] Retrieved 0 orders containing product: تنورة
+[2025-04-22 18:43:36] Updated existing membership (ID: 9) for Salla product ID: 610819247, Name: تنورة
+[2025-04-22 18:43:38] Retrieved 0 orders containing product: تنورة
+[2025-04-22 18:43:38] Updated existing membership (ID: 9) for Salla product ID: 1250114990, Name: فستان
+[2025-04-22 18:43:39] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:43:39] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:43:39] Subscription details - Membership ID: 9, Salla Product ID: 1250114990, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:43:39] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:43:39] Found membership by title match. Will update with Salla product ID: 2024152749
+[2025-04-22 18:43:39] Updated existing membership (ID: 5) for Salla product ID: 2024152749, Name: فستان
+[2025-04-22 18:43:40] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:43:40] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:43:40] Subscription details - Membership ID: 5, Salla Product ID: 2024152749, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:43:40] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:43:40] Found membership by title match. Will update with Salla product ID: 786038700
+[2025-04-22 18:43:40] Updated existing membership (ID: 5) for Salla product ID: 786038700, Name: فستان
+[2025-04-22 18:43:40] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:43:40] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:43:40] Subscription details - Membership ID: 5, Salla Product ID: 786038700, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:43:40] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:47:39] Starting Salla callback handling process
+[2025-04-22 18:47:40] Updated existing Salla tokens for user ID: 2
+[2025-04-22 18:47:41] Retrieved 20 products from Salla
+[2025-04-22 18:47:41] Updated existing membership (ID: 1) for Salla product ID: 587690179, Name: test
+[2025-04-22 18:47:42] Retrieved 0 orders containing product: test
+[2025-04-22 18:47:42] Updated existing membership (ID: 1) for Salla product ID: 1176128703, Name: فستان
+[2025-04-22 18:47:43] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:47:43] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:47:43] Subscription details - Membership ID: 1, Salla Product ID: 1176128703, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:47:43] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:47:43] Found membership by title match. Will update with Salla product ID: 1950166462
+[2025-04-22 18:47:43] Updated existing membership (ID: 5) for Salla product ID: 1950166462, Name: فستان
+[2025-04-22 18:47:44] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:47:44] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:47:44] Subscription details - Membership ID: 5, Salla Product ID: 1950166462, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:47:44] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:47:44] Found membership by title match. Will update with Salla product ID: 441454269
+[2025-04-22 18:47:44] Updated existing membership (ID: 5) for Salla product ID: 441454269, Name: فستان
+[2025-04-22 18:47:45] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:47:45] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:47:45] Subscription details - Membership ID: 5, Salla Product ID: 441454269, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:47:45] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:47:45] Found membership by title match. Will update with Salla product ID: 1217130428
+[2025-04-22 18:47:45] Updated existing membership (ID: 10) for Salla product ID: 1217130428, Name: بنطلون
+[2025-04-22 18:47:46] Retrieved 0 orders containing product: بنطلون
+[2025-04-22 18:47:46] Updated existing membership (ID: 10) for Salla product ID: 2125381811, Name: فستان
+[2025-04-22 18:47:46] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:47:46] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:47:46] Subscription details - Membership ID: 10, Salla Product ID: 2125381811, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:47:46] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:47:46] Created new membership (ID: 11) for Salla product ID: 750887346, Name: بلوزة
+[2025-04-22 18:47:47] Retrieved 0 orders containing product: بلوزة
+[2025-04-22 18:47:47] Found membership by title match. Will update with Salla product ID: 18768816
+[2025-04-22 18:47:47] Updated existing membership (ID: 5) for Salla product ID: 18768816, Name: فستان
+[2025-04-22 18:47:48] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:47:48] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:47:48] Subscription details - Membership ID: 5, Salla Product ID: 18768816, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:47:48] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:47:48] Created new membership (ID: 12) for Salla product ID: 925975735, Name: جاكيت
+[2025-04-22 18:47:49] Retrieved 0 orders containing product: جاكيت
+[2025-04-22 18:47:49] Created new membership (ID: 13) for Salla product ID: 1700013494, Name: بنطلون
+[2025-04-22 18:47:50] Retrieved 0 orders containing product: بنطلون
+[2025-04-22 18:47:50] Found membership by title match. Will update with Salla product ID: 193922741
+[2025-04-22 18:47:50] Updated existing membership (ID: 13) for Salla product ID: 193922741, Name: بنطلون
+[2025-04-22 18:47:51] Retrieved 0 orders containing product: بنطلون
+[2025-04-22 18:47:51] Updated existing membership (ID: 13) for Salla product ID: 966977460, Name: تنورة
+[2025-04-22 18:47:51] Retrieved 0 orders containing product: تنورة
+[2025-04-22 18:47:51] Updated existing membership (ID: 13) for Salla product ID: 1875237035, Name: بلوزة
+[2025-04-22 18:47:52] Retrieved 0 orders containing product: بلوزة
+[2025-04-22 18:47:52] Updated existing membership (ID: 13) for Salla product ID: 502839722, Name: تنورة
+[2025-04-22 18:47:53] Retrieved 0 orders containing product: تنورة
+[2025-04-22 18:47:53] Updated existing membership (ID: 13) for Salla product ID: 1075026601, Name: تنورة
+[2025-04-22 18:47:54] Retrieved 0 orders containing product: تنورة
+[2025-04-22 18:47:54] Updated existing membership (ID: 13) for Salla product ID: 1983216552, Name: تنورة
+[2025-04-22 18:47:55] Retrieved 0 orders containing product: تنورة
+[2025-04-22 18:47:55] Updated existing membership (ID: 13) for Salla product ID: 610819247, Name: تنورة
+[2025-04-22 18:47:56] Retrieved 0 orders containing product: تنورة
+[2025-04-22 18:47:56] Updated existing membership (ID: 13) for Salla product ID: 1250114990, Name: فستان
+[2025-04-22 18:47:56] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:47:56] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:47:56] Subscription details - Membership ID: 13, Salla Product ID: 1250114990, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:47:56] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:47:56] Found membership by title match. Will update with Salla product ID: 2024152749
+[2025-04-22 18:47:56] Updated existing membership (ID: 5) for Salla product ID: 2024152749, Name: فستان
+[2025-04-22 18:47:57] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:47:57] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:47:57] Subscription details - Membership ID: 5, Salla Product ID: 2024152749, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:47:57] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:47:57] Found membership by title match. Will update with Salla product ID: 786038700
+[2025-04-22 18:47:57] Updated existing membership (ID: 5) for Salla product ID: 786038700, Name: فستان
+[2025-04-22 18:47:58] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 18:47:58] Retrieved 1 orders containing product: فستان
+[2025-04-22 18:47:58] Subscription details - Membership ID: 5, Salla Product ID: 786038700, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 18:47:58] Failed to create subscription for order ID: 772780201
+[2025-04-22 18:48:23] Starting userIndex method for sub-admin ID: 2
+[2025-04-22 18:48:23] Counter value (total users found): 1
+[2025-04-22 18:48:23] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-04-22 18:48:23] Number of users returned: 1
+[2025-04-22 18:50:23] Starting userIndex method for sub-admin ID: 2
+[2025-04-22 18:50:23] Counter value (total users found): 1
+[2025-04-22 18:50:23] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-04-22 18:50:23] Number of users returned: 1
+[2025-04-22 18:50:25] Starting userIndex method for sub-admin ID: 2
+[2025-04-22 18:50:25] Counter value (total users found): 1
+[2025-04-22 18:50:25] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-04-22 18:50:25] Number of users returned: 1
+[2025-04-22 19:03:11] Starting Salla callback handling process
+[2025-04-22 19:03:11] Updated existing Salla tokens for user ID: 2
+[2025-04-22 19:03:13] Retrieved 20 products from Salla
+[2025-04-22 19:03:13] Updated existing membership (ID: 1) for Salla product ID: 587690179, Name: test
+[2025-04-22 19:03:14] Retrieved 0 orders containing product: test
+[2025-04-22 19:03:14] Updated existing membership (ID: 1) for Salla product ID: 1176128703, Name: فستان
+[2025-04-22 19:03:15] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 19:03:15] Retrieved 1 orders containing product: فستان
+[2025-04-22 19:03:15] Subscription details - Membership ID: 1, Salla Product ID: 1176128703, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 19:03:15] Failed to create subscription for order ID: 772780201
+[2025-04-22 19:03:15] Created new membership (ID: 14) for Salla product ID: 1950166462, Name: فستان
+[2025-04-22 19:03:16] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 19:03:16] Retrieved 1 orders containing product: فستان
+[2025-04-22 19:03:16] Subscription details - Membership ID: 14, Salla Product ID: 1950166462, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 19:03:16] Failed to create subscription for order ID: 772780201
+[2025-04-22 19:03:16] Found membership by title match. Will update with Salla product ID: 441454269
+[2025-04-22 19:03:16] Updated existing membership (ID: 14) for Salla product ID: 441454269, Name: فستان
+[2025-04-22 19:03:17] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 19:03:17] Retrieved 1 orders containing product: فستان
+[2025-04-22 19:03:17] Subscription details - Membership ID: 14, Salla Product ID: 441454269, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 19:03:17] Failed to create subscription for order ID: 772780201
+[2025-04-22 19:03:17] Created new membership (ID: 15) for Salla product ID: 1217130428, Name: بنطلون
+[2025-04-22 19:03:18] Retrieved 0 orders containing product: بنطلون
+[2025-04-22 19:03:18] Found membership by title match. Will update with Salla product ID: 2125381811
+[2025-04-22 19:03:18] Updated existing membership (ID: 14) for Salla product ID: 2125381811, Name: فستان
+[2025-04-22 19:03:19] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 19:03:19] Retrieved 1 orders containing product: فستان
+[2025-04-22 19:03:19] Subscription details - Membership ID: 14, Salla Product ID: 2125381811, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 19:03:19] Failed to create subscription for order ID: 772780201
+[2025-04-22 19:03:19] Created new membership (ID: 16) for Salla product ID: 750887346, Name: بلوزة
+[2025-04-22 19:03:20] Retrieved 0 orders containing product: بلوزة
+[2025-04-22 19:03:20] Found membership by title match. Will update with Salla product ID: 18768816
+[2025-04-22 19:03:20] Updated existing membership (ID: 14) for Salla product ID: 18768816, Name: فستان
+[2025-04-22 19:03:20] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 19:03:20] Retrieved 1 orders containing product: فستان
+[2025-04-22 19:03:20] Subscription details - Membership ID: 14, Salla Product ID: 18768816, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 19:03:20] Failed to create subscription for order ID: 772780201
+[2025-04-22 19:03:20] Created new membership (ID: 17) for Salla product ID: 925975735, Name: جاكيت
+[2025-04-22 19:03:21] Retrieved 0 orders containing product: جاكيت
+[2025-04-22 19:03:21] Found membership by title match. Will update with Salla product ID: 1700013494
+[2025-04-22 19:03:21] Updated existing membership (ID: 15) for Salla product ID: 1700013494, Name: بنطلون
+[2025-04-22 19:03:22] Retrieved 0 orders containing product: بنطلون
+[2025-04-22 19:03:22] Updated existing membership (ID: 15) for Salla product ID: 193922741, Name: بنطلون
+[2025-04-22 19:03:22] Retrieved 0 orders containing product: بنطلون
+[2025-04-22 19:03:22] Updated existing membership (ID: 15) for Salla product ID: 966977460, Name: تنورة
+[2025-04-22 19:03:23] Retrieved 0 orders containing product: تنورة
+[2025-04-22 19:03:23] Updated existing membership (ID: 15) for Salla product ID: 1875237035, Name: بلوزة
+[2025-04-22 19:03:24] Retrieved 0 orders containing product: بلوزة
+[2025-04-22 19:03:24] Updated existing membership (ID: 15) for Salla product ID: 502839722, Name: تنورة
+[2025-04-22 19:03:24] Retrieved 0 orders containing product: تنورة
+[2025-04-22 19:03:24] Updated existing membership (ID: 15) for Salla product ID: 1075026601, Name: تنورة
+[2025-04-22 19:03:25] Retrieved 0 orders containing product: تنورة
+[2025-04-22 19:03:25] Updated existing membership (ID: 15) for Salla product ID: 1983216552, Name: تنورة
+[2025-04-22 19:03:26] Retrieved 0 orders containing product: تنورة
+[2025-04-22 19:03:26] Updated existing membership (ID: 15) for Salla product ID: 610819247, Name: تنورة
+[2025-04-22 19:03:27] Retrieved 0 orders containing product: تنورة
+[2025-04-22 19:03:27] Updated existing membership (ID: 15) for Salla product ID: 1250114990, Name: فستان
+[2025-04-22 19:03:28] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 19:03:28] Retrieved 1 orders containing product: فستان
+[2025-04-22 19:03:28] Subscription details - Membership ID: 15, Salla Product ID: 1250114990, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 19:03:28] Failed to create subscription for order ID: 772780201
+[2025-04-22 19:03:28] Found membership by title match. Will update with Salla product ID: 2024152749
+[2025-04-22 19:03:28] Updated existing membership (ID: 14) for Salla product ID: 2024152749, Name: فستان
+[2025-04-22 19:03:29] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 19:03:29] Retrieved 1 orders containing product: فستان
+[2025-04-22 19:03:29] Subscription details - Membership ID: 14, Salla Product ID: 2024152749, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 19:03:29] Failed to create subscription for order ID: 772780201
+[2025-04-22 19:03:29] Found membership by title match. Will update with Salla product ID: 786038700
+[2025-04-22 19:03:29] Updated existing membership (ID: 14) for Salla product ID: 786038700, Name: فستان
+[2025-04-22 19:03:30] Found product 'فستان' in order 772780201 (using list response)
+[2025-04-22 19:03:30] Retrieved 1 orders containing product: فستان
+[2025-04-22 19:03:30] Subscription details - Membership ID: 14, Salla Product ID: 786038700, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-04-22 19:03:30] Failed to create subscription for order ID: 772780201
+[2025-04-22 19:04:01] Starting userIndex method for sub-admin ID: 2
+[2025-04-22 19:04:01] Counter value (total users found): 1
+[2025-04-22 19:04:01] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-04-22 19:04:01] Number of users returned: 1

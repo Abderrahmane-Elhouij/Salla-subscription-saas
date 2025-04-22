@@ -546,10 +546,17 @@ class SubAdmin extends Admin
         $tpl->caption = Language::$word->M_TITLE;
         $tpl->crumbs = ['sub_admin', 'account'];
 
+        $uid = App::Auth()->uid;
+
         // Get the user data
-        $tpl->data = Database::Go()->select(User::mTable)->where('id', App::Auth()->uid, '=')->first()->run();
+        $tpl->data = Database::Go()->select(User::mTable)->where('id', $uid, '=')->first()->run();
+
         // Load Salla store info if connected
-        $tpl->store = Database::Go()->select('salla_merchants')->where('user_id', App::Auth()->uid, '=')->first()->run();
+        $tpl->store = Database::Go()->select('salla_merchants')->where('user_id', $uid, '=')->first()->run();
+
+        // Load Salla token status
+        $token = Database::Go()->select('salla_tokens')->where('user_id', $uid, '=')->first()->run();
+        $tpl->token_status = $token ? ($token->expires_at > time() ? 'valid' : 'expired') : 'none';
 
         // Use a specific account template for sub-admin
         $tpl->template = 'sub_admin/account';
@@ -604,6 +611,9 @@ class SubAdmin extends Admin
      */
     public function handleSallaCallback(): void
     {
+        // Log the starting of callback process
+        self::log("Starting Salla callback handling process");
+
         // Validate CSRF state
         $stored = Session::get('salla_state');
         if (empty($_GET['state']) || $_GET['state'] !== $stored) {
@@ -611,13 +621,17 @@ class SubAdmin extends Admin
             Url::redirect(SITEURL . '/sub_admin');
         }
         Session::remove('salla_state');
+
         if (!isset($_GET['code'])) {
             Message::msgError('Missing authorization code.');
             Url::redirect(SITEURL . '/sub_admin');
         }
+
         $code = $_GET['code'];
         $state = $_GET['state'];
         $core = App::Core();
+        $user_id = App::Auth()->uid;
+
         // Exchange code for tokens
         $tokenUrl = 'https://accounts.salla.sa/oauth2/token';
         $post = [
@@ -630,8 +644,7 @@ class SubAdmin extends Admin
             'state' => $state
         ];
 
-        // var_dump($post);
-        // Simplified token exchange with file_get_contents instead of curl
+        // Token exchange with file_get_contents
         $options = [
             'http' => [
                 'header' => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -643,22 +656,55 @@ class SubAdmin extends Admin
         $response = file_get_contents($tokenUrl, false, $context);
         $data = json_decode($response);
 
-        // Debug output for token response
-        echo "<pre>Token Response: ";
-        print_r($data);
-        echo "</pre>";
-
         if (empty($data->access_token)) {
-            echo "<p>Failed to authenticate with Salla.</p>";
-            exit;
+            self::log("Failed to authenticate with Salla - No access token received");
+            Message::msgError('Failed to authenticate with Salla.');
+            Url::redirect(SITEURL . '/sub_admin');
+            return;
         }
 
-        // Debug output for tokens instead of saving to database
-        echo "<p>Access Token: " . $data->access_token . "</p>";
-        echo "<p>Refresh Token: " . $data->refresh_token . "</p>";
-        echo "<p>Expires In: " . ($data->expires_in ?? 3600) . " seconds</p>";
+        // Calculate token expiration time
+        $expires_at = time() + ($data->expires_in ?? 3600);
 
-        // Simplified merchant info API call
+        // Save tokens to database
+        $tokenData = [
+            'user_id' => $user_id,
+            'access_token' => $data->access_token,
+            'refresh_token' => $data->refresh_token,
+            'expires_at' => $expires_at,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+
+        // Check if tokens already exist for this user and if the user exists
+        $user = Database::Go()->select(User::mTable)
+            ->where('id', $user_id, '=')
+            ->first()->run();
+
+        if (!$user) {
+            self::log("Error: Attempted to save Salla token for non-existent user ID: {$user_id}");
+            Message::msgError('User account not found. Please contact support.');
+            Url::redirect(SITEURL . '/sub_admin');
+            return;
+        }
+
+        $existingToken = Database::Go()->select('salla_tokens')
+            ->where('user_id', $user_id, '=')
+            ->first()->run();
+
+        if ($existingToken) {
+            // Update existing token
+            Database::Go()->update('salla_tokens', $tokenData)
+                ->where('user_id', $user_id, '=')
+                ->run();
+            self::log("Updated existing Salla tokens for user ID: {$user_id}");
+        } else {
+            // Insert new token
+            Database::Go()->insert('salla_tokens', $tokenData)->run();
+            self::log("Inserted new Salla tokens for user ID: {$user_id}");
+        }
+
+        // Fetch products from Salla
         $apiUrl = 'https://api.salla.dev/admin/v2/products';
         $options = [
             'http' => [
@@ -668,14 +714,281 @@ class SubAdmin extends Admin
         ];
         $context = stream_context_create($options);
         $resp = file_get_contents($apiUrl, false, $context);
-        $m = json_decode($resp);
+        $productsData = json_decode($resp);
 
-        // Debug output for merchant info instead of saving to database
-        echo "<pre>Merchant Info: ";
-        print_r($m);
-        echo "</pre>";
+        if (empty($productsData) || !isset($productsData->data)) {
+            self::log("No products found or invalid products response from Salla API");
+            Message::msgError('Failed to retrieve products from Salla.');
+            Url::redirect(SITEURL . '/sub_admin');
+            return;
+        }
 
-        echo "<p>Store connection test completed successfully.</p>";
-        exit; // Stop execution here for testing
+        // Get products from Salla
+        $products = $productsData->data;
+        self::log("Retrieved " . count($products) . " products from Salla");
+
+        // Save products as memberships
+        foreach ($products as $product) {
+            // Check if this product already exists as a membership by matching Salla product ID
+            $existingMembership = Database::Go()->select(Membership::mTable)
+                ->where('salla_product_id', $product->id, '=')
+                ->first()->run();
+                
+            // If no match by product ID, try by title and creator as fallback (for legacy data)
+            if (!$existingMembership) {
+                $existingMembership = Database::Go()->select(Membership::mTable)
+                    ->where('title', $product->name, '=')
+                    ->where('created_by', $user_id, '=')
+                    ->first()->run();
+                
+                if ($existingMembership) {
+                    self::log("Found membership by title match. Will update with Salla product ID: {$product->id}");
+                }
+            }
+
+            $membershipData = [
+                'title' => $product->name,
+                'description' => $product->description ?? substr($product->description ?? '', 0, 200),
+                'body' => $product->description ?? '',
+                'price' => $product->price->amount,
+                'days' => 30, // Default subscription period - 30 days
+                'period' => 'D', // D for days
+                'recurring' => 1, // Set as recurring
+                'private' => 0, // Not private
+                'created_by' => $user_id,
+                'active' => 1
+            ];
+
+            // Set main image or thumbnail if available
+            if (!empty($product->main_image)) {
+                $membershipData['thumb'] = $product->main_image;
+            } elseif (!empty($product->thumbnail)) {
+                $membershipData['thumb'] = $product->thumbnail;
+            }
+            
+            // If there's a promotion, include it in the description
+            if (isset($product->promotion) && !empty($product->promotion->title)) {
+                $promotionText = "\n\nPromotion: " . $product->promotion->title;
+                if (!empty($product->promotion->sub_title)) {
+                    $promotionText .= " - " . $product->promotion->sub_title;
+                }
+                
+                // Append promotion to description
+                if (isset($membershipData['description'])) {
+                    $membershipData['description'] .= $promotionText;
+                }
+                
+                // Append promotion to body as well
+                if (isset($membershipData['body'])) {
+                    $membershipData['body'] .= $promotionText;
+                }
+            }
+            
+            // If there are product options, include them in the membership description
+            if (!empty($product->options)) {
+                $optionsText = "\n\nOptions:";
+                foreach ($product->options as $option) {
+                    if (!empty($option->name)) {
+                        $optionsText .= "\n- " . $option->name;
+                        
+                        // Add option values if available
+                        if (!empty($option->values)) {
+                            $optionsText .= ": ";
+                            $valueNames = array_map(function($value) {
+                                return $value->name ?? '';
+                            }, $option->values);
+                            $optionsText .= implode(', ', array_filter($valueNames));
+                        }
+                    }
+                }
+                
+                // Append options to description
+                if (isset($membershipData['body'])) {
+                    $membershipData['body'] .= $optionsText;
+                }
+            }
+
+            if ($existingMembership) {
+                // Update existing membership
+                Database::Go()->update(Membership::mTable, $membershipData)
+                    ->where('id', $existingMembership->id, '=')
+                    ->run();
+                $membership_id = $existingMembership->id;
+                self::log("Updated existing membership (ID: {$membership_id}) for Salla product ID: {$product->id}, Name: {$product->name}");
+            } else {
+                // Insert new membership
+                $membership_id = Database::Go()->insert(Membership::mTable, $membershipData)->run();
+                self::log("Created new membership (ID: {$membership_id}) for Salla product ID: {$product->id}, Name: {$product->name}");
+            }
+
+            // First fetch all orders, then filter those containing this product
+            $ordersUrl = "https://api.salla.dev/admin/v2/orders";
+            $options = [
+                'http' => [
+                    'header' => "Authorization: Bearer " . $data->access_token . "\r\n",
+                    'method' => 'GET'
+                ]
+            ];
+            $context = stream_context_create($options);
+            $ordersResp = @file_get_contents($ordersUrl, false, $context);
+
+            if (!$ordersResp) {
+                self::log("Failed to fetch orders");
+                continue;
+            }
+
+            $ordersData = json_decode($ordersResp);
+
+            if (empty($ordersData) || !isset($ordersData->data)) {
+                self::log("No orders found");
+                continue;
+            }
+
+            // Find orders containing this product
+            $productOrders = [];
+            foreach ($ordersData->data as $order) {
+                // Check if order items exist in the list response first (more efficient)
+                if (!empty($order->items)) {
+                    // Process items directly from the list response
+                    foreach ($order->items as $item) {
+                        if (isset($item->name) && $item->name === $product->name) {
+                            $productOrders[] = $order;
+                            self::log("Found product '{$product->name}' in order {$order->id} (using list response)");
+                            break;
+                        }
+                    }
+                } else {
+                    // If no items in list response, get order details
+                    $orderDetailUrl = "https://api.salla.dev/admin/v2/orders/{$order->id}";
+                    $detailOptions = [
+                        'http' => [
+                            'header' => "Authorization: Bearer " . $data->access_token . "\r\n",
+                            'method' => 'GET'
+                        ]
+                    ];
+                    $detailContext = stream_context_create($detailOptions);
+                    $orderDetailResp = @file_get_contents($orderDetailUrl, false, $detailContext);
+
+                    if (!$orderDetailResp) {
+                        self::log("Failed to fetch details for order {$order->id}");
+                        continue;
+                    }
+
+                    $orderDetail = json_decode($orderDetailResp);
+
+                    // Verify the response structure
+                    if (empty($orderDetail) || !isset($orderDetail->data)) {
+                        self::log("Invalid response format for order {$order->id}");
+                        continue;
+                    }
+
+                    // Check if order contains our product - try both possible item locations
+                    $orderData = $orderDetail->data;
+                    $itemFound = false;
+
+                    // Check items at detail level (detail response structure might differ)
+                    if (!empty($orderData->items)) {
+                        foreach ($orderData->items as $item) {
+                            if (isset($item->name) && $item->name === $product->name) {
+                                $productOrders[] = $orderData;
+                                $itemFound = true;
+                                self::log("Found product '{$product->name}' in order {$order->id} (using items in detail)");
+                                break;
+                            }
+                        }
+                    }
+
+                    // If no items found at first level, check if they might be in another location
+                    if (!$itemFound && !empty($orderData->line_items)) {
+                        foreach ($orderData->line_items as $item) {
+                            if (isset($item->name) && $item->name === $product->name) {
+                                $productOrders[] = $orderData;
+                                $itemFound = true;
+                                self::log("Found product '{$product->name}' in order {$order->id} (using line_items)");
+                                break;
+                            }
+                        }
+                    }
+
+                    // If still no items found, log it
+                    if (!$itemFound) {
+                        self::log("No items found matching '{$product->name}' in order {$order->id}");
+                    }
+                }
+            }
+
+            $orders = $productOrders;
+            self::log("Retrieved " . count($orders) . " orders containing product: {$product->name}");
+
+            // Record subscriptions from orders
+            foreach ($orders as $order) {
+                // Check if this subscription already exists
+                $existingSubscription = Database::Go()->select('salla_subscriptions')
+                    ->where('salla_order_id', $order->id, '=')
+                    ->first()->run();
+
+                // Set subscription dates
+                $startDate = date('Y-m-d H:i:s', strtotime($order->date->date));
+                $endDate = date('Y-m-d H:i:s', strtotime($order->date->date . ' + 30 days')); // Default to 30 days
+
+                // Find product quantity in order items
+                $quantity = 1; // Default quantity
+                if (!empty($order->items)) {
+                    foreach ($order->items as $item) {
+                        if ($item->name === $product->name) {
+                            $quantity = $item->quantity;
+                            break;
+                        }
+                    }
+                }
+
+                $subscriptionData = [
+                    'membership_id' => $membership_id,
+                    'salla_product_id' => $product->id,
+                    'salla_order_id' => $order->id,
+                    'salla_customer_id' => isset($order->customer) ? ($order->customer->id ?? null) : null,
+                    'quantity' => $quantity,
+                    'start_date' => $startDate,
+                    'end_date' => $endDate,
+                    'status' => 'active',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ];
+                                    
+                                    // Add detailed log about the subscription
+                                    self::log("Subscription details - Membership ID: {$membership_id}, Salla Product ID: {$product->id}, " .
+                         "Order ID: {$order->id}, Quantity: {$quantity}, Start: {$startDate}, End: {$endDate}");
+
+                try {
+                    if ($existingSubscription) {
+                        // Update existing subscription
+                        $result = Database::Go()->update('salla_subscriptions', $subscriptionData)
+                            ->where('id', $existingSubscription->id, '=')
+                            ->run();
+
+                        if ($result) {
+                            self::log("Successfully updated existing subscription for order ID: {$order->id}");
+                        } else {
+                            self::log("Failed to update subscription for order ID: {$order->id}");
+                        }
+                    } else {
+                        // Insert new subscription
+                        $result = Database::Go()->insert('salla_subscriptions', $subscriptionData)->run();
+
+                        if ($result) {
+                            self::log("Successfully created new subscription for order ID: {$order->id}");
+                        } else {
+                            self::log("Failed to create subscription for order ID: {$order->id}");
+                        }
+                    }
+                } catch (Exception $e) {
+                    self::log("Error processing subscription for order ID {$order->id}: " . $e->getMessage());
+                }
+            }
+        }
+
+        // Set success message and redirect
+        Message::msgReply(true, 'success', 'Salla store connected successfully. Products and subscriptions have been imported.');
+        Url::redirect(SITEURL . '/sub_admin');
     }
 }

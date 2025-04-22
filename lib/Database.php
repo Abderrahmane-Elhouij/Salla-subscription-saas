@@ -580,6 +580,7 @@ class Database extends PDO
      * @param string $type
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function run(string $type = ''): mixed
     {
         $fetch = ($type == 'array') ? PDO::FETCH_ASSOC : PDO::FETCH_OBJ;
@@ -660,7 +661,7 @@ class Database extends PDO
                     $_oSTH->closeCursor();
                     unset($_oSTH);
                     Debug::addMessage('queries', ++self::$count . '. ' . $this->action . ' | <i>total: ' . ($this->queryResult->items) . '</i>', $this->raw, 'session');
-                    return $this->queryResult->items;
+                    return $this->queryResult->items ?? null;
                 }
                 break;
 
@@ -673,7 +674,7 @@ class Database extends PDO
 
                     unset($_oSTH);
                     Debug::addMessage('queries', ++self::$count . '. ' . $this->action . ' | <i>total: ' . ($this->rowCount) . '</i>', $this->raw, 'session');
-                    return $this->iLastId;
+                    return $this->iLastId ?? null;
                 }
                 break;
 
@@ -685,7 +686,7 @@ class Database extends PDO
 
                     unset($_oSTH);
                     Debug::addMessage('queries', ++self::$count . '. ' . $this->action . ' | <i>total: ' . ($this->rowCount) . '</i>', $this->raw, 'session');
-                    return $this->rowCount;
+                    return $this->rowCount ?? 0;
                 }
                 break;
 
@@ -697,7 +698,7 @@ class Database extends PDO
 
                     unset($_oSTH);
                     Debug::addMessage('queries', ++self::$count . '. ' . $this->action . ' | <i>total: ' . ($this->rowCount) . '</i>', $this->raw, 'session');
-                    return $this->rowCount;
+                    return $this->rowCount ?? 0;
                 }
                 break;
 
@@ -743,7 +744,7 @@ class Database extends PDO
 
             case 'batch':
                 $this->start();
-                $_oSTH = $this->prepare($this->query);
+                $oSTH = $this->prepare($this->query);
                 try {
                     if ($_oSTH->execute()) {
                         $this->iAllLastId[] = $this->lastInsertId();
@@ -758,7 +759,7 @@ class Database extends PDO
                 $this->end();
                 $_oSTH->closeCursor();
                 unset($_oSTH);
-                return $this->iAllLastId;
+                return $this->iAllLastId ?? [];
                 break;
 
             case 'truncate':
@@ -790,6 +791,7 @@ class Database extends PDO
                 } catch (PDOException $e) {
                     $this->_errorLog('truncate [pdo.class.php, ln.:' . __line__ . ']', $e->getMessage());
                 }
+                return 0;
                 break;
 
             case 'describe':
@@ -808,16 +810,21 @@ class Database extends PDO
                         return array_combine($aField, $aType);
                     } else {
                         $this->_errorLog('describe [pdo.class.php, ln.:' . __line__ . ']', $_oSTH->errorInfo());
+                        return null; // Add this return statement
                     }
                 } catch (PDOException $e) {
                     $this->_errorLog('describe [pdo.class.php, ln.:' . __line__ . ']', $e->getMessage());
+                    return null; // Add this return statement
                 }
                 break;
 
             default:
                 $this->_errorLog('run [db.class.php, ln.:' . __line__ . ']', 'Command "' . $this->action . '" is not allowed.');
+                return null; // Add fallback return statement
                 break;
         }
+        
+        return null; // Ensure a return value at the end of the method
     }
 
     /**
