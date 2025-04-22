@@ -22,19 +22,19 @@ class SubAdmin extends Admin
         // The parent Admin class doesn't have a constructor, so we don't call parent::__construct()
         // We can initialize things needed for SubAdmin here
     }
-    
+
     /**
      * Log message to a dedicated subadmin log file
-     * 
+     *
      * @param string $message Message to log
      * @return void
      */
-    public static function log(string $message): void 
+    public static function log(string $message): void
     {
         $logFile = BASEPATH . 'subadmin_debug.log';
         $timestamp = date('[Y-m-d H:i:s]');
         $logMessage = $timestamp . ' ' . $message . PHP_EOL;
-        
+
         // Append to log file
         file_put_contents($logFile, $logMessage, FILE_APPEND);
     }
@@ -46,28 +46,34 @@ class SubAdmin extends Admin
      */
     public function index(): void
     {
+        // Handle OAuth callback if Salla redirected here instead of /salla/callback
+        if (isset($_GET['code']) && isset($_GET['state'])) {
+            $this->handleSallaCallback();
+            return;
+        }
+
         // Enforce Salla connection
         $uid = App::Auth()->uid;
-        $store = Database::Go()->select('salla_merchants')->where('user_id', $uid, '=')->first()->run();
-        if (!$store) {
-            Url::redirect(SITEURL . '/sub_admin/connect');
-        }
-        
+//        $store = Database::Go()->select('salla_merchants')->where('user_id', $uid, '=')->first()->run();
+//        if (!$store) {
+//            Url::redirect(SITEURL . '/sub_admin/connect');
+//        }
+
         $tpl = App::View(BASEPATH . 'view/');
         $tpl->dir = 'sub_admin/';
         $tpl->title = Language::$word->META_T1;
         $tpl->crumbs = ['sub_admin'];
-        
+
         $tpl->stats = new Stats();
         $tpl->core = App::Core();
-        
+
         $tpl->totalMemberships = $this->getSubAdminMembershipCount();
         $tpl->totalUsers = $this->getSubAdminUserCount();
         $tpl->totalRevenue = $this->getSubAdminRevenue();
-        
+
         $tpl->template = 'sub_admin/index';
     }
-    
+
     /**
      * getSubAdminMembershipCount
      * Get count of memberships created by this sub-admin
@@ -79,7 +85,7 @@ class SubAdmin extends Admin
             ->where('created_by', App::Auth()->uid, '=')
             ->run();
     }
-    
+
     /**
      * getSubAdminUserCount
      * Get count of users created by this sub-admin
@@ -91,7 +97,7 @@ class SubAdmin extends Admin
             ->where('created_by', App::Auth()->uid, '=')
             ->run();
     }
-    
+
     /**
      * getSubAdminRevenue
      * Get sum of revenue from users created by this sub-admin
@@ -103,11 +109,11 @@ class SubAdmin extends Admin
                 FROM " . Membership::pTable . " as p
                 JOIN " . User::mTable . " as u ON p.user_id = u.id
                 WHERE u.created_by = ?";
-                
+
         $result = Database::Go()->rawQuery($sql, array(App::Auth()->uid))->first()->run();
         return ($result && !empty($result->total_revenue)) ? $result->total_revenue : 0;
     }
-    
+
     /**
      * role
      * Override parent role method to restrict access
@@ -118,7 +124,7 @@ class SubAdmin extends Admin
         Message::msgError(Language::$word->NOACCESS);
         return;
     }
-    
+
     /**
      * userIndex
      * Show only users created by this sub-admin
@@ -131,33 +137,33 @@ class SubAdmin extends Admin
         $tpl->title = Language::$word->META_T2;
         $tpl->caption = Language::$word->META_T2;
         $tpl->subtitle = null;
-        
+
         // Start debugging
         SubAdmin::log("Starting userIndex method for sub-admin ID: " . App::Auth()->uid);
-        
+
         $sub_admin_id = App::Auth()->uid;
-        
+
         // Use the select method instead of rawQuery
         $find = isset($_POST['find']) ? Validator::sanitize($_POST['find'], 'string', 20) : null;
         $counter = 0;
-        
+
         if (isset($_GET['letter']) and $find) {
             $letter = Validator::sanitize($_GET['letter'], 'string', 2);
             $counter = Database::Go()->count(User::mTable, "WHERE type = 'member' AND created_by = " . $sub_admin_id . " AND (`fname` LIKE '%" . trim($find) . "%' OR `lname` LIKE '%" . trim($find) . "%' OR `email` LIKE '%" . trim($find) . "%') AND `fname` REGEXP '^" . $letter . "'")->run();
-            
+
         } elseif (isset($_POST['find'])) {
             $counter = Database::Go()->count(User::mTable, "WHERE type = 'member' AND created_by = " . $sub_admin_id . " AND (`fname` LIKE '%" . trim($find) . "%' OR `lname` LIKE '%" . trim($find) . "%' OR `email` LIKE '%" . trim($find) . "%')")->run();
-            
+
         } elseif (isset($_GET['letter'])) {
             $letter = Validator::sanitize($_GET['letter'], 'string', 2);
             $counter = Database::Go()->count(User::mTable, "WHERE type = 'member' AND created_by = " . $sub_admin_id . " AND `fname` REGEXP '^" . $letter . "' LIMIT 1")->run();
         } else {
             $counter = Database::Go()->count(User::mTable, "WHERE type = 'member' AND created_by = " . $sub_admin_id)->run();
         }
-        
+
         // Log the counter value
         SubAdmin::log("Counter value (total users found): " . $counter);
-        
+
         if (isset($_GET['order']) and count(explode('|', $_GET['order'])) == 2) {
             list($sort, $order) = explode('|', $_GET['order']);
             $sort = Validator::sanitize($sort, 'default', 13);
@@ -171,51 +177,51 @@ class SubAdmin extends Admin
         } else {
             $sorting = ' created DESC';
         }
-        
+
         $pager = Paginator::instance();
         $pager->items_total = $counter;
         $pager->default_ipp = App::Core()->perpage;
         $pager->path = Url::url(Router::$path, '?');
         $pager->paginate();
-        
+
         // Build query using the select method instead of rawQuery
-        $query = Database::Go()->select(User::mTable . " as u", 
+        $query = Database::Go()->select(User::mTable . " as u",
             ["u.*", "u.id as id", "u.active as active", "CONCAT(fname,' ',lname) as fullname", "m.title as mtitle", "m.thumb"])
             ->where('u.type', 'member', '=')
             ->where('u.created_by', $sub_admin_id, '=');
-            
+
         // Add search conditions
         if (isset($_POST['find'])) {
             $query->orWhere("u.fname LIKE '%" . trim($find) . "%' OR u.lname LIKE '%" . trim($find) . "%' OR u.email LIKE '%" . trim($find) . "%'");
         }
-        
+
         if (isset($_GET['letter']) && !empty($_GET['letter'])) {
             $letter = Validator::sanitize($_GET['letter'], 'string', 2);
             $query->where("u.fname", "^" . $letter, "REGEXP");
         }
-        
+
         // Join with membership table
         $sql = "SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
                 FROM `" . User::mTable . "` as u 
                 LEFT JOIN `" . Membership::mTable . "` as m ON m.id = u.membership_id 
                 WHERE u.type = 'member' AND u.created_by = " . $sub_admin_id;
-        
+
         if (isset($_POST['find'])) {
             $sql .= " AND (u.fname LIKE '%" . trim($find) . "%' OR u.lname LIKE '%" . trim($find) . "%' OR u.email LIKE '%" . trim($find) . "%')";
         }
-        
+
         if (isset($_GET['letter']) && !empty($_GET['letter'])) {
             $letter = Validator::sanitize($_GET['letter'], 'string', 2);
             $sql .= " AND u.fname REGEXP '^" . $letter . "'";
         }
-        
+
         $sql .= " ORDER BY " . $sorting . $pager->limit;
-        
+
         SubAdmin::log("SQL Query: " . $sql);
-        
+
         // Execute the direct query
         $tpl->data = Database::Go()->rawQuery($sql)->run();
-        
+
         // Log how many results were returned
         if (is_array($tpl->data)) {
             SubAdmin::log("Number of users returned: " . count($tpl->data));
@@ -225,12 +231,12 @@ class SubAdmin extends Admin
             }
         } else {
             SubAdmin::log("No users found or invalid result format - Data type: " . gettype($tpl->data));
-            
+
             // Try a different approach - fetch all users created by this sub-admin
             SubAdmin::log("Trying alternative approach...");
             $simple_sql = "SELECT * FROM `" . User::mTable . "` WHERE type = 'member' AND created_by = " . $sub_admin_id;
             $result = Database::Go()->rawQuery($simple_sql)->run();
-            
+
             if (is_array($result)) {
                 SubAdmin::log("Alternative approach found " . count($result) . " users");
                 $tpl->data = $result;
@@ -238,11 +244,11 @@ class SubAdmin extends Admin
                 SubAdmin::log("Alternative approach failed too. Data type: " . gettype($result));
             }
         }
-        
+
         $tpl->pager = $pager;
         $tpl->template = 'sub_admin/user';
     }
-    
+
     /**
      * membershipIndex
      * Show only memberships created by this sub-admin
@@ -255,15 +261,15 @@ class SubAdmin extends Admin
         $tpl->title = Language::$word->META_T6;
         $tpl->caption = Language::$word->META_T6;
         $tpl->subtitle = null;
-        
+
         $tpl->data = Database::Go()->select(Membership::mTable)
             ->where('created_by', App::Auth()->uid, '=')
             ->orderBy('title', 'ASC')
             ->run();
-            
+
         $tpl->template = 'sub_admin/membership';
     }
-    
+
     /**
      * userEdit
      * Edit a user - only if created by this sub-admin
@@ -277,7 +283,7 @@ class SubAdmin extends Admin
         $tpl->title = Language::$word->META_T3;
         $tpl->caption = Language::$word->META_T3;
         $tpl->crumbs = ['sub_admin', 'users', 'edit'];
-        
+
         if (!$row = Database::Go()->select(User::mTable)
             ->where('id', $id, '=')
             ->where('created_by', App::Auth()->uid, '=')
@@ -294,11 +300,11 @@ class SubAdmin extends Admin
             $tpl->countries = App::Content()->getCountryList();
             $tpl->custom_fields = Content::renderCustomFields($id);
             $tpl->userfiles = Database::Go()->select(Content::fTable)->run();
-            
+
             $tpl->template = 'sub_admin/user';
         }
     }
-    
+
     /**
      * userSave
      * Create new user - marking it as created by this sub-admin
@@ -310,14 +316,14 @@ class SubAdmin extends Admin
         $tpl->dir = 'sub_admin/';
         $tpl->title = Language::$word->META_T4;
         $tpl->caption = Language::$word->META_T4;
-        
+
         $tpl->memberships = $this->getSubAdminMemberships();
         $tpl->countries = App::Content()->getCountryList();
         $tpl->custom_fields = Content::renderCustomFields(0);
         $tpl->userfiles = Database::Go()->select(Content::fTable)->run();
         $tpl->template = 'sub_admin/user';
     }
-    
+
     /**
      * getSubAdminMemberships
      * Get memberships created by this sub-admin
@@ -330,7 +336,7 @@ class SubAdmin extends Admin
             ->orderBy('title', 'ASC')
             ->run();
     }
-    
+
     /**
      * membershipEdit
      * Edit membership - only if created by this sub-admin
@@ -344,7 +350,7 @@ class SubAdmin extends Admin
         $tpl->title = Language::$word->META_T7;
         $tpl->caption = Language::$word->META_T7;
         $tpl->crumbs = ['sub_admin', 'membership', 'edit'];
-        
+
         if (!$row = Database::Go()->select(Membership::mTable)
             ->where('id', $id, '=')
             ->where('created_by', App::Auth()->uid, '=')
@@ -361,7 +367,7 @@ class SubAdmin extends Admin
             $tpl->template = 'sub_admin/_membership_edit';
         }
     }
-    
+
     /**
      * membershipSave
      * Create new membership - marking it as created by this sub-admin
@@ -376,7 +382,7 @@ class SubAdmin extends Admin
         // Using the sub-admin specific template for new memberships
         $tpl->template = 'sub_admin/_membership_new';
     }
-    
+
     /**
      * register
      * Registration page for sub-admin users
@@ -389,7 +395,7 @@ class SubAdmin extends Admin
         $tpl->dir = 'sub_admin/';
         $tpl->title = "Sub-Admin Registration";
         $tpl->core = App::Core();
-        
+
         if (isset($_POST['dosubmit']) && $_POST['dosubmit'] == '1') {
             $validate = Validator::run($_POST);
             $validate
@@ -398,19 +404,19 @@ class SubAdmin extends Admin
                 ->set('email', Language::$word->M_EMAIL)->required()->email()
                 ->set('password', Language::$word->M_PASSWORD)->required()->string()->min_len(6)->max_len(20)
                 ->set('password2', Language::$word->M_PASSWORD2)->required()->string()->equals($_POST['password']);
-                
+
             $safe = $validate->safe();
-            
+
             // Check if email exists
             if (strlen($safe->email) !== 0 && App::Auth()->emailExists($safe->email)) {
                 Message::$msgs['email'] = Language::$word->M_EMAIL_R2;
             }
-            
+
             if (count(Message::$msgs) === 0) {
                 // User data
                 $hash = App::Auth()->doHash($safe->password);
                 $username = Utility::randomString();
-                
+
                 $data = array(
                     'username' => $username,
                     'email' => $safe->email,
@@ -422,19 +428,19 @@ class SubAdmin extends Admin
                     'userlevel' => 6, // Sub admin level
                     'newsletter' => 0
                 );
-                
+
                 $last_id = Database::Go()->insert(User::mTable, $data)->run();
-                
+
                 if ($last_id) {
                     // Send notification email to admin
                     $mailer = Mailer::sendMail();
                     $core = App::Core();
-                    
+
                     // Get admin email
                     $admin = Database::Go()->select(User::mTable)
                         ->where('type', 'owner', '=')
                         ->first()->run();
-                    
+
                     // Send to admin
                     $subject = 'New Sub-Admin Registration';
                     $body = "Hello,\n\nA new sub-admin has registered and is awaiting approval:\n\n";
@@ -442,13 +448,13 @@ class SubAdmin extends Admin
                     $body .= "Email: " . $data['email'] . "\n\n";
                     $body .= "Please login to approve or reject this registration.\n\n";
                     $body .= "Regards,\n" . $core->company;
-                    
+
                     $mailer->Subject = $subject;
                     $mailer->Body = $body;
                     $mailer->setFrom($core->site_email, $core->company);
                     $mailer->addAddress($admin->email, $admin->fname . ' ' . $admin->lname);
                     $mailer->send();
-                    
+
                     // Send confirmation to user
                     $subject = 'Sub-Admin Registration Confirmation';
                     $body = "Hello " . $data['fname'] . ",\n\n";
@@ -458,13 +464,13 @@ class SubAdmin extends Admin
                     $body .= "Email: " . $data['email'] . "\n";
                     $body .= "Username: " . $username . "\n\n";
                     $body .= "Regards,\n" . $core->company;
-                    
+
                     $mailer->Subject = $subject;
                     $mailer->Body = $body;
                     $mailer->setFrom($core->site_email, $core->company);
                     $mailer->addAddress($data['email'], $data['fname'] . ' ' . $data['lname']);
                     $mailer->send();
-                    
+
                     // Success message
                     $tpl->success = true;
                     $tpl->message = "Your registration has been submitted successfully. You will receive an email when your account is approved.";
@@ -473,10 +479,10 @@ class SubAdmin extends Admin
                 }
             }
         }
-        
+
         $tpl->template = 'sub_admin/register';
     }
-    
+
     /**
      * checkMembershipAccess
      * Validate that the membership belongs to the current sub-admin
@@ -489,10 +495,10 @@ class SubAdmin extends Admin
             ->where('id', $id, '=')
             ->where('created_by', App::Auth()->uid, '=')
             ->first()->run();
-            
+
         return $membership ? true : false;
     }
-    
+
     /**
      * Continue to iterate?
      * Override the Admin::continueToIterate method to ensure sub-admins can only iterate their own memberships
@@ -503,7 +509,7 @@ class SubAdmin extends Admin
     {
         $tpl = App::View(BASEPATH . 'view/');
         $tpl->dir = 'sub_admin/';
-        
+
         // If an ID is provided, check if the membership belongs to this sub-admin
         if ($id > 0) {
             if (!$this->checkMembershipAccess($id)) {
@@ -512,10 +518,10 @@ class SubAdmin extends Admin
                 return;
             }
         }
-        
+
         $tpl->title = "Continue to iterate?";
         $tpl->membershipId = $id;
-        
+
         // Get membership data if ID is provided
         if ($id > 0) {
             $tpl->data = Database::Go()->select(Membership::mTable)
@@ -523,7 +529,7 @@ class SubAdmin extends Admin
                 ->where('created_by', App::Auth()->uid, '=')
                 ->first()->run();
         }
-        
+
         $tpl->template = 'sub_admin/continue_iterate';
     }
 
@@ -539,16 +545,16 @@ class SubAdmin extends Admin
         $tpl->title = Language::$word->M_TITLE;
         $tpl->caption = Language::$word->M_TITLE;
         $tpl->crumbs = ['sub_admin', 'account'];
-        
+
         // Get the user data
         $tpl->data = Database::Go()->select(User::mTable)->where('id', App::Auth()->uid, '=')->first()->run();
         // Load Salla store info if connected
         $tpl->store = Database::Go()->select('salla_merchants')->where('user_id', App::Auth()->uid, '=')->first()->run();
-        
+
         // Use a specific account template for sub-admin
         $tpl->template = 'sub_admin/account';
     }
-    
+
     /**
      * password
      * Display form to change sub-admin's password
@@ -561,10 +567,10 @@ class SubAdmin extends Admin
         $tpl->title = Language::$word->M_SUB2;
         $tpl->caption = Language::$word->M_SUB2;
         $tpl->crumbs = ['sub_admin', 'password'];
-        
+
         // Get the user data
         $tpl->data = Database::Go()->select(User::mTable)->where('id', App::Auth()->uid, '=')->first()->run();
-        
+
         // Use a specific password template for sub-admin
         $tpl->template = 'sub_admin/password';
     }
@@ -576,12 +582,19 @@ class SubAdmin extends Admin
     public function connectStore(): void
     {
         $core = App::Core();
-        $clientId = $core->salla_client_id;
-        $redirect = SITEURL . '/sub_admin/salla/callback';
-        $authUrl = ' https://accounts.salla.sa/oauth2/auth'
-            . '?client_id=' . urlencode($clientId)
-            . '&redirect_uri=' . urlencode($redirect)
-            . '&response_type=code';
+        // Generate and store CSRF state
+        $state = bin2hex(random_bytes(16));
+        Session::set('salla_state', $state);
+
+        $params = [
+            'client_id' => $core->salla_client_id,
+            'client_secret' => $core->salla_client_secret,
+            'response_type' => 'code',
+            'scope' => 'offline_access',
+            'redirect_uri' => SITEURL . '/sub_admin/salla/callback',
+            'state' => $state
+        ];
+        $authUrl = 'https://accounts.salla.sa/oauth2/auth?' . http_build_query($params);
         Url::redirect($authUrl);
     }
 
@@ -591,64 +604,78 @@ class SubAdmin extends Admin
      */
     public function handleSallaCallback(): void
     {
+        // Validate CSRF state
+        $stored = Session::get('salla_state');
+        if (empty($_GET['state']) || $_GET['state'] !== $stored) {
+            Message::msgError('Invalid OAuth state. Please try again.');
+            Url::redirect(SITEURL . '/sub_admin');
+        }
+        Session::remove('salla_state');
         if (!isset($_GET['code'])) {
             Message::msgError('Missing authorization code.');
             Url::redirect(SITEURL . '/sub_admin');
         }
         $code = $_GET['code'];
+        $state = $_GET['state'];
         $core = App::Core();
         // Exchange code for tokens
-        $tokenUrl = 'https://core.salla.dev/oauth/token';
+        $tokenUrl = 'https://accounts.salla.sa/oauth2/token';
         $post = [
             'grant_type' => 'authorization_code',
             'client_id' => $core->salla_client_id,
             'client_secret' => $core->salla_client_secret,
             'code' => $code,
-            'redirect_uri' => SITEURL . '/sub_admin/salla/callback'
+            'scope' => 'offline_access',
+            'redirect_uri' => SITEURL . '/sub_admin/salla/callback',
+            'state' => $state
         ];
-        $ch = curl_init($tokenUrl);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        curl_close($ch);
+
+        // var_dump($post);
+        // Simplified token exchange with file_get_contents instead of curl
+        $options = [
+            'http' => [
+                'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method' => 'POST',
+                'content' => http_build_query($post)
+            ]
+        ];
+        $context = stream_context_create($options);
+        $response = file_get_contents($tokenUrl, false, $context);
         $data = json_decode($response);
+
+        // Debug output for token response
+        echo "<pre>Token Response: ";
+        print_r($data);
+        echo "</pre>";
+
         if (empty($data->access_token)) {
-            Message::msgError('Failed to authenticate with Salla.');
-            Url::redirect(SITEURL . '/sub_admin');
+            echo "<p>Failed to authenticate with Salla.</p>";
+            exit;
         }
-        // Save tokens
-        $uid = App::Auth()->uid;
-        $expires = time() + ($data->expires_in ?? 3600);
-        Database::Go()->delete('salla_tokens')->where('user_id', $uid, '=')->run();
-        Database::Go()->insert('salla_tokens', [
-            'user_id' => $uid,
-            'access_token' => $data->access_token,
-            'refresh_token' => $data->refresh_token,
-            'expires_at' => $expires,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ])->run();
-        // Fetch merchant info
-        $apiUrl = 'https://core.salla.dev/api/v1/seller/merchants';
-        $ch = curl_init($apiUrl);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . $data->access_token]);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $resp = curl_exec($ch);
-        curl_close($ch);
+
+        // Debug output for tokens instead of saving to database
+        echo "<p>Access Token: " . $data->access_token . "</p>";
+        echo "<p>Refresh Token: " . $data->refresh_token . "</p>";
+        echo "<p>Expires In: " . ($data->expires_in ?? 3600) . " seconds</p>";
+
+        // Simplified merchant info API call
+        $apiUrl = 'https://api.salla.dev/admin/v2/products';
+        $options = [
+            'http' => [
+                'header' => "Authorization: Bearer " . $data->access_token . "\r\n",
+                'method' => 'GET'
+            ]
+        ];
+        $context = stream_context_create($options);
+        $resp = file_get_contents($apiUrl, false, $context);
         $m = json_decode($resp);
-        // Save merchant data
-        Database::Go()->delete('salla_merchants')->where('user_id', $uid, '=')->run();
-        Database::Go()->insert('salla_merchants', [
-            'user_id' => $uid,
-            'store_id' => $m->data->id,
-            'store_name' => $m->data->name,
-            'store_url' => $m->data->store_url,
-            'store_currency' => $m->data->currency,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ])->run();
-        Message::msgReply(true, 'success', 'Store connected successfully.');
-        Url::redirect(SITEURL . '/sub_admin');
+
+        // Debug output for merchant info instead of saving to database
+        echo "<pre>Merchant Info: ";
+        print_r($m);
+        echo "</pre>";
+
+        echo "<p>Store connection test completed successfully.</p>";
+        exit; // Stop execution here for testing
     }
 }
