@@ -743,19 +743,20 @@ class SubAdmin extends Admin
                 ->first()->run();
 
             // If no match by product ID, try by title and creator as fallback (for legacy data)
-            if (!$existingMembership) {
-                $existingMembership = Database::Go()->select(Membership::mTable)
-                    ->where('title', $product->name, '=')
-                    ->where('created_by', $user_id, '=')
-                    ->first()->run();
-
-                if ($existingMembership) {
-                    self::log("Found membership by title match. Will update with Salla product ID: {$product->id}");
-                }
-            }
+//            if (!$existingMembership) {
+//                $existingMembership = Database::Go()->select(Membership::mTable)
+//                    ->where('title', $product->name, '=')
+//                    ->where('created_by', $user_id, '=')
+//                    ->first()->run();
+//
+//                if ($existingMembership) {
+//                    self::log("Found membership by title match. Will update with Salla product ID: {$product->id}");
+//                }
+//            }
 
             $membershipData = [
                 'title' => $product->name,
+                'salla_product_id' => $product->id,
                 'description' => $product->description ?? substr($product->description ?? '', 0, 200),
                 'body' => $product->description ?? '',
                 'price' => $product->price->amount,
@@ -819,10 +820,10 @@ class SubAdmin extends Admin
             if ($existingMembership) {
                 // Update existing membership
                 Database::Go()->update(Membership::mTable, $membershipData)
-                    ->where('id', $existingMembership->id, '=')
+                    ->where('salla_product_id', $existingMembership->salla_product_id, '=')
                     ->run();
-                $membership_id = $existingMembership->id;
-                self::log("Updated existing membership (ID: {$membership_id}) for Salla product ID: {$product->id}, Name: {$product->name}");
+                //$membership_id = $existingMembership->id;
+                //self::log("Updated existing membership (ID: {$membership_id}) for Salla product ID: {$product->id}, Name: {$product->name}");
             } else {
                 // Insert new membership
                 $membership_id = Database::Go()->insert(Membership::mTable, $membershipData)->run();
@@ -1036,7 +1037,7 @@ class SubAdmin extends Admin
 
                     // Check if customer already exists by email
                     $existingUser = Database::Go()->select(User::mTable)
-                        ->where('email', $customer->email, '=')
+                        ->where('salla_customer_id', $customer->id, '=')
                         ->first()->run();
 
                     // Generate a username based on email
@@ -1072,8 +1073,8 @@ class SubAdmin extends Admin
                         'avatar' => $customer->avatar ?? null,
                         'created_by' => $user_id,
                         'newsletter' => 1,
+                        'salla_customer_id' => $customer->id,
                         'custom_fields' => json_encode([
-                            'salla_customer_id' => $customer->id,
                             'gender' => $customer->gender ?? '',
                             'imported_from_salla' => true,
                             'salla_import_date' => date('Y-m-d H:i:s')
@@ -1083,7 +1084,7 @@ class SubAdmin extends Admin
                     if ($existingUser) {
                         // Update existing user
                         $updateResult = Database::Go()->update(User::mTable, $userData)
-                            ->where('id', $existingUser->id, '=')
+                            ->where('salla_customer_id', $existingUser->salla_customer_id , '=')
                             ->run();
 
                         if ($updateResult) {

@@ -1,68 +1,102 @@
-[2025-05-01 06:42:38] Starting userIndex method for sub-admin ID: 2
-[2025-05-01 06:42:38] Counter value (total users found): 2
-[2025-05-01 06:42:38] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+[2025-05-01 08:45:21] Starting Salla callback handling process
+[2025-05-01 08:45:21] Starting Salla callback handling process
+[2025-05-01 08:45:22] Updated existing Salla tokens for user ID: 2
+[2025-05-01 08:45:23] Retrieved 2 products from Salla
+[2025-05-01 08:45:23] Updated existing membership (ID: 1) for Salla product ID: 786038700, Name: فستان
+[2025-05-01 08:45:24] Found product 'فستان' in order 772780201 (using list response)
+[2025-05-01 08:45:24] Retrieved 1 orders containing product: فستان
+[2025-05-01 08:45:24] Subscription details - Membership ID: 1, Salla Product ID: 786038700, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-05-01 08:45:24] Successfully updated existing subscription for order ID: 772780201
+[2025-05-01 08:45:24] Updated existing membership (ID: 1) for Salla product ID: 1560072355, Name: فستان
+[2025-05-01 08:45:24] Found product 'فستان' in order 772780201 (using list response)
+[2025-05-01 08:45:24] Retrieved 1 orders containing product: فستان
+[2025-05-01 08:45:24] Subscription details - Membership ID: 1, Salla Product ID: 1560072355, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-05-01 08:45:24] Successfully updated existing subscription for order ID: 772780201
+[2025-05-01 08:45:24] Starting import of Salla customers after product import
+[2025-05-01 08:45:25] Retrieved 2 customers from Salla API during store connection
+[2025-05-01 08:45:25] Created new user (ID: 26) from Salla customer ID: 1417499419
+[2025-05-01 08:45:25] Created new user (ID: 27) from Salla customer ID: 1109900279
+[2025-05-01 08:45:25] Customer import completed during store connection. Imported: 2, Updated: 0
+[2025-05-01 08:45:47] Starting userIndex method for sub-admin ID: 2
+[2025-05-01 08:45:47] Counter value (total users found): 4
+[2025-05-01 08:45:47] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
                 FROM `users` as u 
                 LEFT JOIN `memberships` as m ON m.id = u.membership_id 
                 WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
-[2025-05-01 06:42:38] Number of users returned: 2
-[2025-05-01 06:45:36] Starting Salla callback handling process
-[2025-05-01 06:45:36] Starting Salla callback handling process
-[2025-05-01 06:45:37] Updated existing Salla tokens for user ID: 2
-[2025-05-01 06:45:38] Retrieved 2 products from Salla
-[2025-05-01 06:45:38] Updated existing membership (ID: 1) for Salla product ID: 786038700, Name: فستان
-[2025-05-01 06:45:38] Found product 'فستان' in order 772780201 (using list response)
-[2025-05-01 06:45:38] Retrieved 1 orders containing product: فستان
-[2025-05-01 06:45:38] Subscription details - Membership ID: 1, Salla Product ID: 786038700, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
-[2025-05-01 06:45:38] Successfully updated existing subscription for order ID: 772780201
-[2025-05-01 06:45:38] Updated existing membership (ID: 1) for Salla product ID: 1560072355, Name: فستان
-[2025-05-01 06:45:39] Found product 'فستان' in order 772780201 (using list response)
-[2025-05-01 06:45:39] Retrieved 1 orders containing product: فستان
-[2025-05-01 06:45:39] Subscription details - Membership ID: 1, Salla Product ID: 1560072355, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
-[2025-05-01 06:45:39] Successfully updated existing subscription for order ID: 772780201
-[2025-05-01 06:45:39] Starting import of Salla customers after product import
-[2025-05-01 06:45:39] Retrieved 2 customers from Salla API during store connection
-[2025-05-01 06:45:39] Updated existing user (ID: 3) from Salla customer ID: 1417499419
-[2025-05-01 06:45:39] Created new user (ID: 22) from Salla customer ID: 1109900279
-[2025-05-01 06:45:39] Customer import completed during store connection. Imported: 1, Updated: 1
-[2025-05-01 06:45:49] Starting userIndex method for sub-admin ID: 2
-[2025-05-01 06:45:49] Counter value (total users found): 3
-[2025-05-01 06:45:49] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+[2025-05-01 08:45:47] Number of users returned: 4
+[2025-05-01 08:47:59] Starting Salla callback handling process
+[2025-05-01 08:47:59] Starting Salla callback handling process
+[2025-05-01 08:48:00] Updated existing Salla tokens for user ID: 2
+[2025-05-01 08:48:01] Retrieved 2 products from Salla
+[2025-05-01 08:48:01] Updated existing membership (ID: 1) for Salla product ID: 786038700, Name: فستان
+[2025-05-01 08:48:01] Found product 'فستان' in order 772780201 (using list response)
+[2025-05-01 08:48:01] Retrieved 1 orders containing product: فستان
+[2025-05-01 08:48:01] Subscription details - Membership ID: 1, Salla Product ID: 786038700, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-05-01 08:48:01] Successfully updated existing subscription for order ID: 772780201
+[2025-05-01 08:48:01] Updated existing membership (ID: 1) for Salla product ID: 1560072355, Name: فستان
+[2025-05-01 08:48:02] Found product 'فستان' in order 772780201 (using list response)
+[2025-05-01 08:48:02] Retrieved 1 orders containing product: فستان
+[2025-05-01 08:48:02] Subscription details - Membership ID: 1, Salla Product ID: 1560072355, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-05-01 08:48:02] Successfully updated existing subscription for order ID: 772780201
+[2025-05-01 08:48:02] Starting import of Salla customers after product import
+[2025-05-01 08:48:03] Retrieved 2 customers from Salla API during store connection
+[2025-05-01 08:48:03] Created new user (ID: 28) from Salla customer ID: 1417499419
+[2025-05-01 08:48:03] Updated existing user (ID: 27) from Salla customer ID: 1109900279
+[2025-05-01 08:48:03] Customer import completed during store connection. Imported: 1, Updated: 1
+[2025-05-01 08:48:07] Starting userIndex method for sub-admin ID: 2
+[2025-05-01 08:48:07] Counter value (total users found): 3
+[2025-05-01 08:48:07] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
                 FROM `users` as u 
                 LEFT JOIN `memberships` as m ON m.id = u.membership_id 
                 WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
-[2025-05-01 06:45:49] Number of users returned: 3
-[2025-05-01 07:53:42] Starting userIndex method for sub-admin ID: 2
-[2025-05-01 07:53:42] Counter value (total users found): 3
-[2025-05-01 07:53:42] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
-                FROM `users` as u 
-                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
-                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY membership_id DESC LIMIT 0,12
-[2025-05-01 07:53:42] Number of users returned: 3
-[2025-05-01 07:53:49] Starting userIndex method for sub-admin ID: 2
-[2025-05-01 07:53:49] Counter value (total users found): 3
-[2025-05-01 07:53:49] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+[2025-05-01 08:48:07] Number of users returned: 3
+[2025-05-01 09:23:27] Starting userIndex method for sub-admin ID: 2
+[2025-05-01 09:23:27] Counter value (total users found): 3
+[2025-05-01 09:23:27] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
                 FROM `users` as u 
                 LEFT JOIN `memberships` as m ON m.id = u.membership_id 
                 WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
-[2025-05-01 07:53:49] Number of users returned: 3
-[2025-05-01 07:53:52] Starting userIndex method for sub-admin ID: 2
-[2025-05-01 07:53:52] Counter value (total users found): 3
-[2025-05-01 07:53:52] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
-                FROM `users` as u 
-                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
-                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY email DESC LIMIT 0,12
-[2025-05-01 07:53:52] Number of users returned: 3
-[2025-05-01 07:53:56] Starting userIndex method for sub-admin ID: 2
-[2025-05-01 07:53:56] Counter value (total users found): 3
-[2025-05-01 07:53:56] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
-                FROM `users` as u 
-                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
-                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY membership_id DESC LIMIT 0,12
-[2025-05-01 07:53:56] Number of users returned: 3
-[2025-05-01 07:54:04] Starting userIndex method for sub-admin ID: 2
-[2025-05-01 07:54:04] Counter value (total users found): 3
-[2025-05-01 07:54:04] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+[2025-05-01 09:23:27] Number of users returned: 3
+[2025-05-01 09:41:17] Starting Salla callback handling process
+[2025-05-01 09:41:17] Starting Salla callback handling process
+[2025-05-01 09:41:18] Updated existing Salla tokens for user ID: 2
+[2025-05-01 09:41:19] Retrieved 2 products from Salla
+[2025-05-01 09:41:19] Created new membership (ID: 36) for Salla product ID: 786038700, Name: فستان
+[2025-05-01 09:41:20] Found product 'فستان' in order 772780201 (using list response)
+[2025-05-01 09:41:20] Retrieved 1 orders containing product: فستان
+[2025-05-01 09:41:20] Subscription details - Membership ID: 36, Salla Product ID: 786038700, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-05-01 09:41:20] Successfully updated existing subscription for order ID: 772780201
+[2025-05-01 09:41:20] Created new membership (ID: 37) for Salla product ID: 1560072355, Name: فستان
+[2025-05-01 09:41:22] Found product 'فستان' in order 772780201 (using list response)
+[2025-05-01 09:41:22] Retrieved 1 orders containing product: فستان
+[2025-05-01 09:41:22] Subscription details - Membership ID: 37, Salla Product ID: 1560072355, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-05-01 09:41:22] Successfully updated existing subscription for order ID: 772780201
+[2025-05-01 09:41:22] Starting import of Salla customers after product import
+[2025-05-01 09:41:23] Retrieved 2 customers from Salla API during store connection
+[2025-05-01 09:41:23] Updated existing user (ID: 28) from Salla customer ID: 1417499419
+[2025-05-01 09:41:23] Updated existing user (ID: 27) from Salla customer ID: 1109900279
+[2025-05-01 09:41:23] Customer import completed during store connection. Imported: 0, Updated: 2
+[2025-05-01 09:41:43] Starting userIndex method for sub-admin ID: 2
+[2025-05-01 09:41:43] Counter value (total users found): 3
+[2025-05-01 09:41:43] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
                 FROM `users` as u 
                 LEFT JOIN `memberships` as m ON m.id = u.membership_id 
                 WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
-[2025-05-01 07:54:04] Number of users returned: 3
+[2025-05-01 09:41:43] Number of users returned: 3
+[2025-05-01 09:41:58] Starting Salla callback handling process
+[2025-05-01 09:41:58] Starting Salla callback handling process
+[2025-05-01 09:41:59] Updated existing Salla tokens for user ID: 2
+[2025-05-01 09:42:00] Retrieved 2 products from Salla
+[2025-05-01 09:42:01] Found product 'فستان' in order 772780201 (using list response)
+[2025-05-01 09:42:01] Retrieved 1 orders containing product: فستان
+[2025-05-01 09:42:01] Subscription details - Membership ID: , Salla Product ID: 786038700, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-05-01 09:42:01] Successfully updated existing subscription for order ID: 772780201
+[2025-05-01 09:42:02] Found product 'فستان' in order 772780201 (using list response)
+[2025-05-01 09:42:02] Retrieved 1 orders containing product: فستان
+[2025-05-01 09:42:02] Subscription details - Membership ID: , Salla Product ID: 1560072355, Order ID: 772780201, Quantity: 100, Start: 2025-04-18 13:39:30, End: 2025-05-18 13:39:30
+[2025-05-01 09:42:02] Successfully updated existing subscription for order ID: 772780201
+[2025-05-01 09:42:02] Starting import of Salla customers after product import
+[2025-05-01 09:42:03] Retrieved 2 customers from Salla API during store connection
+[2025-05-01 09:42:03] Updated existing user (ID: 28) from Salla customer ID: 1417499419
+[2025-05-01 09:42:04] Updated existing user (ID: 27) from Salla customer ID: 1109900279
+[2025-05-01 09:42:04] Customer import completed during store connection. Imported: 0, Updated: 2

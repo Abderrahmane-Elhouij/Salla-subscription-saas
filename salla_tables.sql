@@ -66,3 +66,6 @@ ALTER TABLE `users`
 
 -- Modify the users table to allow NULL emails
 ALTER TABLE `users` MODIFY `email` varchar(60) NULL;
+
+ALTER TABLE `memberships`
+    ADD COLUMN `salla_product_id` VARCHAR(50) NULL AFTER `id`;
