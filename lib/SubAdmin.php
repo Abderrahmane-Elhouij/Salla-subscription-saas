@@ -614,6 +614,14 @@ class SubAdmin extends Admin
         // Log the starting of callback process
         self::log("Starting Salla callback handling process");
 
+        // Increase PHP execution time limit for this process
+        ini_set('max_execution_time', 300); // Set to 5 minutes
+        ini_set('max_input_time', 120); // Set to 2 minutes
+        ini_set('memory_limit', '256M'); // Increase memory limit too
+
+        // Log the starting of callback process
+        self::log("Starting Salla callback handling process");
+
         // Validate CSRF state
         $stored = Session::get('salla_state');
         if (empty($_GET['state']) || $_GET['state'] !== $stored) {
@@ -733,14 +741,14 @@ class SubAdmin extends Admin
             $existingMembership = Database::Go()->select(Membership::mTable)
                 ->where('salla_product_id', $product->id, '=')
                 ->first()->run();
-                
+
             // If no match by product ID, try by title and creator as fallback (for legacy data)
             if (!$existingMembership) {
                 $existingMembership = Database::Go()->select(Membership::mTable)
                     ->where('title', $product->name, '=')
                     ->where('created_by', $user_id, '=')
                     ->first()->run();
-                
+
                 if ($existingMembership) {
                     self::log("Found membership by title match. Will update with Salla product ID: {$product->id}");
                 }
@@ -765,43 +773,43 @@ class SubAdmin extends Admin
             } elseif (!empty($product->thumbnail)) {
                 $membershipData['thumb'] = $product->thumbnail;
             }
-            
+
             // If there's a promotion, include it in the description
             if (isset($product->promotion) && !empty($product->promotion->title)) {
                 $promotionText = "\n\nPromotion: " . $product->promotion->title;
                 if (!empty($product->promotion->sub_title)) {
                     $promotionText .= " - " . $product->promotion->sub_title;
                 }
-                
+
                 // Append promotion to description
                 if (isset($membershipData['description'])) {
                     $membershipData['description'] .= $promotionText;
                 }
-                
+
                 // Append promotion to body as well
                 if (isset($membershipData['body'])) {
                     $membershipData['body'] .= $promotionText;
                 }
             }
-            
+
             // If there are product options, include them in the membership description
             if (!empty($product->options)) {
                 $optionsText = "\n\nOptions:";
                 foreach ($product->options as $option) {
                     if (!empty($option->name)) {
                         $optionsText .= "\n- " . $option->name;
-                        
+
                         // Add option values if available
                         if (!empty($option->values)) {
                             $optionsText .= ": ";
-                            $valueNames = array_map(function($value) {
+                            $valueNames = array_map(function ($value) {
                                 return $value->name ?? '';
                             }, $option->values);
                             $optionsText .= implode(', ', array_filter($valueNames));
                         }
                     }
                 }
-                
+
                 // Append options to description
                 if (isset($membershipData['body'])) {
                     $membershipData['body'] .= $optionsText;
@@ -838,7 +846,7 @@ class SubAdmin extends Admin
             }
 
             $ordersData = json_decode($ordersResp);
-
+//            var_dump($ordersData);
             if (empty($ordersData) || !isset($ordersData->data)) {
                 self::log("No orders found");
                 continue;
@@ -947,17 +955,20 @@ class SubAdmin extends Admin
                     'salla_product_id' => $product->id,
                     'salla_order_id' => $order->id,
                     'salla_customer_id' => isset($order->customer) ? ($order->customer->id ?? null) : null,
-                    'quantity' => $quantity,
+                    'customer_name' => isset($order->receiver) ? $order->receiver->name : (isset($order->customer) ? ($order->customer->first_name . ' ' . $order->customer->last_name) : null),
+                    'customer_email' => isset($order->receiver) ? $order->receiver->email : (isset($order->customer) ? $order->customer->email : null),
+                    'customer_phone' => isset($order->receiver) ? $order->receiver->phone : (isset($order->customer) ? ($order->customer->mobile_code . $order->customer->mobile) : null),
+//                    'quantity' => $quantity,
                     'start_date' => $startDate,
                     'end_date' => $endDate,
                     'status' => 'active',
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
-                                    
-                                    // Add detailed log about the subscription
-                                    self::log("Subscription details - Membership ID: {$membership_id}, Salla Product ID: {$product->id}, " .
-                         "Order ID: {$order->id}, Quantity: {$quantity}, Start: {$startDate}, End: {$endDate}");
+
+                // Add detailed log about the subscription
+                self::log("Subscription details - Membership ID: {$membership_id}, Salla Product ID: {$product->id}, " .
+                    "Order ID: {$order->id}, Quantity: {$quantity}, Start: {$startDate}, End: {$endDate}");
 
                 try {
                     if ($existingSubscription) {
@@ -987,8 +998,919 @@ class SubAdmin extends Admin
             }
         }
 
+        // ADDED: Import customers from Salla after handling products
+        self::log("Starting import of Salla customers after product import");
+
+        // Fetch customers from Salla API (using the same access token we just obtained)
+        $customersUrl = 'https://api.salla.dev/admin/v2/customers';
+        $options = [
+            'http' => [
+                'header' => "Authorization: Bearer " . $data->access_token . "\r\n",
+                'method' => 'GET'
+            ]
+        ];
+
+        $context = stream_context_create($options);
+        $customersResponse = @file_get_contents($customersUrl, false, $context);
+
+        if (!$customersResponse) {
+            self::log("Failed to fetch customers from Salla API during store connection");
+            // Continue with success message even if customer import fails - we don't want to block store connection
+        } else {
+            $customersData = json_decode($customersResponse);
+//            var_dump($customersData);
+            if (!empty($customersData) && isset($customersData->data)) {
+                $customers = $customersData->data;
+                self::log("Retrieved " . count($customers) . " customers from Salla API during store connection");
+
+                $importedCount = 0;
+                $updatedCount = 0;
+
+                // Process each customer
+                foreach ($customers as $customer) {
+                    // Skip if essential data is missing
+//                    if (empty($customer->email)) {
+//                        self::log("Skipping customer with missing email");
+//                        continue;
+//                    }
+
+                    // Check if customer already exists by email
+                    $existingUser = Database::Go()->select(User::mTable)
+                        ->where('email', $customer->email, '=')
+                        ->first()->run();
+
+                    // Generate a username based on email
+                    $username = explode('@', $customer->email)[0] . '_' . Utility::randomString(5);
+
+                    // Generate a random password
+                    $password = Utility::randomString(10);
+                    $hash = App::Auth()->doHash($password);
+
+                    // Set location field from various address components
+                    $location = !empty($customer->location) && $customer->location !== 'null'
+                        ? $customer->location
+                        : (!empty($customer->city) ? $customer->city . ', ' . $customer->country : $customer->country);
+
+                    // Format the mobile number
+                    $mobile = (!empty($customer->mobile_code) ? $customer->mobile_code : '') .
+                        (!empty($customer->mobile) ? $customer->mobile : '');
+
+                    // Prepare user data
+                    $userData = [
+                        'username' => $username,
+                        'fname' => $customer->first_name,
+                        'lname' => $customer->last_name,
+                        'email' => $customer->email ?? '',
+                        'hash' => $hash,
+                        'type' => 'member',
+                        'active' => 'y', // Set as active by default
+                        'userlevel' => 1, // Regular member level
+                        'city' => $customer->city ?? '',
+                        'country' => substr($customer->country ?? '', 0, 4), // Limit to 4 chars as per schema
+                        'address' => $location ?? '',
+                        'login_info' => $mobile,
+                        'avatar' => $customer->avatar ?? null,
+                        'created_by' => $user_id,
+                        'newsletter' => 1,
+                        'custom_fields' => json_encode([
+                            'salla_customer_id' => $customer->id,
+                            'gender' => $customer->gender ?? '',
+                            'imported_from_salla' => true,
+                            'salla_import_date' => date('Y-m-d H:i:s')
+                        ])
+                    ];
+
+                    if ($existingUser) {
+                        // Update existing user
+                        $updateResult = Database::Go()->update(User::mTable, $userData)
+                            ->where('id', $existingUser->id, '=')
+                            ->run();
+
+                        if ($updateResult) {
+                            $updatedCount++;
+                            self::log("Updated existing user (ID: {$existingUser->id}) from Salla customer ID: {$customer->id}");
+                        } else {
+                            self::log("Failed to update user from Salla customer ID: {$customer->id}");
+                        }
+                    } else {
+                        // Insert new user
+                        $userId = Database::Go()->insert(User::mTable, $userData)->run();
+
+                        if ($userId) {
+                            $importedCount++;
+                            self::log("Created new user (ID: {$userId}) from Salla customer ID: {$customer->id}");
+                        } else {
+                            self::log("Failed to create user from Salla customer ID: {$customer->id}");
+                        }
+                    }
+                }
+
+                // Handle pagination if available
+                if (isset($customersData->pagination) && $customersData->pagination->totalPages > 1) {
+                    $currentPage = $customersData->pagination->currentPage;
+                    $totalPages = $customersData->pagination->totalPages;
+
+                    self::log("Processing additional customer pages. Current: {$currentPage}, Total: {$totalPages}");
+
+                    // Process remaining pages
+                    for ($page = $currentPage + 1; $page <= $totalPages; $page++) {
+                        self::log("Fetching customers page {$page} of {$totalPages}");
+
+                        $pageUrl = $customersUrl . '?page=' . $page;
+                        $pageResponse = @file_get_contents($pageUrl, false, $context);
+
+                        if (!$pageResponse) {
+                            self::log("Failed to fetch customers page {$page}");
+                            continue;
+                        }
+
+                        $pageData = json_decode($pageResponse);
+
+                        if (empty($pageData) || !isset($pageData->data)) {
+                            self::log("Invalid response for customers page {$page}");
+                            continue;
+                        }
+
+                        $pageCustomers = $pageData->data;
+                        self::log("Retrieved " . count($pageCustomers) . " customers from page {$page}");
+
+                        // Process each customer in this page (similar logic as above)
+                        foreach ($pageCustomers as $customer) {
+                            // Skip if essential data is missing
+                            if (empty($customer->email)) {
+                                self::log("Skipping customer with missing email on page {$page}");
+                                continue;
+                            }
+
+                            // Check if customer already exists by email
+                            $existingUser = Database::Go()->select(User::mTable)
+                                ->where('email', $customer->email, '=')
+                                ->first()->run();
+
+                            // Generate a username based on email
+                            $username = explode('@', $customer->email)[0] . '_' . Utility::randomString(5);
+
+                            // Generate a random password
+                            $password = Utility::randomString(10);
+                            $hash = App::Auth()->doHash($password);
+
+                            // Set location field from various address components
+                            $location = !empty($customer->location) && $customer->location !== 'null'
+                                ? $customer->location
+                                : (!empty($customer->city) ? $customer->city . ', ' . $customer->country : $customer->country);
+
+                            // Format the mobile number
+                            $mobile = (!empty($customer->mobile_code) ? $customer->mobile_code : '') .
+                                (!empty($customer->mobile) ? $customer->mobile : '');
+
+                            // Prepare user data
+                            // Inside your import methods, modify the $userData array to use the new field:
+                            $userData = [
+                                'username' => $username,
+                                'fname' => $customer->first_name,
+                                'lname' => $customer->last_name,
+                                'email' => $customer->email ?? '',
+                                'hash' => $hash,
+                                'type' => 'member',
+                                'active' => 'y',
+                                'userlevel' => 1,
+                                'city' => $customer->city ?? '',
+                                'country' => $customer->country ?? '', // Now can store the full country name
+                                'address' => $location ?? '',
+                                'login_info' => $mobile,
+                                'avatar' => $customer->avatar ?? null,
+                                'created_by' => $user_id,
+                                'newsletter' => 1,
+                                'salla_customer_id' => $customer->id, // Directly store here instead of in custom_fields
+                                'custom_fields' => json_encode([
+                                    'gender' => $customer->gender ?? '',
+                                    'imported_from_salla' => true,
+                                    'salla_import_date' => date('Y-m-d H:i:s')
+                                ])
+                            ];
+
+                            if ($existingUser) {
+                                // Update existing user
+                                $updateResult = Database::Go()->update(User::mTable, $userData)
+                                    ->where('id', $existingUser->id, '=')
+                                    ->run();
+
+                                if ($updateResult) {
+                                    $updatedCount++;
+                                    self::log("Updated existing user (ID: {$existingUser->id}) from Salla customer ID: {$customer->id}");
+                                } else {
+                                    self::log("Failed to update user from Salla customer ID: {$customer->id}");
+                                }
+                            } else {
+                                // Insert new user
+                                $userId = Database::Go()->insert(User::mTable, $userData)->run();
+
+                                if ($userId) {
+                                    $importedCount++;
+                                    self::log("Created new user (ID: {$userId}) from Salla customer ID: {$customer->id}");
+                                } else {
+                                    self::log("Failed to create user from Salla customer ID: {$customer->id}");
+                                }
+                            }
+                        }
+                    }
+                }
+
+                self::log("Customer import completed during store connection. Imported: {$importedCount}, Updated: {$updatedCount}");
+            } else {
+                self::log("No customers found or invalid response from Salla API during store connection");
+            }
+        }
+
         // Set success message and redirect
-        Message::msgReply(true, 'success', 'Salla store connected successfully. Products and subscriptions have been imported.');
+        Message::msgReply(true, 'success', 'Salla store connected successfully. Products, subscriptions, and customers have been imported.');
+        Url::redirect(SITEURL . '/sub_admin');
+    }
+
+    /**
+     * Handle incoming Salla webhooks
+     * @return void
+     */
+    public function handleSallaWebhook(): void
+    {
+        // Start by logging the webhook request
+        self::log("Received Salla webhook request");
+
+        // Get the webhook payload
+        $payload = file_get_contents('php://input');
+        $headers = getallheaders();
+
+        // Verify webhook signature
+        $signature = $headers['X-Salla-Signature'] ?? '';
+        $event = $headers['X-Salla-Event'] ?? '';
+        $timestamp = $headers['X-Salla-Timestamp'] ?? '';
+
+        // Get webhook secret from settings
+        $core = App::Core();
+        $webhookSecret = $core->salla_webhook_secret;
+
+        // Log event type
+        self::log("Webhook Event: " . $event);
+
+        // Verify webhook signature to ensure it's from Salla
+        $calculatedSignature = hash_hmac('sha256', $timestamp . '.' . $payload, $webhookSecret);
+
+        if (!hash_equals($calculatedSignature, $signature)) {
+            self::log("Webhook signature verification failed");
+            http_response_code(401);
+            echo json_encode(['status' => 'error', 'message' => 'Invalid signature']);
+            exit;
+        }
+
+        // Parse the JSON payload
+        $data = json_decode($payload);
+
+        if (!$data) {
+            self::log("Invalid webhook payload format");
+            http_response_code(400);
+            echo json_encode(['status' => 'error', 'message' => 'Invalid payload format']);
+            exit;
+        }
+
+        // Process different events
+        switch ($event) {
+            case 'product.created':
+                $this->handleProductCreated($data);
+                break;
+
+            case 'product.updated':
+                $this->handleProductUpdated($data);
+                break;
+
+            case 'product.deleted':
+                $this->handleProductDeleted($data);
+                break;
+
+            case 'order.created':
+                $this->handleOrderCreated($data);
+                break;
+
+            case 'order.updated':
+                $this->handleOrderUpdated($data);
+                break;
+
+            default:
+                self::log("Unhandled webhook event: $event");
+                // Respond with success to unhandled events
+                http_response_code(200);
+                echo json_encode(['status' => 'success', 'message' => 'Event received but not processed']);
+                exit;
+        }
+
+        // Respond with success
+        http_response_code(200);
+        echo json_encode(['status' => 'success', 'message' => 'Webhook processed successfully']);
+    }
+
+    /**
+     * Handle product.created webhook event
+     * @param object $data Webhook payload
+     * @return void
+     */
+    private function handleProductCreated($data): void
+    {
+        self::log("Processing product.created event for product ID: " . $data->data->id);
+
+        // Extract merchant ID (store owner)
+        $merchantId = $data->merchant;
+
+        // Find the user associated with this merchant
+        $user = $this->findUserByMerchantId($merchantId);
+
+        if (!$user) {
+            self::log("No user found for merchant ID: $merchantId");
+            return;
+        }
+
+        $product = $data->data;
+
+        // Prepare membership data
+        $membershipData = [
+            'title' => $product->name,
+            'description' => $product->description ?? substr($product->description ?? '', 0, 200),
+            'body' => $product->description ?? '',
+            'price' => $product->price->amount ?? 0,
+            'days' => 30, // Default subscription period
+            'period' => 'D', // D for days
+            'recurring' => 1, // Set as recurring
+            'private' => 0,
+            'created_by' => $user->id,
+            'active' => 1,
+            'salla_product_id' => $product->id
+        ];
+
+        // Set main image if available
+        if (!empty($product->main_image)) {
+            $membershipData['thumb'] = $product->main_image;
+        }
+
+        // Insert new membership
+        $membership_id = Database::Go()->insert(Membership::mTable, $membershipData)->run();
+
+        if ($membership_id) {
+            self::log("Created new membership (ID: $membership_id) from webhook for product ID: {$product->id}");
+        } else {
+            self::log("Failed to create membership from webhook for product ID: {$product->id}");
+        }
+    }
+
+    /**
+     * Handle product.updated webhook event
+     * @param object $data Webhook payload
+     * @return void
+     */
+    private function handleProductUpdated($data): void
+    {
+        self::log("Processing product.updated event for product ID: " . $data->data->id);
+
+        $product = $data->data;
+
+        // Find existing membership by Salla product ID
+        $existingMembership = Database::Go()->select(Membership::mTable)
+            ->where('salla_product_id', $product->id, '=')
+            ->first()->run();
+
+        if (!$existingMembership) {
+            self::log("No matching membership found for Salla product ID: {$product->id}");
+            return;
+        }
+
+        // Prepare updated membership data
+        $membershipData = [
+            'title' => $product->name,
+            'description' => $product->description ?? substr($product->description ?? '', 0, 200),
+            'body' => $product->description ?? '',
+            'price' => $product->price->amount ?? $existingMembership->price,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+
+        // Update main image if available
+        if (!empty($product->main_image)) {
+            $membershipData['thumb'] = $product->main_image;
+        }
+
+        // Update existing membership
+        $result = Database::Go()->update(Membership::mTable, $membershipData)
+            ->where('id', $existingMembership->id, '=')
+            ->run();
+
+        if ($result) {
+            self::log("Updated membership (ID: {$existingMembership->id}) from webhook for product ID: {$product->id}");
+        } else {
+            self::log("Failed to update membership from webhook for product ID: {$product->id}");
+        }
+    }
+
+    /**
+     * Handle product.deleted webhook event
+     * @param object $data Webhook payload
+     * @return void
+     */
+    private function handleProductDeleted($data): void
+    {
+        self::log("Processing product.deleted event for product ID: " . $data->data->id);
+
+        $productId = $data->data->id;
+
+        // Find existing membership by Salla product ID
+        $existingMembership = Database::Go()->select(Membership::mTable)
+            ->where('salla_product_id', $productId, '=')
+            ->first()->run();
+
+        if (!$existingMembership) {
+            self::log("No matching membership found for deleted Salla product ID: {$productId}");
+            return;
+        }
+
+        // Option 1: Mark as inactive instead of deleting
+        $result = Database::Go()->update(Membership::mTable, ['active' => 0])
+            ->where('id', $existingMembership->id, '=')
+            ->run();
+
+        if ($result) {
+            self::log("Marked membership (ID: {$existingMembership->id}) as inactive due to product deletion");
+        } else {
+            self::log("Failed to update membership status for deleted product ID: {$productId}");
+        }
+
+        // Option 2 (alternative): Actually delete the membership
+        // Uncomment if you prefer deletion
+        /*
+        $result = Database::Go()->delete(Membership::mTable)
+            ->where('id', $existingMembership->id, '=')
+            ->run();
+        
+        if ($result) {
+            self::log("Deleted membership (ID: {$existingMembership->id}) due to product deletion");
+        } else {
+            self::log("Failed to delete membership for product ID: {$productId}");
+        }
+        */
+    }
+
+    /**
+     * Handle order.created webhook event
+     * @param object $data Webhook payload
+     * @return void
+     */
+    private function handleOrderCreated($data): void
+    {
+        self::log("Processing order.created event for order ID: " . $data->data->id);
+
+        $order = $data->data;
+        $merchantId = $data->merchant;
+
+        // Find the user associated with this merchant
+        $user = $this->findUserByMerchantId($merchantId);
+
+        if (!$user) {
+            self::log("No user found for merchant ID: $merchantId");
+            return;
+        }
+
+        // Process each item in the order
+        if (empty($order->items)) {
+            self::log("No items found in order ID: {$order->id}");
+            return;
+        }
+
+        foreach ($order->items as $item) {
+            // Find the membership for this product
+            $membership = Database::Go()->select(Membership::mTable)
+                ->where('salla_product_id', $item->product_id, '=')
+                ->first()->run();
+
+            if (!$membership) {
+                self::log("No matching membership found for product ID: {$item->product_id} in order");
+                continue;
+            }
+
+            // Set subscription dates
+            $startDate = date('Y-m-d H:i:s');
+            $endDate = date('Y-m-d H:i:s', strtotime("+ {$membership->days} days"));
+
+            // Check if this subscription already exists
+            $existingSubscription = Database::Go()->select('salla_subscriptions')
+                ->where('salla_order_id', $order->id, '=')
+                ->where('salla_product_id', $item->product_id, '=')
+                ->first()->run();
+
+            if ($existingSubscription) {
+                self::log("Subscription already exists for order ID: {$order->id} and product ID: {$item->product_id}");
+                continue;
+            }
+
+            // Create new subscription with customer information
+            $subscriptionData = [
+                'membership_id' => $membership->id,
+                'salla_product_id' => $item->product_id,
+                'salla_order_id' => $order->id,
+                'salla_customer_id' => isset($order->customer) ? ($order->customer->id ?? null) : null,
+                'customer_name' => isset($order->receiver) ? $order->receiver->name : (isset($order->customer) ? ($order->customer->first_name . ' ' . $order->customer->last_name) : null),
+                'customer_email' => isset($order->receiver) ? $order->receiver->email : (isset($order->customer) ? $order->customer->email : null),
+                'customer_phone' => isset($order->receiver) ? $order->receiver->phone : (isset($order->customer) ? ($order->customer->mobile_code . $order->customer->mobile) : null),
+                'quantity' => $item->quantity ?? 1,
+                'start_date' => $startDate,
+                'end_date' => $endDate,
+                'status' => 'active',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+
+            $result = Database::Go()->insert('salla_subscriptions', $subscriptionData)->run();
+
+            if ($result) {
+                self::log("Created new subscription from webhook for order ID: {$order->id}, product ID: {$item->product_id}");
+                self::log("Customer info saved - Name: {$subscriptionData['customer_name']}, Email: {$subscriptionData['customer_email']}");
+            } else {
+                self::log("Failed to create subscription from webhook for order ID: {$order->id}");
+            }
+        }
+    }
+
+    /**
+     * Handle order.updated webhook event
+     * @param object $data Webhook payload
+     * @return void
+     */
+    private function handleOrderUpdated($data): void
+    {
+        self::log("Processing order.updated event for order ID: " . $data->data->id);
+
+        $order = $data->data;
+
+        // Find existing subscriptions for this order
+        $existingSubscriptions = Database::Go()->select('salla_subscriptions')
+            ->where('salla_order_id', $order->id, '=')
+            ->run();
+
+        if (!$existingSubscriptions) {
+            self::log("No matching subscriptions found for order ID: {$order->id}");
+            return;
+        }
+
+        // Update subscription status based on order status
+        $newStatus = 'active';
+
+        // Map Salla order status to our subscription status
+        if (isset($order->status)) {
+            switch ($order->status->id) {
+                case 'canceled':
+                case 'canceled_by_customer':
+                    $newStatus = 'canceled';
+                    break;
+                case 'completed':
+                    $newStatus = 'active';
+                    break;
+                case 'payment_pending':
+                    $newStatus = 'pending';
+                    break;
+                default:
+                    // Keep as active for other statuses
+                    $newStatus = 'active';
+            }
+        }
+
+        // Prepare update data with customer information
+        $updateData = [
+            'status' => $newStatus,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+
+        // Update customer information if available in the webhook
+        if (isset($order->customer) || isset($order->receiver)) {
+            if (isset($order->customer)) {
+                $updateData['salla_customer_id'] = $order->customer->id ?? null;
+                $updateData['customer_name'] = ($order->customer->first_name ?? '') . ' ' . ($order->customer->last_name ?? '');
+                $updateData['customer_email'] = $order->customer->email ?? null;
+                $updateData['customer_phone'] = ($order->customer->mobile_code ?? '') . ($order->customer->mobile ?? '');
+            }
+
+            // Receiver info takes precedence if available
+            if (isset($order->receiver)) {
+                $updateData['customer_name'] = $order->receiver->name ?? $updateData['customer_name'] ?? null;
+                $updateData['customer_email'] = $order->receiver->email ?? $updateData['customer_email'] ?? null;
+                $updateData['customer_phone'] = $order->receiver->phone ?? $updateData['customer_phone'] ?? null;
+            }
+
+            // self::log("Updating customer info - Name: {$updateData['customer_name'] ?? 'N/A'}, Email: {$updateData['customer_email'] ?? 'N/A'}");
+        }
+
+        // Update all subscriptions for this order
+        $result = Database::Go()->update('salla_subscriptions', $updateData)
+            ->where('salla_order_id', $order->id, '=')
+            ->run();
+
+        if ($result) {
+            self::log("Updated subscription status to '$newStatus' and customer information for order ID: {$order->id}");
+        } else {
+            self::log("Failed to update subscription for order ID: {$order->id}");
+        }
+    }
+
+    /**
+     * Find user by Salla merchant ID
+     * @param string $merchantId Salla merchant ID
+     * @return object|null User object or null if not found
+     */
+    private function findUserByMerchantId(string $merchantId)
+    {
+        // First try to find in salla_merchants table
+        $merchant = Database::Go()->select('salla_merchants')
+            ->where('store_id', $merchantId, '=')
+            ->first()->run();
+
+        if ($merchant && $merchant->user_id) {
+            return Database::Go()->select(User::mTable)
+                ->where('id', $merchant->user_id, '=')
+                ->first()->run();
+        }
+
+        // If not found, check if we have tokens for any user
+        $tokens = Database::Go()->select('salla_tokens')->run();
+
+        if (!$tokens) {
+            return null;
+        }
+
+        // For each token, try to get merchant info
+        foreach ($tokens as $token) {
+            // If token is expired, skip
+            if ($token->expires_at < time()) {
+                continue;
+            }
+
+            // Use the token to fetch merchant info from Salla
+            $options = [
+                'http' => [
+                    'header' => "Authorization: Bearer " . $token->access_token . "\r\n",
+                    'method' => 'GET'
+                ]
+            ];
+
+            $context = stream_context_create($options);
+            $response = @file_get_contents('https://api.salla.dev/admin/v2/merchant/details', false, $context);
+
+            if (!$response) {
+                continue;
+            }
+
+            $merchantData = json_decode($response);
+
+            if (isset($merchantData->data->id) && $merchantData->data->id === $merchantId) {
+                // Found matching merchant, get user
+                return Database::Go()->select(User::mTable)
+                    ->where('id', $token->user_id, '=')
+                    ->first()->run();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Import Salla customers
+     * This method fetches customers from Salla API and registers them as members
+     * @return void
+     */
+    public function importSallaCustomers(): void
+    {
+        self::log("Starting import of Salla customers");
+
+        $user_id = App::Auth()->uid;
+
+        // Get Salla access token
+        $token = Database::Go()->select('salla_tokens')
+            ->where('user_id', $user_id, '=')
+            ->first()->run();
+
+        if (!$token || $token->expires_at < time()) {
+            self::log("No valid Salla token found for user ID: {$user_id}");
+            Message::msgError('No valid Salla token found. Please reconnect your Salla store.');
+            Url::redirect(SITEURL . '/sub_admin');
+            return;
+        }
+
+        // Fetch customers from Salla API
+        $apiUrl = 'https://api.salla.dev/admin/v2/customers';
+        $options = [
+            'http' => [
+                'header' => "Authorization: Bearer " . $token->access_token . "\r\n",
+                'method' => 'GET'
+            ]
+        ];
+
+        $context = stream_context_create($options);
+        $response = @file_get_contents($apiUrl, false, $context);
+
+        if (!$response) {
+            self::log("Failed to fetch customers from Salla API");
+            Message::msgError('Failed to fetch customers from Salla API.');
+            Url::redirect(SITEURL . '/sub_admin');
+            return;
+        }
+
+        $customersData = json_decode($response);
+
+        if (empty($customersData) || !isset($customersData->data)) {
+            self::log("No customers found or invalid response from Salla API");
+            Message::msgError('No customers found or invalid response from Salla API.');
+            Url::redirect(SITEURL . '/sub_admin');
+            return;
+        }
+
+        $customers = $customersData->data;
+        self::log("Retrieved " . count($customers) . " customers from Salla API");
+
+        $importedCount = 0;
+        $updatedCount = 0;
+
+        // Process each customer
+        foreach ($customers as $customer) {
+            // Check if customer already exists by email
+            $existingUser = Database::Go()->select(User::mTable)
+                ->where('email', $customer->email, '=')
+                ->first()->run();
+
+            // Generate a username based on email
+            $username = explode('@', $customer->email)[0] . '_' . Utility::randomString(5);
+
+            // Generate a random password
+            $password = Utility::randomString(10);
+            $hash = App::Auth()->doHash($password);
+
+            // Set location field from various address components
+            $location = !empty($customer->location) && $customer->location !== 'null'
+                ? $customer->location
+                : (!empty($customer->city) ? $customer->city . ', ' . $customer->country : $customer->country);
+
+            // Format the mobile number
+            $mobile = (!empty($customer->mobile_code) ? $customer->mobile_code : '') .
+                (!empty($customer->mobile) ? $customer->mobile : '');
+
+            // Prepare user data
+            $userData = [
+                'username' => $username,
+                'fname' => $customer->first_name,
+                'lname' => $customer->last_name,
+                'email' => $customer->email,
+                'hash' => $hash,
+                'type' => 'member',
+                'active' => 'y', // Set as active by default
+                'userlevel' => 1, // Regular member level
+                'city' => $customer->city ?? '',
+                'country' => substr($customer->country ?? '', 0, 4), // Limit to 4 chars as per schema
+                'address' => $location ?? '',
+                'login_info' => $mobile,
+                'avatar' => $customer->avatar ?? null,
+                'created_by' => $user_id,
+                'newsletter' => 1,
+                'custom_fields' => json_encode([
+                    'salla_customer_id' => $customer->id,
+                    'gender' => $customer->gender ?? '',
+                    'imported_from_salla' => true,
+                    'salla_import_date' => date('Y-m-d H:i:s')
+                ])
+            ];
+
+            if ($existingUser) {
+                // Update existing user
+                $updateResult = Database::Go()->update(User::mTable, $userData)
+                    ->where('id', $existingUser->id, '=')
+                    ->run();
+
+                if ($updateResult) {
+                    $updatedCount++;
+                    self::log("Updated existing user (ID: {$existingUser->id}) from Salla customer ID: {$customer->id}");
+                } else {
+                    self::log("Failed to update user from Salla customer ID: {$customer->id}");
+                }
+            } else {
+                // Insert new user
+                $userId = Database::Go()->insert(User::mTable, $userData)->run();
+
+                if ($userId) {
+                    $importedCount++;
+                    self::log("Created new user (ID: {$userId}) from Salla customer ID: {$customer->id}");
+                } else {
+                    self::log("Failed to create user from Salla customer ID: {$customer->id}");
+                }
+            }
+        }
+
+        // Check for pagination and process additional pages if available
+        if (isset($customersData->pagination) && $customersData->pagination->totalPages > 1) {
+            $currentPage = $customersData->pagination->currentPage;
+            $totalPages = $customersData->pagination->totalPages;
+
+            self::log("Processing additional pages. Current: {$currentPage}, Total: {$totalPages}");
+
+            // Process remaining pages
+            for ($page = $currentPage + 1; $page <= $totalPages; $page++) {
+                self::log("Fetching customers page {$page} of {$totalPages}");
+
+                $pageUrl = $apiUrl . '?page=' . $page;
+                $pageResponse = @file_get_contents($pageUrl, false, $context);
+
+                if (!$pageResponse) {
+                    self::log("Failed to fetch customers page {$page}");
+                    continue;
+                }
+
+                $pageData = json_decode($pageResponse);
+
+                if (empty($pageData) || !isset($pageData->data)) {
+                    self::log("Invalid response for customers page {$page}");
+                    continue;
+                }
+
+                $pageCustomers = $pageData->data;
+                self::log("Retrieved " . count($pageCustomers) . " customers from page {$page}");
+
+                // Process each customer in this page (same logic as above)
+                foreach ($pageCustomers as $customer) {
+                    // Check if customer already exists by email
+                    $existingUser = Database::Go()->select(User::mTable)
+                        ->where('email', $customer->email, '=')
+                        ->first()->run();
+
+                    // Generate a username based on email
+                    $username = explode('@', $customer->email)[0] . '_' . Utility::randomString(5);
+
+                    // Generate a random password
+                    $password = Utility::randomString(10);
+                    $hash = App::Auth()->doHash($password);
+
+                    // Set location field from various address components
+                    $location = !empty($customer->location) && $customer->location !== 'null'
+                        ? $customer->location
+                        : (!empty($customer->city) ? $customer->city . ', ' . $customer->country : $customer->country);
+
+                    // Format the mobile number
+                    $mobile = (!empty($customer->mobile_code) ? $customer->mobile_code : '') .
+                        (!empty($customer->mobile) ? $customer->mobile : '');
+
+                    // Prepare user data
+                    $userData = [
+                        'username' => $username,
+                        'fname' => $customer->first_name,
+                        'lname' => $customer->last_name,
+                        'email' => $customer->email,
+                        'hash' => $hash,
+                        'type' => 'member',
+                        'active' => 'y', // Set as active by default
+                        'userlevel' => 1, // Regular member level
+                        'city' => $customer->city ?? '',
+                        'country' => substr($customer->country ?? '', 0, 4), // Limit to 4 chars as per schema
+                        'address' => $location ?? '',
+                        'login_info' => $mobile,
+                        'avatar' => $customer->avatar ?? null,
+                        'created_by' => $user_id,
+                        'newsletter' => 1,
+                        'custom_fields' => json_encode([
+                            'salla_customer_id' => $customer->id,
+                            'gender' => $customer->gender ?? '',
+                            'imported_from_salla' => true,
+                            'salla_import_date' => date('Y-m-d H:i:s')
+                        ])
+                    ];
+
+                    if ($existingUser) {
+                        // Update existing user
+                        $updateResult = Database::Go()->update(User::mTable, $userData)
+                            ->where('id', $existingUser->id, '=')
+                            ->run();
+
+                        if ($updateResult) {
+                            $updatedCount++;
+                            self::log("Updated existing user (ID: {$existingUser->id}) from Salla customer ID: {$customer->id}");
+                        } else {
+                            self::log("Failed to update user from Salla customer ID: {$customer->id}");
+                        }
+                    } else {
+                        // Insert new user
+                        $userId = Database::Go()->insert(User::mTable, $userData)->run();
+
+                        if ($userId) {
+                            $importedCount++;
+                            self::log("Created new user (ID: {$userId}) from Salla customer ID: {$customer->id}");
+                        } else {
+                            self::log("Failed to create user from Salla customer ID: {$customer->id}");
+                        }
+                    }
+                }
+            }
+        }
+
+        // Set success message and redirect
+        $message = "Import completed. " .
+            "Imported {$importedCount} new customers and updated {$updatedCount} existing customers.";
+        Message::msgReply(true, 'success', $message);
         Url::redirect(SITEURL . '/sub_admin');
     }
 }

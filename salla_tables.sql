@@ -50,3 +50,19 @@ ADD COLUMN `salla_webhook_secret` varchar(255) DEFAULT NULL;
 ALTER TABLE `memberships` 
 ADD COLUMN `salla_product_id` varchar(255) DEFAULT NULL,
 ADD INDEX `idx_salla_product_id` (`salla_product_id`);
+
+-- Add customer details to salla_subscriptions table
+-- This will help in identifying the customer associated with the subscription
+ALTER TABLE `salla_subscriptions` 
+ADD COLUMN `customer_name` varchar(255) DEFAULT NULL AFTER `salla_customer_id`,
+ADD COLUMN `customer_email` varchar(255) DEFAULT NULL AFTER `customer_name`,
+ADD COLUMN `customer_phone` varchar(50) DEFAULT NULL AFTER `customer_email`;
+
+-- Alter users table to increase country and custom_fields, and add salla_customer_id
+ALTER TABLE `users` 
+    MODIFY `country` VARCHAR(50),
+    MODIFY `custom_fields` TEXT,
+    ADD COLUMN `salla_customer_id` VARCHAR(50) NULL AFTER `custom_fields`;
+
+-- Modify the users table to allow NULL emails
+ALTER TABLE `users` MODIFY `email` varchar(60) NULL;
