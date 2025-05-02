@@ -652,3 +652,21 @@
                 LEFT JOIN `memberships` as m ON m.id = u.membership_id 
                 WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
 [2025-05-02 11:07:34] Number of users returned: 3
+[2025-05-02 11:09:35] Starting subscriptions method for sub-admin ID: 2
+[2025-05-02 11:09:35] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-02 11:09:35] Count query result with IN clause: 1
+[2025-05-02 11:09:35] Found 1 subscriptions
+[2025-05-02 11:09:35] Successfully enriched 1 subscriptions with related data
+[2025-05-02 11:09:35] Final number of subscriptions returned: 1
+[2025-05-02 11:09:42] Starting subscriptions method for sub-admin ID: 2
+[2025-05-02 11:09:42] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-02 11:09:42] Count query result with IN clause: 1
+[2025-05-02 11:09:42] Found 1 subscriptions
+[2025-05-02 11:09:42] Successfully enriched 1 subscriptions with related data
+[2025-05-02 11:09:42] Final number of subscriptions returned: 1
+[2025-05-02 11:09:51] Starting subscriptions method for sub-admin ID: 2
+[2025-05-02 11:09:51] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-02 11:09:51] Count query result with IN clause: 1
+[2025-05-02 11:09:51] Found 1 subscriptions
+[2025-05-02 11:09:51] Successfully enriched 1 subscriptions with related data
+[2025-05-02 11:09:51] Final number of subscriptions returned: 1
