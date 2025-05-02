@@ -10,204 +10,229 @@
 if (!defined("_WOJO"))
     die('Direct access to this location is not allowed.');
 ?>
+<style>
+  .data-label {
+    font-weight: 500;
+    color: var(--secondary-color);
+    font-size: 0.95rem;
+    padding-bottom: 0.25rem;
+  }
+  .data-value {
+    color: var(--body-color);
+    font-size: 1rem;
+    padding-bottom: 0.75rem;
+  }
+  .info-card {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  .info-card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 0.5rem;
+  }
+  .section-header i {
+    margin-right: 0.5rem;
+    color: var(--primary-color);
+  }
+  .status-active {
+    background-color: var(--positive-color-inverted);
+    color: var(--positive-color);
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    display: inline-block;
+  }
+  .status-canceled {
+    background-color: var(--negative-color-inverted);
+    color: var(--negative-color);
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    display: inline-block;
+  }
+  .status-pending {
+    background-color: var(--alert-color-inverted);
+    color: var(--alert-color);
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    display: inline-block;
+  }
+  .data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+  }
+  @media (max-width: 768px) {
+    .data-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
 <div class="row gutters align-middle">
   <div class="column">
-    <h3>Subscription Detail</h3>
-    <p class="wojo small text">View detailed information about this subscription</p>
+    <h3 class="text-color-primary">Subscription Detail</h3>
+    <p class="wojo small text text-color-secondary">View detailed information about this subscription</p>
   </div>
-  <div class="column auto">
-    <a href="<?php echo Url::url('/sub_admin/subscriptions'); ?>" class="wojo small icon button">
+  <div class="column auto" style="position: absolute; top: 20px; right: 20px;">
+    <a href="<?php echo Url::url('/sub_admin/subscriptions'); ?>" class="wojo small primary button">
       <i class="icon chevron left"></i> Back to Subscriptions
     </a>
   </div>
 </div>
 
-<div class="row grid gutters">
-  <!-- Subscription Basic Info -->
-  <div class="columns screen-40 tablet-40 mobile-100 phone-100">
-    <div class="wojo segment shadow">
-      <h4>Subscription Information</h4>
+<div class="row gutters">
+  <div class="columns mobile-100 phone-100">
+    <!-- Subscription Basic Info -->
+    <div class="wojo segment shadow margin-bottom info-card">
+      <div class="section-header">
+        <i class="icon calendar check"></i>
+        <h4 class="text-color-primary">Subscription Information</h4>
+      </div>
       <div class="wojo divider"></div>
       
-      <div class="wojo relaxed list">
-        <div class="item">
-          <div class="content">
-            <div class="header">Subscription ID</div>
-            <div class="description"><?php echo $this->data->id; ?></div>
+      <div class="data-grid">
+        <div>
+          <div class="data-label">Status</div>
+          <div class="data-value">
+            <span class="status-<?php echo $this->data->status; ?>">
+              <?php echo ucfirst($this->data->status); ?>
+            </span>
+          </div>
+          
+          <div class="data-label">Created</div>
+          <div class="data-value"><?php echo Date::doDate("long_date", $this->data->created_at); ?></div>
+        </div>
+        
+        <div>
+          <div class="data-label">Start Date</div>
+          <div class="data-value"><?php echo Date::doDate("long_date", $this->data->start_date); ?></div>
+          
+          <div class="data-label">End Date</div>
+          <div class="data-value"><?php echo Date::doDate("long_date", $this->data->end_date); ?></div>
+          
+          <div class="data-label">Remaining</div>
+          <div class="data-value">
+            <?php 
+              $days_left = round((strtotime($this->data->end_date) - time()) / (60 * 60 * 24)); 
+              if($days_left > 0) {
+                echo '<span class="status-active">' . $days_left . ' days left</span>';
+              } else {
+                echo '<span class="status-canceled">Expired ' . abs($days_left) . ' days ago</span>';
+              }
+            ?>
           </div>
         </div>
-        <div class="item">
-          <div class="content">
-            <div class="header">Salla Order ID</div>
-            <div class="description"><?php echo $this->data->salla_order_id ? $this->data->salla_order_id : 'N/A'; ?></div>
-          </div>
+      </div>
+      
+      <?php if($this->data->salla_order_id || $this->data->updated_at): ?>
+      <div class="wojo divider"></div>
+      <div class="data-grid">
+        <?php if($this->data->salla_order_id): ?>
+        <div>
+          <div class="data-label">Salla Order ID</div>
+          <div class="data-value"><?php echo $this->data->salla_order_id ? $this->data->salla_order_id : 'N/A'; ?></div>
         </div>
-        <div class="item">
-          <div class="content">
-            <div class="header">Status</div>
-            <div class="description">
-              <div class="wojo small <?php echo $this->data->status == 'active' ? 'positive' : ($this->data->status == 'canceled' ? 'negative' : 'primary'); ?> label">
-                <?php echo ucfirst($this->data->status); ?>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <div class="header">Start Date</div>
-            <div class="description"><?php echo Date::doDate("long_date", $this->data->start_date); ?></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <div class="header">End Date</div>
-            <div class="description"><?php echo Date::doDate("long_date", $this->data->end_date); ?></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <div class="header">Remaining</div>
-            <div class="description">
-              <?php 
-                $days_left = round((strtotime($this->data->end_date) - time()) / (60 * 60 * 24)); 
-                if($days_left > 0) {
-                  echo '<div class="wojo small positive text">' . $days_left . ' days left</div>';
-                } else {
-                  echo '<div class="wojo small negative text">Expired ' . abs($days_left) . ' days ago</div>';
-                }
-              ?>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <div class="header">Created</div>
-            <div class="description"><?php echo Date::doDate("long_date", $this->data->created_at); ?></div>
-          </div>
-        </div>
+        <?php endif; ?>
+        
         <?php if($this->data->updated_at): ?>
-        <div class="item">
-          <div class="content">
-            <div class="header">Last Updated</div>
-            <div class="description"><?php echo Date::doDate("long_date", $this->data->updated_at); ?></div>
-          </div>
+        <div>
+          <div class="data-label">Last Updated</div>
+          <div class="data-value"><?php echo Date::doDate("long_date", $this->data->updated_at); ?></div>
         </div>
         <?php endif; ?>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Membership Details -->
-  <div class="columns screen-30 tablet-30 mobile-100 phone-100">
-    <div class="wojo segment shadow">
-      <h4>Membership Information</h4>
-      <div class="wojo divider"></div>
-      
-      <?php //if($this->data->membership_thumb): ?>
-      <!-- <div class="content-center margin-bottom">
-        <img src="<?php echo $this->data->membership_thumb; ?>" alt="<?php echo $this->data->membership_title; ?>" class="wojo medium rounded image">
-      </div> -->
-      <?php //endif; ?>
-      
-      <div class="wojo relaxed list">
-        <div class="item">
-          <div class="content">
-            <div class="header">Membership</div>
-            <div class="description"><?php echo $this->data->membership_title; ?></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <div class="header">Price</div>
-            <div class="description"><?php echo Utility::formatMoney($this->data->membership_price); ?></div>
-          </div>
-        </div>
-        <?php if($this->data->membership_description): ?>
-        <div class="item">
-          <div class="content">
-            <div class="header">Description</div>
-            <div class="description"><?php echo $this->data->membership_description; ?></div>
-          </div>
-        </div>
-        <?php endif; ?>
-        <div class="item">
-          <div class="content">
-            <div class="header">Salla Product ID</div>
-            <div class="description"><?php echo $this->data->salla_product_id ? $this->data->salla_product_id : 'N/A'; ?></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Customer Details -->
-  <div class="columns screen-30 tablet-30 mobile-100 phone-100">
-    <div class="wojo segment shadow">
-      <h4>Customer Information</h4>
-      <div class="wojo divider"></div>
-      
-      <div class="wojo relaxed list">
-        <div class="item">
-          <div class="content">
-            <div class="header">Name</div>
-            <div class="description">
-              <?php echo $this->data->user_fname ? $this->data->user_fname . ' ' . $this->data->user_lname : ($this->data->customer_name ? $this->data->customer_name : 'N/A'); ?>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <div class="header">Email</div>
-            <div class="description"><?php echo $this->data->user_email ? $this->data->user_email : ($this->data->customer_email ? $this->data->customer_email : 'N/A'); ?></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="content">
-            <div class="header">Phone</div>
-            <div class="description"><?php echo $this->data->customer_phone ? $this->data->customer_phone : 'N/A'; ?></div>
-          </div>
-        </div>
-        <?php if($this->data->user_id): ?>
-        <div class="item">
-          <div class="content">
-            <div class="header">User ID</div>
-            <div class="description"><?php echo $this->data->user_id; ?></div>
-          </div>
-        </div>
-        <?php endif; ?>
-        <?php if($this->data->salla_customer_id): ?>
-        <div class="item">
-          <div class="content">
-            <div class="header">Salla Customer ID</div>
-            <div class="description"><?php echo $this->data->salla_customer_id; ?></div>
-          </div>
-        </div>
-        <?php endif; ?>
-        <?php if($this->data->user_address || $this->data->user_city || $this->data->user_country): ?>
-        <div class="item">
-          <div class="content">
-            <div class="header">Address</div>
-            <div class="description">
-              <?php 
-                $address = [];
-                if($this->data->user_address) $address[] = $this->data->user_address;
-                if($this->data->user_city) $address[] = $this->data->user_city;
-                if($this->data->user_country) $address[] = $this->data->user_country;
-                echo implode(', ', $address);
-              ?>
-            </div>
-          </div>
-        </div>
-        <?php endif; ?>
-      </div>
-      
-      <?php if($this->data->user_id): ?>
-      <div class="margin-top content-right">
-        <a href="<?php echo Url::url('/sub_admin/users/edit/' . $this->data->user_id); ?>" class="wojo small secondary button">
-          <i class="icon user"></i> View User
-        </a>
       </div>
       <?php endif; ?>
+    </div>
+    
+    <!-- Membership Details -->
+    <div class="wojo segment shadow margin-bottom info-card">
+      <div class="section-header">
+        <i class="icon star"></i>
+        <h4 class="text-color-secondary">Membership Information</h4>
+      </div>
+      <div class="wojo divider"></div>
+      
+      <div class="data-grid">
+        <div>
+          <div class="data-label">Membership</div>
+          <div class="data-value"><strong><?php echo $this->data->membership_title; ?></strong></div>
+          
+          <?php if($this->data->membership_description): ?>
+          <div class="data-label">Description</div>
+          <div class="data-value"><?php echo $this->data->membership_description; ?></div>
+          <?php endif; ?>
+        </div>
+        
+        <div>
+          <div class="data-label">Price</div>
+          <div class="data-value" style="font-size: 1.2rem; color: var(--primary-color); font-weight: 500;">
+            <?php echo Utility::formatMoney($this->data->membership_price); ?>
+          </div>
+          
+          <?php if($this->data->salla_product_id): ?>
+          <div class="data-label">Salla Product ID</div>
+          <div class="data-value"><?php echo $this->data->salla_product_id; ?></div>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Customer Details -->
+    <div class="wojo segment shadow info-card">
+      <div class="section-header">
+        <i class="icon user"></i>
+        <h4 class="text-color-secondary">Customer Information</h4>
+      </div>
+      <div class="wojo divider"></div>
+      
+      <div class="data-grid">
+        <div>
+          <div class="data-label">Name</div>
+          <div class="data-value">
+            <strong>
+              <?php echo $this->data->user_fname ? $this->data->user_fname . ' ' . $this->data->user_lname : ($this->data->customer_name ? $this->data->customer_name : 'N/A'); ?>
+            </strong>
+          </div>
+          
+          <div class="data-label">Email</div>
+          <div class="data-value">
+            <a href="mailto:<?php echo $this->data->user_email ? $this->data->user_email : $this->data->customer_email; ?>">
+              <?php echo $this->data->user_email ? $this->data->user_email : ($this->data->customer_email ? $this->data->customer_email : 'N/A'); ?>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <div class="data-label">Phone</div>
+          <div class="data-value">
+            <?php if($this->data->customer_phone): ?>
+              <a href="tel:<?php echo $this->data->customer_phone; ?>"><?php echo $this->data->customer_phone; ?></a>
+            <?php else: ?>
+              N/A
+            <?php endif; ?>
+          </div>
+          
+          <?php if($this->data->user_address || $this->data->user_city || $this->data->user_country): ?>
+          <div class="data-label">Address</div>
+          <div class="data-value">
+            <?php 
+              $address = [];
+              if($this->data->user_address) $address[] = $this->data->user_address;
+              if($this->data->user_city) $address[] = $this->data->user_city;
+              if($this->data->user_country) $address[] = $this->data->user_country;
+              echo implode(', ', $address);
+            ?>
+          </div>
+          <?php endif; ?>
+        </div>
+      </div>
     </div>
   </div>
 </div>
