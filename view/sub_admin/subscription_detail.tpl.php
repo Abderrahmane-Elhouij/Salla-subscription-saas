@@ -103,11 +103,11 @@ if (!defined("_WOJO"))
       <h4>Membership Information</h4>
       <div class="wojo divider"></div>
       
-      <?php if($this->data->membership_thumb): ?>
-      <div class="content-center margin-bottom">
+      <?php //if($this->data->membership_thumb): ?>
+      <!-- <div class="content-center margin-bottom">
         <img src="<?php echo $this->data->membership_thumb; ?>" alt="<?php echo $this->data->membership_title; ?>" class="wojo medium rounded image">
-      </div>
-      <?php endif; ?>
+      </div> -->
+      <?php //endif; ?>
       
       <div class="wojo relaxed list">
         <div class="item">

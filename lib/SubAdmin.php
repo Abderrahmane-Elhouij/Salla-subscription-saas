@@ -2069,36 +2069,77 @@ class SubAdmin extends Admin
         $tpl->caption = "Subscription Detail";
         $tpl->subtitle = null;
 
-        // Get subscription with membership and customer data using salla_product_id join
-        $sql = "SELECT s.*, 
-                 m.title as membership_title, 
-                 m.description as membership_description,
-                 m.price as membership_price,
-                 m.thumb as membership_thumb,
-                 u.id as user_id,
-                 u.fname as user_fname,
-                 u.lname as user_lname,
-                 u.email as user_email,
-                 u.address as user_address,
-                 u.city as user_city,
-                 u.country as user_country
-                FROM `salla_subscriptions` s
-                LEFT JOIN `" . Membership::mTable . "` m ON m.salla_product_id = s.salla_product_id
-                LEFT JOIN `" . User::mTable . "` u ON u.salla_customer_id = s.salla_customer_id
-                WHERE s.id = ? AND m.created_by = ?";
+        self::log("Starting subscriptionDetail method for ID: " . $id);
 
-        $subscription = Database::Go()->rawQuery($sql, array($id, App::Auth()->uid))->first()->run();
+        $sub_admin_id = App::Auth()->uid;
+
+        // First, get the subscription by ID directly
+        $subscription_sql = "SELECT * FROM `salla_subscriptions` WHERE id = ? LIMIT 1";
+        $subscription = Database::Go()->rawQuery($subscription_sql, array($id))->first()->run();
 
         if (!$subscription) {
+            self::log("Subscription not found. ID: " . $id);
             if (DEBUG) {
-                $tpl->error = 'Invalid subscription ID ' . ($id) . ' detected [' . __CLASS__ . ', ln.:' . __line__ . ']';
+                $tpl->error = 'Invalid subscription ID ' . $id . ' detected [' . __CLASS__ . ', ln.:' . __line__ . ']';
             } else {
                 $tpl->error = Language::$word->META_ERROR;
             }
             $tpl->template = 'sub_admin/error';
-        } else {
-            $tpl->data = $subscription;
-            $tpl->template = 'sub_admin/subscription_detail';
+            return;
         }
+
+        // Now check if this subscription's membership was created by this sub-admin
+        $membership_check_sql = "SELECT id FROM `" . Membership::mTable . "` 
+                           WHERE salla_product_id = ? AND created_by = ? LIMIT 1";
+        $membership_check = Database::Go()->rawQuery($membership_check_sql,
+            array($subscription->salla_product_id, $sub_admin_id))
+            ->first()->run();
+
+        if (!$membership_check) {
+            self::log("Subscription doesn't belong to this sub-admin. ID: " . $id);
+            if (DEBUG) {
+                $tpl->error = 'Access denied for subscription ID ' . $id . ' [' . __CLASS__ . ', ln.:' . __line__ . ']';
+            } else {
+                $tpl->error = Language::$word->META_ERROR;
+            }
+            $tpl->template = 'sub_admin/error';
+            return;
+        }
+
+        // Enrich the subscription with related data
+        $enriched = clone $subscription;
+
+        // Get membership data separately
+        $membership_sql = "SELECT title, price, thumb, description FROM `" . Membership::mTable . "` 
+                      WHERE salla_product_id = ? LIMIT 1";
+        $membership = Database::Go()->rawQuery($membership_sql, array($subscription->salla_product_id))->first()->run();
+
+        if ($membership) {
+            $enriched->membership_title = $membership->title;
+            $enriched->membership_price = $membership->price;
+            $enriched->membership_thumb = $membership->thumb;
+            $enriched->membership_description = $membership->description;
+        }
+
+        // Get user data separately if salla_customer_id exists
+        if (!empty($subscription->salla_customer_id)) {
+            $user_sql = "SELECT id, fname, lname, email, city, country, address FROM `" . User::mTable . "` 
+                    WHERE salla_customer_id = ? LIMIT 1";
+            $user = Database::Go()->rawQuery($user_sql, array($subscription->salla_customer_id))->first()->run();
+
+            if ($user) {
+                $enriched->user_id = $user->id;
+                $enriched->user_fname = $user->fname;
+                $enriched->user_lname = $user->lname;
+                $enriched->user_email = $user->email;
+                $enriched->user_city = $user->city;
+                $enriched->user_country = $user->country;
+                $enriched->user_address = $user->address;
+            }
+        }
+
+        $tpl->data = $enriched;
+        self::log("Successfully loaded subscription detail for ID: " . $id);
+        $tpl->template = 'sub_admin/subscription_detail';
     }
 }
