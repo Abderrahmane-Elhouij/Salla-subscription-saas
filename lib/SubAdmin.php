@@ -1914,4 +1914,191 @@ class SubAdmin extends Admin
         Message::msgReply(true, 'success', $message);
         Url::redirect(SITEURL . '/sub_admin');
     }
+
+    /**
+     * subscriptions
+     * Show Salla subscriptions for this sub-admin
+     * @return void
+     */
+    public function subscriptions(): void
+    {
+        $tpl = App::View(BASEPATH . 'view/');
+        $tpl->dir = 'sub_admin/';
+        $tpl->title = "Salla Subscriptions";
+        $tpl->caption = "Salla Subscriptions";
+        $tpl->subtitle = "View and manage your Salla subscriptions";
+
+        // Start debugging
+        self::log("Starting subscriptions method for sub-admin ID: " . App::Auth()->uid);
+
+        $sub_admin_id = App::Auth()->uid;
+        
+        // First, get all salla_product_ids created by this sub-admin
+        $products_sql = "SELECT salla_product_id FROM `" . Membership::mTable . "` 
+                         WHERE created_by = ? AND salla_product_id IS NOT NULL";
+        $sub_admin_products = Database::Go()->rawQuery($products_sql, array($sub_admin_id))->run();
+        
+        // If no products found for this sub-admin, return empty results
+        if (!is_array($sub_admin_products) || count($sub_admin_products) == 0) {
+            self::log("No products found for this sub-admin");
+            $tpl->data = [];
+            $tpl->pager = Paginator::instance();
+            $tpl->template = 'sub_admin/subscriptions';
+            return;
+        }
+        
+        // Create an array of product IDs for use in the IN clause
+        $product_ids = [];
+        foreach ($sub_admin_products as $product) {
+            if (!empty($product->salla_product_id)) {
+                $product_ids[] = $product->salla_product_id;
+            }
+        }
+        
+        // If no valid product IDs found, return empty results
+        if (empty($product_ids)) {
+            self::log("No valid product IDs found for this sub-admin");
+            $tpl->data = [];
+            $tpl->pager = Paginator::instance();
+            $tpl->template = 'sub_admin/subscriptions';
+            return;
+        }
+        
+        // Log the product IDs we're searching for
+        self::log("Searching for subscriptions with product IDs: " . implode(", ", $product_ids));
+        
+        // Prepare the SQL IN condition with placeholders
+        $in_placeholders = implode(',', array_fill(0, count($product_ids), '?'));
+        
+        // Count query using IN clause
+        $count_sql = "SELECT COUNT(*) AS total 
+                      FROM `salla_subscriptions` 
+                      WHERE salla_product_id IN ($in_placeholders)";
+        
+        $count_result = Database::Go()->rawQuery($count_sql, $product_ids)->first()->run();
+        $total_items = $count_result && isset($count_result->total) ? (int)$count_result->total : 0;
+        
+        self::log("Count query result with IN clause: " . $total_items);
+        
+        // Setup pagination with the count result
+        $pager = Paginator::instance();
+        $pager->items_total = $total_items;
+        $pager->default_ipp = App::Core()->perpage;
+        $pager->path = Url::url(Router::$path, '?');
+        $pager->paginate();
+        
+        if ($total_items > 0) {
+            // Get the basic subscription data first
+            $basic_sql = "SELECT * FROM `salla_subscriptions` 
+                        WHERE salla_product_id IN ($in_placeholders) 
+                        ORDER BY created_at DESC" . $pager->limit;
+            
+            $subscriptions = Database::Go()->rawQuery($basic_sql, $product_ids)->run();
+            
+            if (is_array($subscriptions) && !empty($subscriptions)) {
+                self::log("Found " . count($subscriptions) . " subscriptions");
+                
+                // Load the related data separately to avoid JOIN issues
+                $enriched_subscriptions = [];
+                
+                foreach ($subscriptions as $subscription) {
+                    // Add the basic subscription data
+                    $enriched = clone $subscription;
+                    
+                    // Get membership data
+                    $membership_sql = "SELECT title, price, thumb FROM `" . Membership::mTable . "` 
+                                      WHERE salla_product_id = ? LIMIT 1";
+                    $membership = Database::Go()->rawQuery($membership_sql, array($subscription->salla_product_id))->first()->run();
+                    
+                    if ($membership) {
+                        $enriched->membership_title = $membership->title;
+                        $enriched->membership_price = $membership->price;
+                        $enriched->membership_thumb = $membership->thumb;
+                    }
+                    
+                    // Get user data if salla_customer_id exists
+                    if (!empty($subscription->salla_customer_id)) {
+                        $user_sql = "SELECT fname, lname, email FROM `" . User::mTable . "` 
+                                    WHERE salla_customer_id = ? LIMIT 1";
+                        $user = Database::Go()->rawQuery($user_sql, array($subscription->salla_customer_id))->first()->run();
+                        
+                        if ($user) {
+                            $enriched->user_fname = $user->fname;
+                            $enriched->user_lname = $user->lname;
+                            $enriched->user_email = $user->email;
+                        }
+                    }
+                    
+                    $enriched_subscriptions[] = $enriched;
+                }
+                
+                $tpl->data = $enriched_subscriptions;
+                self::log("Successfully enriched " . count($enriched_subscriptions) . " subscriptions with related data");
+            } else {
+                self::log("Failed to retrieve subscriptions with the basic query");
+                $tpl->data = [];
+            }
+        } else {
+            $tpl->data = [];
+        }
+        
+        $tpl->pager = $pager;
+        
+        // Log how many results were returned in final data
+        if (is_array($tpl->data)) {
+            self::log("Final number of subscriptions returned: " . count($tpl->data));
+        } else {
+            self::log("Final data is not an array. Setting empty array.");
+            $tpl->data = []; // Ensure data is always an array even if empty
+        }
+        
+        $tpl->template = 'sub_admin/subscriptions';
+    }
+
+    /**
+     * subscriptionDetail
+     * Show detailed information for a specific subscription
+     * @param int $id
+     * @return void
+     */
+    public function subscriptionDetail(int $id): void
+    {
+        $tpl = App::View(BASEPATH . 'view/');
+        $tpl->dir = 'sub_admin/';
+        $tpl->title = "Subscription Detail";
+        $tpl->caption = "Subscription Detail";
+        $tpl->subtitle = null;
+
+        // Get subscription with membership and customer data using salla_product_id join
+        $sql = "SELECT s.*, 
+                 m.title as membership_title, 
+                 m.description as membership_description,
+                 m.price as membership_price,
+                 m.thumb as membership_thumb,
+                 u.id as user_id,
+                 u.fname as user_fname,
+                 u.lname as user_lname,
+                 u.email as user_email,
+                 u.address as user_address,
+                 u.city as user_city,
+                 u.country as user_country
+                FROM `salla_subscriptions` s
+                LEFT JOIN `" . Membership::mTable . "` m ON m.salla_product_id = s.salla_product_id
+                LEFT JOIN `" . User::mTable . "` u ON u.salla_customer_id = s.salla_customer_id
+                WHERE s.id = ? AND m.created_by = ?";
+
+        $subscription = Database::Go()->rawQuery($sql, array($id, App::Auth()->uid))->first()->run();
+
+        if (!$subscription) {
+            if (DEBUG) {
+                $tpl->error = 'Invalid subscription ID ' . ($id) . ' detected [' . __CLASS__ . ', ln.:' . __line__ . ']';
+            } else {
+                $tpl->error = Language::$word->META_ERROR;
+            }
+            $tpl->template = 'sub_admin/error';
+        } else {
+            $tpl->data = $subscription;
+            $tpl->template = 'sub_admin/subscription_detail';
+        }
+    }
 }

@@ -82,6 +82,9 @@ if (!defined('_WOJO')) {
                 <div class="item">
                     <a href="<?php echo Url::url('/sub_admin/memberships'); ?>" class="wojo small secondary button"><?php echo Language::$word->SUB_ADMIN_VIEW_MEMBERSHIPS; ?></a>
                 </div>
+                <div class="item">
+                    <a href="<?php echo Url::url('/sub_admin/subscriptions'); ?>" class="wojo small secondary button">View Salla Subscriptions</a>
+                </div>
             </div>
         </div>
     </div>

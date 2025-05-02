@@ -50,6 +50,10 @@
                   <li>
                      <a<?php echo Utility::isActive('users', $this->segments); ?> href="<?php echo Url::url('/sub_admin/users'); ?>"><?php echo Language::$word->ADM_USERS; ?></a>
                   </li>
+                  
+                  <li>
+                     <a<?php echo Utility::isActive('subscriptions', $this->segments); ?> href="<?php echo Url::url('/sub_admin/subscriptions'); ?>">Subscriptions</a>
+                  </li>
 
                </ul>
             </nav>

@@ -236,6 +236,12 @@
         //sub-admin files - limited access
         $router->get('/files', 'SubAdmin@fileIndex');
         
+        //sub-admin subscriptions
+        $router->mount('/subscriptions', function () use ($router, $tpl) {
+            $router->match('GET|POST', '/', 'SubAdmin@subscriptions');
+            $router->get('/detail/(\d+)', 'SubAdmin@subscriptionDetail');
+        });
+        
         //logout
         $router->get('/logout', function () {
             App::Auth()->logout();

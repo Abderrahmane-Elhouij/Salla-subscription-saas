@@ -118,6 +118,21 @@ switch ($pAction) {
         $core->setTitle(Language::$word->META_T35);
         break;
         
+    // Subscriptions section
+    case 'subscriptions':
+        switch (Url::segment($this->segments, 2)) {
+            // Subscription detail view
+            case 'detail':
+                $core->setTitle("Subscription Detail");
+                break;
+                
+            // Subscriptions list
+            default:
+                $core->setTitle("Salla Subscriptions");
+                break;
+        }
+        break;
+        
     // Default
     default:
         $core->setTitle(Language::$word->SUB_ADMIN_DASHBOARD);
