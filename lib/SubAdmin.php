@@ -2343,14 +2343,13 @@ class SubAdmin extends Admin
         $membershipData = [
             'title' => $updateData['name'],
             'price' => $updateData['price'],
-            'description' => $updateData['description'],
-            'updated_at' => date('Y-m-d H:i:s')
+            'description' => $updateData['description']
         ];
         
         $result = Database::Go()->update(Membership::mTable, $membershipData)
             ->where('id', $membership_id, '=')
             ->run();
-            
+
         if ($result) {
             self::log("Successfully updated membership ({$membership_id}) and Salla product ({$product_id})");
         } else {
