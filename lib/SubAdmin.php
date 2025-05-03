@@ -2142,4 +2142,226 @@ class SubAdmin extends Admin
         self::log("Successfully loaded subscription detail for ID: " . $id);
         $tpl->template = 'sub_admin/subscription_detail';
     }
+
+    /**
+     * editSallaProduct
+     * Edit a Salla product through the Salla API
+     * @param int $id Membership ID
+     * @return void
+     */
+    public function editSallaProduct(int $id): void
+    {
+        $tpl = App::View(BASEPATH . 'view/');
+        $tpl->dir = 'sub_admin/';
+        $tpl->title = "Edit Salla Product";
+        $tpl->caption = "Edit Salla Product";
+        $tpl->crumbs = ['sub_admin', 'memberships', 'edit-salla-product'];
+
+        // Check if user has a valid token
+        $user_id = App::Auth()->uid;
+        $token = Database::Go()->select('salla_tokens')
+            ->where('user_id', $user_id, '=')
+            ->first()->run();
+
+        if (!$token || $token->expires_at < time()) {
+            self::log("No valid Salla token found for user ID: {$user_id} while trying to edit product");
+            $tpl->error = 'Your Salla connection has expired. Please reconnect your Salla store.';
+            $tpl->template = 'sub_admin/error';
+            return;
+        }
+
+        // Verify membership belongs to this sub-admin and has a salla_product_id
+        $membership = Database::Go()->select(Membership::mTable)
+            ->where('id', $id, '=')
+            ->where('created_by', $user_id, '=')
+            ->first()->run();
+
+        if (!$membership) {
+            self::log("Invalid membership ID: {$id} or membership doesn't belong to sub-admin");
+            $tpl->error = Language::$word->META_ERROR;
+            $tpl->template = 'sub_admin/error';
+            return;
+        }
+
+        if (empty($membership->salla_product_id)) {
+            self::log("Membership ID: {$id} doesn't have an associated Salla product ID");
+            $tpl->error = 'This membership is not linked to a Salla product.';
+            $tpl->template = 'sub_admin/error';
+            return;
+        }
+
+        // Get current product details from Salla API
+        $apiUrl = "https://api.salla.dev/admin/v2/products/{$membership->salla_product_id}";
+        $options = [
+            'http' => [
+                'header' => "Authorization: Bearer " . $token->access_token . "\r\n",
+                'method' => 'GET'
+            ]
+        ];
+
+        $context = stream_context_create($options);
+        $response = @file_get_contents($apiUrl, false, $context);
+
+        if (!$response) {
+            self::log("Failed to fetch product details from Salla API for product ID: {$membership->salla_product_id}");
+            $tpl->error = 'Failed to fetch product details from Salla. Please try again later.';
+            $tpl->template = 'sub_admin/error';
+            return;
+        }
+
+        $productData = json_decode($response);
+
+        if (empty($productData) || !isset($productData->data)) {
+            self::log("Invalid response from Salla API for product ID: {$membership->salla_product_id}");
+            $tpl->error = 'Invalid response from Salla API. Please try again later.';
+            $tpl->template = 'sub_admin/error';
+            return;
+        }
+
+        // Store product data and membership in template
+        $tpl->product = $productData->data;
+        $tpl->membership = $membership;
+        $tpl->salla_token = $token->access_token;
+        
+        // Use a specific template for editing Salla products
+        $tpl->template = 'sub_admin/edit_salla_product';
+    }
+
+    /**
+     * updateSallaProduct
+     * Process the Salla product update form
+     * @return void
+     */
+    public function updateSallaProduct(): void
+    {
+        // This will be called via AJAX from the edit_salla_product template
+        self::log("Processing updateSallaProduct request");
+        
+        // Check if request is AJAX
+        if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
+            http_response_code(400);
+            echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
+            exit;
+        }
+        
+        // Get POST data
+        $data = json_decode(file_get_contents('php://input'), true);
+        
+        if (!$data) {
+            http_response_code(400);
+            echo json_encode(['status' => 'error', 'message' => 'Invalid data format']);
+            exit;
+        }
+        
+        $user_id = App::Auth()->uid;
+        $membership_id = $data['membership_id'] ?? 0;
+        $product_id = $data['product_id'] ?? 0;
+        
+        // Validate permission for this membership
+        $membership = Database::Go()->select(Membership::mTable)
+            ->where('id', $membership_id, '=')
+            ->where('created_by', $user_id, '=')
+            ->first()->run();
+            
+        if (!$membership || $membership->salla_product_id != $product_id) {
+            self::log("Permission denied for updateSallaProduct. Membership ID: {$membership_id}, Product ID: {$product_id}");
+            http_response_code(403);
+            echo json_encode(['status' => 'error', 'message' => 'Permission denied']);
+            exit;
+        }
+        
+        // Get token
+        $token = Database::Go()->select('salla_tokens')
+            ->where('user_id', $user_id, '=')
+            ->first()->run();
+            
+        if (!$token || $token->expires_at < time()) {
+            self::log("No valid token for updateSallaProduct");
+            http_response_code(401);
+            echo json_encode(['status' => 'error', 'message' => 'Salla authentication expired']);
+            exit;
+        }
+        
+        // Prepare data for Salla API
+        $updateData = [
+            'name' => $data['name'] ?? $membership->title,
+            'price' => floatval($data['price'] ?? $membership->price),
+            'description' => $data['description'] ?? $membership->description,
+        ];
+        
+        // Add optional fields if they exist
+        if (isset($data['quantity']) && $data['quantity'] !== '') {
+            $updateData['quantity'] = intval($data['quantity']);
+        }
+        
+        if (isset($data['sale_price']) && $data['sale_price'] !== '') {
+            $updateData['sale_price'] = floatval($data['sale_price']);
+        }
+        
+        if (isset($data['sku']) && $data['sku'] !== '') {
+            $updateData['sku'] = $data['sku'];
+        }
+        
+        if (isset($data['subtitle']) && $data['subtitle'] !== '') {
+            $updateData['subtitle'] = $data['subtitle'];
+        }
+        
+        // Make PUT request to Salla API
+        $apiUrl = "https://api.salla.dev/admin/v2/products/{$product_id}";
+        $options = [
+            'http' => [
+                'header' => "Authorization: Bearer " . $token->access_token . "\r\n" .
+                           "Content-Type: application/json\r\n",
+                'method' => 'PUT',
+                'content' => json_encode($updateData)
+            ]
+        ];
+        
+        self::log("Sending update to Salla API: " . json_encode($updateData));
+        
+        $context = stream_context_create($options);
+        $response = @file_get_contents($apiUrl, false, $context);
+        
+        if (!$response) {
+            self::log("Failed to update product on Salla API");
+            http_response_code(500);
+            echo json_encode(['status' => 'error', 'message' => 'Failed to update product on Salla']);
+            exit;
+        }
+        
+        $responseData = json_decode($response);
+        
+        if (empty($responseData) || isset($responseData->error)) {
+            self::log("Error from Salla API: " . json_encode($responseData));
+            http_response_code(500);
+            $message = isset($responseData->error) ? $responseData->error->message : 'Unknown error from Salla API';
+            echo json_encode(['status' => 'error', 'message' => $message]);
+            exit;
+        }
+        
+        // Update local membership with the same data
+        $membershipData = [
+            'title' => $updateData['name'],
+            'price' => $updateData['price'],
+            'description' => $updateData['description'],
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+        
+        $result = Database::Go()->update(Membership::mTable, $membershipData)
+            ->where('id', $membership_id, '=')
+            ->run();
+            
+        if ($result) {
+            self::log("Successfully updated membership ({$membership_id}) and Salla product ({$product_id})");
+        } else {
+            self::log("Updated Salla product but failed to update local membership");
+        }
+        
+        // Return success response
+        echo json_encode([
+            'status' => 'success',
+            'message' => 'Product updated successfully',
+            'data' => $responseData->data ?? null
+        ]);
+    }
 }

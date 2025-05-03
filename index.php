@@ -225,6 +225,10 @@
             $router->match('GET', '/', 'SubAdmin@membershipIndex');
             $router->get('/edit/(\d+)', 'SubAdmin@membershipEdit');
             $router->get('/new', 'SubAdmin@membershipSave');
+            // New route for editing Salla products
+            $router->get('/edit-salla-product/(\d+)', 'SubAdmin@editSallaProduct');
+            // API endpoint for updating Salla products
+            $router->post('/update-salla-product', 'SubAdmin@updateSallaProduct');
         });
         
         //sub-admin account

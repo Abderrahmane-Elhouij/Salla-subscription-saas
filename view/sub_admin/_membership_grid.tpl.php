@@ -61,6 +61,12 @@
                      </a>
                   </div>
                   <div class="columns auto">
+                     <a href="<?php echo Url::url(Router::$path, 'edit-salla-product/' . $row->id); ?>"
+                        class="wojo icon inverted orange button" title="Edit on Salla">
+                        <i class="icon shopping bag"></i>
+                     </a>
+                  </div>
+                  <div class="columns auto">
                      <a data-set='{"option":[{"action": "trashMembership","title": "<?php echo Validator::sanitize($row->title, 'chars'); ?>","id": <?php echo $row->id; ?>}],"action":"trash","parent":"#item_<?php echo $row->id; ?>"}'
                         class="wojo icon inverted negative button data">
                         <i class="icon trash"></i>
