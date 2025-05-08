@@ -2363,4 +2363,321 @@ class SubAdmin extends Admin
             'data' => $responseData->data ?? null
         ]);
     }
+
+    /**
+     * updateOrder
+     * Display the form to update a Salla order
+     * @param int $id Subscription ID
+     * @return void
+     */
+    public function updateOrder(int $id): void
+    {
+        $tpl = App::View(BASEPATH . 'view/');
+        $tpl->dir = 'sub_admin/';
+        $tpl->title = "Update Salla Order";
+        $tpl->caption = "Update Salla Order";
+        $tpl->crumbs = ['sub_admin', 'subscriptions', 'update-order'];
+
+        // Get current user ID
+        $sub_admin_id = App::Auth()->uid;
+
+        // First, get the subscription by ID
+        $subscription = Database::Go()->select('salla_subscriptions')
+            ->where('id', $id, '=')
+            ->first()->run();
+
+        if (!$subscription) {
+            self::log("Subscription not found. ID: " . $id);
+            if (DEBUG) {
+                $tpl->error = 'Invalid subscription ID ' . $id . ' detected [' . __CLASS__ . ', ln.:' . __line__ . ']';
+            } else {
+                $tpl->error = Language::$word->META_ERROR;
+            }
+            $tpl->template = 'sub_admin/error';
+            return;
+        }
+        
+        // Get membership details
+        $membership = Database::Go()->select(Membership::mTable)
+            ->where('salla_product_id', $subscription->salla_product_id, '=')
+            ->first()->run();
+        
+        if (!$membership) {
+            self::log("Membership not found for subscription ID: " . $id);
+            if (DEBUG) {
+                $tpl->error = 'Invalid membership for subscription ID ' . $id . ' [' . __CLASS__ . ', ln.:' . __line__ . ']';
+            } else {
+                $tpl->error = Language::$word->META_ERROR;
+            }
+            $tpl->template = 'sub_admin/error';
+            return;
+        }
+
+        // Verify this subscription belongs to the sub-admin
+        if ($membership->created_by != $sub_admin_id) {
+            self::log("Permission denied: subscription doesn't belong to this sub-admin. ID: " . $id);
+            if (DEBUG) {
+                $tpl->error = 'Permission denied for subscription ID ' . $id . ' [' . __CLASS__ . ', ln.:' . __line__ . ']';
+            } else {
+                $tpl->error = Language::$word->META_ERROR;
+            }
+            $tpl->template = 'sub_admin/error';
+            return;
+        }
+
+        // Check if we have a valid order ID
+        if (empty($subscription->salla_order_id)) {
+            self::log("Cannot update: subscription has no Salla order ID. ID: " . $id);
+            $tpl->error = 'This subscription has no associated Salla order ID.';
+            $tpl->template = 'sub_admin/error';
+            return;
+        }
+
+        // Check if user has a valid Salla token
+        $token = Database::Go()->select('salla_tokens')
+            ->where('user_id', $sub_admin_id, '=')
+            ->first()->run();
+
+        if (!$token || $token->expires_at < time()) {
+            self::log("No valid Salla token found for user ID: {$sub_admin_id} while trying to update order");
+            $tpl->error = 'Your Salla connection has expired. Please reconnect your Salla store.';
+            $tpl->template = 'sub_admin/error';
+            return;
+        }
+
+        // Enhance subscription with membership title
+        $subscription->membership_title = $membership->title;
+        
+        // Pass the subscription data to the template
+        $tpl->data = $subscription;
+        $tpl->template = 'sub_admin/update_order';
+    }
+
+    /**
+     * processUpdateOrder
+     * Process the update order form
+     * @return void
+     */
+    public function processUpdateOrder(): void
+    {
+        // This will be called via AJAX from the update_order template
+        self::log("Processing processUpdateOrder request");
+        
+        // Validate request
+        if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
+            http_response_code(400);
+            echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
+            exit;
+        }
+        
+        // Get and validate POST data
+        $id = isset($_POST['id']) ? Validator::sanitize($_POST['id'], 'int') : 0;
+        $salla_order_id = isset($_POST['salla_order_id']) ? Validator::sanitize($_POST['salla_order_id'], 'string') : '';
+        $status = isset($_POST['status']) ? Validator::sanitize($_POST['status'], 'string') : '';
+        $customer_name = isset($_POST['customer_name']) ? Validator::sanitize($_POST['customer_name'], 'string') : '';
+        $customer_email = isset($_POST['customer_email']) ? Validator::sanitize($_POST['customer_email'], 'email') : '';
+        $customer_phone = isset($_POST['customer_phone']) ? Validator::sanitize($_POST['customer_phone'], 'string') : '';
+        
+        // Get start and end dates
+        $start_date = isset($_POST['start_date']) ? Validator::sanitize($_POST['start_date'], 'string') : '';
+        $end_date = isset($_POST['end_date']) ? Validator::sanitize($_POST['end_date'], 'string') : '';
+        
+        // Convert dates to MySQL format
+        if (!empty($start_date)) {
+            $start_date = Database::toDate($start_date);
+        }
+        
+        if (!empty($end_date)) {
+            $end_date = Database::toDate($end_date);
+        }
+        
+        // Get current user ID
+        $user_id = App::Auth()->uid;
+        
+        // First, get the subscription
+        $subscription = Database::Go()->select('salla_subscriptions')
+            ->where('id', $id, '=')
+            ->first()->run();
+            
+        if (!$subscription) {
+            self::log("Subscription not found for processUpdateOrder. ID: {$id}");
+            echo json_encode([
+                'type' => 'error',
+                'title' => 'Error',
+                'message' => 'Subscription not found.'
+            ]);
+            exit;
+        }
+        
+        // Get the membership to verify ownership
+        $membership = Database::Go()->select(Membership::mTable)
+            ->where('salla_product_id', $subscription->salla_product_id, '=')
+            ->first()->run();
+            
+        if (!$membership || $membership->created_by != $user_id) {
+            self::log("Permission denied for processUpdateOrder. Subscription ID: {$id}");
+            echo json_encode([
+                'type' => 'error',
+                'title' => 'Error',
+                'message' => 'You do not have permission to update this subscription.'
+            ]);
+            exit;
+        }
+        
+        // Get Salla token
+        $token = Database::Go()->select('salla_tokens')
+            ->where('user_id', $user_id, '=')
+            ->first()->run();
+            
+        if (!$token || $token->expires_at < time()) {
+            self::log("No valid token for processUpdateOrder");
+            echo json_encode([
+                'type' => 'error',
+                'title' => 'Error',
+                'message' => 'Your Salla connection has expired. Please reconnect your store.'
+            ]);
+            exit;
+        }
+        
+        // Prepare local data update - These fields will be updated in our database regardless of Salla API result
+        $localUpdateData = [
+            'status' => $status,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+        
+        // Only update dates if they were provided and are different
+        if (!empty($start_date)) {
+            $localUpdateData['start_date'] = $start_date;
+        }
+        
+        if (!empty($end_date)) {
+            $localUpdateData['end_date'] = $end_date;
+        }
+        
+        // Prepare data for Salla API
+        $sallaUpdateData = [];
+        
+        // Only add customer data if it's provided
+        if (!empty($customer_name) || !empty($customer_email) || !empty($customer_phone)) {
+            // Split name into first and last name for Salla
+            $name_parts = explode(' ', $customer_name);
+            $first_name = $name_parts[0];
+            $last_name = count($name_parts) > 1 ? implode(' ', array_slice($name_parts, 1)) : '';
+            
+            // Add customer data to local update
+            $localUpdateData['customer_name'] = $customer_name;
+            $localUpdateData['customer_email'] = $customer_email;
+            $localUpdateData['customer_phone'] = $customer_phone;
+            
+            // Format as per Salla API requirements
+            // For customer object
+            $sallaUpdateData['customer'] = [
+                'id' => $subscription->salla_customer_id,
+                'name' => $customer_name,
+                'email' => $customer_email
+            ];
+            
+            if (!empty($customer_phone)) {
+                // Check if phone starts with a plus sign
+                if (strpos($customer_phone, '+') === 0) {
+                    $sallaUpdateData['customer']['mobile'] = $customer_phone;
+                } else {
+                    // Add a plus sign if not present
+                    $sallaUpdateData['customer']['mobile'] = '+' . $customer_phone;
+                }
+            }
+            
+            // For receiver object
+            $sallaUpdateData['receiver'] = [
+                'name' => $customer_name,
+                'email' => $customer_email,
+                'notify' => true
+            ];
+            
+            if (!empty($customer_phone)) {
+                // Remove plus sign and country code for phone field if present
+                $phone = $customer_phone;
+                if (strpos($phone, '+') === 0) {
+                    $phone = substr($phone, 1);
+                }
+                $sallaUpdateData['receiver']['phone'] = $phone;
+                
+                // For international format
+                $sallaUpdateData['receiver']['country_code'] = substr($phone, 0, 2);
+                $sallaUpdateData['receiver']['phone'] = substr($phone, 2);
+            }
+        }
+        
+        // Try to update the order in Salla API, but only if we have customer data to update
+        $salla_api_success = false;
+        
+        if (!empty($sallaUpdateData)) {
+            try {
+                $apiUrl = "https://api.salla.dev/admin/v2/orders/{$salla_order_id}";
+                
+                foreach ($sallaUpdateData as $key => $data) {
+                    self::log("Updating {$key} information on Salla for order {$salla_order_id}");
+                    
+                    $options = [
+                        'http' => [
+                            'header' => "Authorization: Bearer " . $token->access_token . "\r\n" .
+                                        "Content-Type: application/json\r\n",
+                            'method' => 'PUT',
+                            'content' => json_encode($data)
+                        ]
+                    ];
+                    
+                    $context = stream_context_create($options);
+                    $response = @file_get_contents($apiUrl, false, $context);
+                    
+                    if ($response) {
+                        $responseData = json_decode($response);
+                        if (empty($responseData) || isset($responseData->error)) {
+                            self::log("Error from Salla API while updating {$key}: " . json_encode($responseData));
+                        } else {
+                            self::log("Successfully updated {$key} information on Salla for order {$salla_order_id}");
+                            $salla_api_success = true;
+                        }
+                    } else {
+                        self::log("Failed to update {$key} on Salla API for order {$salla_order_id}");
+                    }
+                }
+            } catch (Exception $e) {
+                self::log("Exception while updating order on Salla: " . $e->getMessage());
+            }
+        } else {
+            // No Salla update needed, consider it a success
+            $salla_api_success = true;
+        }
+        
+        // Update local subscription data
+        $result = Database::Go()->update('salla_subscriptions', $localUpdateData)
+            ->where('id', $id, '=')
+            ->run();
+        
+        if ($result) {
+            self::log("Successfully updated local subscription data for ID: {$id}");
+            
+            if ($salla_api_success) {
+                echo json_encode([
+                    'type' => 'success',
+                    'title' => 'Success',
+                    'message' => 'Order has been updated successfully in both local database and Salla.'
+                ]);
+            } else {
+                echo json_encode([
+                    'type' => 'info',
+                    'title' => 'Partial Success',
+                    'message' => 'Order has been updated locally, but there was an issue updating Salla. The subscription data may not be in sync.'
+                ]);
+            }
+        } else {
+            self::log("Failed to update local subscription data for ID: {$id}");
+            echo json_encode([
+                'type' => 'error',
+                'title' => 'Error',
+                'message' => 'Failed to update order in our system. Please try again.'
+            ]);
+        }
+    }
 }

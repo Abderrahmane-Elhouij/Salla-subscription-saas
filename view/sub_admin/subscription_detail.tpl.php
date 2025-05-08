@@ -81,9 +81,14 @@ if (!defined("_WOJO"))
     <p class="wojo small text text-color-secondary">View detailed information about this subscription</p>
   </div>
   <div class="column auto" style="position: absolute; top: 20px; right: 20px;">
-    <a href="<?php echo Url::url('/sub_admin/subscriptions'); ?>" class="wojo small primary button">
+    <a href="<?php echo Url::url('/sub_admin/subscriptions'); ?>" class="wojo small simple button">
       <i class="icon chevron left"></i> Back to Subscriptions
     </a>
+    <?php if($this->data->salla_order_id): ?>
+    <a href="<?php echo Url::url('/sub_admin/subscriptions/update-order/' . $this->data->id); ?>" class="wojo small orange button">
+      <i class="icon pencil"></i> Update Order
+    </a>
+    <?php endif; ?>
   </div>
 </div>
 

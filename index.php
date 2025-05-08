@@ -244,6 +244,8 @@
         $router->mount('/subscriptions', function () use ($router, $tpl) {
             $router->match('GET|POST', '/', 'SubAdmin@subscriptions');
             $router->get('/detail/(\d+)', 'SubAdmin@subscriptionDetail');
+            $router->get('/update-order/(\d+)', 'SubAdmin@updateOrder');
+            $router->post('/process-update-order', 'SubAdmin@processUpdateOrder');
         });
         
         //logout

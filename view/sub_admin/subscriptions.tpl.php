@@ -101,6 +101,11 @@ if (!defined("_WOJO"))
           <a href="<?php echo Url::url(Router::$path, "detail/" . $row->id);?>" class="wojo icon primary inverted circular button" data-tooltip="View Details">
             <i class="icon eye"></i>
           </a>
+          <?php if($row->salla_order_id): ?>
+          <a href="<?php echo Url::url(Router::$path, "update-order/" . $row->id);?>" class="wojo icon orange inverted circular button" data-tooltip="Update Order">
+            <i class="icon pencil"></i>
+          </a>
+          <?php endif; ?>
         </td>
       </tr>
       <?php endforeach;?>
