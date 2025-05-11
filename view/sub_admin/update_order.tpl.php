@@ -139,13 +139,15 @@ $(document).ready(function() {
             type: 'post',
             url: "<?php echo SITEURL; ?>/sub_admin/subscriptions/process-update-order",
             data: $form.serialize(),
-            dataType: 'json',
-            success: function(json) {
+            dataType: 'json',            success: function(json) {
                 $button.removeClass("loading").prop("disabled", false);
+                
+                // Log success for debugging
+                console.log("AJAX Success Response:", json);
                 
                 $message
                     .show()
-                    .removeClass("success error")
+                    .removeClass("success error info")
                     .addClass(json.type)
                     .html('<i class="icon circle check"></i><div class="header">' + json.title + '</div><p>' + json.message + '</p>');
                 
@@ -153,15 +155,66 @@ $(document).ready(function() {
                     setTimeout(function() {
                         window.location.href = "<?php echo Url::url('/sub_admin/subscriptions/detail/' . $this->data->id); ?>";
                     }, 2000);
-                }
-            },
-            error: function() {
+                }            },error: function(xhr, status, error) {
                 $button.removeClass("loading").prop("disabled", false);
+                
+                let errorMessage = "An unexpected error occurred. ";
+                
+                // Try to parse response if it's JSON
+                if (xhr.responseText) {
+                    try {
+                        const errorObj = JSON.parse(xhr.responseText);
+                        // Check if this is actually a success response with truncated data
+                        if (errorObj.type === "success") {
+                            // Handle as success
+                            $message
+                                .show()
+                                .removeClass("error info")
+                                .addClass("success")
+                                .html('<i class="icon circle check"></i><div class="header">' + errorObj.title + '</div><p>' + errorObj.message + '</p>');
+                            
+                            // Redirect after success
+                            setTimeout(function() {
+                                window.location.href = "<?php echo Url::url('/sub_admin/subscriptions/detail/' . $this->data->id); ?>";
+                            }, 2000);
+                            return;
+                        }
+                        
+                        if (errorObj.message) {
+                            errorMessage += errorObj.message;
+                        } else {
+                            errorMessage += "Please try again. Error details: " + error;
+                        }
+                    } catch (e) {
+                        // Check if this is a truncated success response
+                        if (xhr.responseText.indexOf('"type":"success"') !== -1) {
+                            // Handle as success
+                            $message
+                                .show()
+                                .removeClass("error info")
+                                .addClass("success")
+                                .html('<i class="icon circle check"></i><div class="header">Success</div><p>Order has been updated successfully.</p>');
+                            
+                            // Redirect after success
+                            setTimeout(function() {
+                                window.location.href = "<?php echo Url::url('/sub_admin/subscriptions/detail/' . $this->data->id); ?>";
+                            }, 2000);
+                            return;
+                        }
+                        errorMessage += "Server responded with: " + xhr.responseText.substring(0, 100);
+                    }
+                } else {
+                    errorMessage += "Please check your connection and try again.";
+                }
+                
                 $message
                     .show()
                     .removeClass("success")
                     .addClass("error")
-                    .html('<i class="icon circle check"></i><div class="header">Error</div><p>An unexpected error occurred. Please try again.</p>');
+                    .html('<i class="icon circle check"></i><div class="header">Error</div><p>' + errorMessage + '</p>');
+                
+                // Log error to console for debugging
+                console.error("AJAX Error:", status, error, xhr.responseText);
             }
         });
     });
