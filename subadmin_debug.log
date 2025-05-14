@@ -156,3 +156,594 @@
 [2025-05-08 11:47:00] Found 1 subscriptions
 [2025-05-08 11:47:00] Successfully enriched 1 subscriptions with related data
 [2025-05-08 11:47:00] Final number of subscriptions returned: 1
+[2025-05-08 11:49:01] Starting subscriptionDetail method for ID: 1
+[2025-05-08 11:49:01] Successfully loaded subscription detail for ID: 1
+[2025-05-08 11:49:07] Starting userIndex method for sub-admin ID: 2
+[2025-05-08 11:49:07] Counter value (total users found): 2
+[2025-05-08 11:49:07] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-08 11:49:07] Number of users returned: 2
+[2025-05-08 11:49:49] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 11:49:49] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 11:49:49] Count query result with IN clause: 1
+[2025-05-08 11:49:49] Found 1 subscriptions
+[2025-05-08 11:49:49] Successfully enriched 1 subscriptions with related data
+[2025-05-08 11:49:49] Final number of subscriptions returned: 1
+[2025-05-08 11:49:58] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 11:49:58] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 11:49:58] Count query result with IN clause: 1
+[2025-05-08 11:49:58] Found 1 subscriptions
+[2025-05-08 11:49:58] Successfully enriched 1 subscriptions with related data
+[2025-05-08 11:49:58] Final number of subscriptions returned: 1
+[2025-05-08 11:52:15] Starting userIndex method for sub-admin ID: 2
+[2025-05-08 11:52:15] Counter value (total users found): 2
+[2025-05-08 11:52:15] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-08 11:52:15] Number of users returned: 2
+[2025-05-08 11:52:19] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 11:52:19] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 11:52:19] Count query result with IN clause: 1
+[2025-05-08 11:52:19] Found 1 subscriptions
+[2025-05-08 11:52:19] Successfully enriched 1 subscriptions with related data
+[2025-05-08 11:52:19] Final number of subscriptions returned: 1
+[2025-05-08 11:52:26] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 11:52:26] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 11:52:26] Count query result with IN clause: 1
+[2025-05-08 11:52:26] Found 1 subscriptions
+[2025-05-08 11:52:26] Successfully enriched 1 subscriptions with related data
+[2025-05-08 11:52:26] Final number of subscriptions returned: 1
+[2025-05-08 11:52:34] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 11:52:34] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 11:52:34] Count query result with IN clause: 1
+[2025-05-08 11:52:34] Found 1 subscriptions
+[2025-05-08 11:52:34] Successfully enriched 1 subscriptions with related data
+[2025-05-08 11:52:34] Final number of subscriptions returned: 1
+[2025-05-08 11:53:01] Starting Salla callback handling process
+[2025-05-08 11:53:01] Starting Salla callback handling process
+[2025-05-08 11:53:02] Updated existing Salla tokens for user ID: 2
+[2025-05-08 11:53:03] Retrieved 2 products from Salla
+[2025-05-08 11:53:04] Retrieved 0 orders containing product: فستان وردي
+[2025-05-08 11:53:05] Retrieved 0 orders containing product: t9xira
+[2025-05-08 11:53:05] Starting import of Salla customers after product import
+[2025-05-08 11:53:05] Retrieved 2 customers from Salla API during store connection
+[2025-05-08 11:53:05] Updated existing user (ID: 28) from Salla customer ID: 1417499419
+[2025-05-08 11:53:05] Updated existing user (ID: 27) from Salla customer ID: 1109900279
+[2025-05-08 11:53:05] Customer import completed during store connection. Imported: 0, Updated: 2
+[2025-05-08 11:53:11] Starting userIndex method for sub-admin ID: 2
+[2025-05-08 11:53:11] Counter value (total users found): 2
+[2025-05-08 11:53:11] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-08 11:53:11] Number of users returned: 2
+[2025-05-08 11:53:11] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 11:53:11] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 11:53:11] Count query result with IN clause: 1
+[2025-05-08 11:53:11] Found 1 subscriptions
+[2025-05-08 11:53:11] Successfully enriched 1 subscriptions with related data
+[2025-05-08 11:53:11] Final number of subscriptions returned: 1
+[2025-05-08 11:53:12] Starting userIndex method for sub-admin ID: 2
+[2025-05-08 11:53:12] Counter value (total users found): 2
+[2025-05-08 11:53:12] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-08 11:53:12] Number of users returned: 2
+[2025-05-08 11:53:18] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 11:53:18] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 11:53:18] Count query result with IN clause: 1
+[2025-05-08 11:53:18] Found 1 subscriptions
+[2025-05-08 11:53:18] Successfully enriched 1 subscriptions with related data
+[2025-05-08 11:53:18] Final number of subscriptions returned: 1
+[2025-05-08 12:16:46] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 12:16:46] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 12:16:46] Count query result with IN clause: 1
+[2025-05-08 12:16:46] Found 1 subscriptions
+[2025-05-08 12:16:46] Successfully enriched 1 subscriptions with related data
+[2025-05-08 12:16:46] Final number of subscriptions returned: 1
+[2025-05-08 12:32:57] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 12:32:57] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 12:32:57] Count query result with IN clause: 1
+[2025-05-08 12:32:57] Found 1 subscriptions
+[2025-05-08 12:32:57] Successfully enriched 1 subscriptions with related data
+[2025-05-08 12:32:57] Final number of subscriptions returned: 1
+[2025-05-08 12:33:09] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 12:33:09] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 12:33:09] Count query result with IN clause: 1
+[2025-05-08 12:33:09] Found 1 subscriptions
+[2025-05-08 12:33:09] Successfully enriched 1 subscriptions with related data
+[2025-05-08 12:33:09] Final number of subscriptions returned: 1
+[2025-05-08 12:33:35] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 12:33:35] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 12:33:35] Count query result with IN clause: 1
+[2025-05-08 12:33:35] Found 1 subscriptions
+[2025-05-08 12:33:35] Successfully enriched 1 subscriptions with related data
+[2025-05-08 12:33:35] Final number of subscriptions returned: 1
+[2025-05-08 12:42:41] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 12:42:41] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 12:42:41] Count query result with IN clause: 1
+[2025-05-08 12:42:41] Found 1 subscriptions
+[2025-05-08 12:42:41] Successfully enriched 1 subscriptions with related data
+[2025-05-08 12:42:41] Final number of subscriptions returned: 1
+[2025-05-08 12:42:59] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 12:42:59] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 12:42:59] Count query result with IN clause: 1
+[2025-05-08 12:42:59] Found 1 subscriptions
+[2025-05-08 12:42:59] Successfully enriched 1 subscriptions with related data
+[2025-05-08 12:42:59] Final number of subscriptions returned: 1
+[2025-05-08 12:46:33] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 12:46:33] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 12:46:33] Count query result with IN clause: 1
+[2025-05-08 12:46:33] Found 1 subscriptions
+[2025-05-08 12:46:33] Successfully enriched 1 subscriptions with related data
+[2025-05-08 12:46:33] Final number of subscriptions returned: 1
+[2025-05-08 12:50:22] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 12:50:22] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 12:50:22] Count query result with IN clause: 1
+[2025-05-08 12:50:22] Found 1 subscriptions
+[2025-05-08 12:50:22] Successfully enriched 1 subscriptions with related data
+[2025-05-08 12:50:22] Final number of subscriptions returned: 1
+[2025-05-08 12:58:43] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 12:58:43] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 12:58:43] Count query result with IN clause: 1
+[2025-05-08 12:58:43] Found 1 subscriptions
+[2025-05-08 12:58:43] Successfully enriched 1 subscriptions with related data
+[2025-05-08 12:58:43] Final number of subscriptions returned: 1
+[2025-05-08 13:02:09] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 13:02:09] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 13:02:09] Count query result with IN clause: 1
+[2025-05-08 13:02:09] Found 1 subscriptions
+[2025-05-08 13:02:09] Successfully enriched 1 subscriptions with related data
+[2025-05-08 13:02:09] Final number of subscriptions returned: 1
+[2025-05-08 13:03:20] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 13:03:20] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 13:03:20] Count query result with IN clause: 1
+[2025-05-08 13:03:20] Found 1 subscriptions
+[2025-05-08 13:03:20] Successfully enriched 1 subscriptions with related data
+[2025-05-08 13:03:20] Final number of subscriptions returned: 1
+[2025-05-08 16:09:27] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:09:27] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:09:27] Count query result with IN clause: 1
+[2025-05-08 16:09:27] Found 1 subscriptions
+[2025-05-08 16:09:27] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:09:27] Final number of subscriptions returned: 1
+[2025-05-08 16:22:43] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:22:43] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:22:43] Count query result with IN clause: 1
+[2025-05-08 16:22:43] Found 1 subscriptions
+[2025-05-08 16:22:43] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:22:43] Final number of subscriptions returned: 1
+[2025-05-08 16:34:13] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:34:13] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:34:13] Count query result with IN clause: 1
+[2025-05-08 16:34:13] Found 1 subscriptions
+[2025-05-08 16:34:13] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:34:13] Final number of subscriptions returned: 1
+[2025-05-08 16:34:24] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:34:24] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:34:24] Count query result with IN clause: 1
+[2025-05-08 16:34:24] Found 1 subscriptions
+[2025-05-08 16:34:24] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:34:24] Final number of subscriptions returned: 1
+[2025-05-08 16:37:03] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:37:03] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:37:03] Count query result with IN clause: 1
+[2025-05-08 16:37:03] Found 1 subscriptions
+[2025-05-08 16:37:03] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:37:03] Final number of subscriptions returned: 1
+[2025-05-08 16:37:16] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:37:16] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:37:16] Count query result with IN clause: 1
+[2025-05-08 16:37:16] Found 1 subscriptions
+[2025-05-08 16:37:16] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:37:16] Final number of subscriptions returned: 1
+[2025-05-08 16:37:26] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:37:26] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:37:26] Count query result with IN clause: 1
+[2025-05-08 16:37:26] Found 1 subscriptions
+[2025-05-08 16:37:26] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:37:26] Final number of subscriptions returned: 1
+[2025-05-08 16:37:33] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:37:33] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:37:33] Count query result with IN clause: 1
+[2025-05-08 16:37:33] Found 1 subscriptions
+[2025-05-08 16:37:33] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:37:33] Final number of subscriptions returned: 1
+[2025-05-08 16:40:57] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:40:57] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:40:57] Count query result with IN clause: 1
+[2025-05-08 16:40:57] Found 1 subscriptions
+[2025-05-08 16:40:57] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:40:57] Final number of subscriptions returned: 1
+[2025-05-08 16:41:15] Starting userIndex method for sub-admin ID: 2
+[2025-05-08 16:41:15] Counter value (total users found): 2
+[2025-05-08 16:41:15] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-08 16:41:15] Number of users returned: 2
+[2025-05-08 16:41:19] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:41:19] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:41:19] Count query result with IN clause: 1
+[2025-05-08 16:41:19] Found 1 subscriptions
+[2025-05-08 16:41:19] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:41:19] Final number of subscriptions returned: 1
+[2025-05-08 16:48:56] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:48:56] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:48:56] Count query result with IN clause: 1
+[2025-05-08 16:48:56] Found 1 subscriptions
+[2025-05-08 16:48:56] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:48:56] Final number of subscriptions returned: 1
+[2025-05-08 16:49:11] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:49:11] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:49:11] Count query result with IN clause: 1
+[2025-05-08 16:49:11] Found 1 subscriptions
+[2025-05-08 16:49:11] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:49:11] Final number of subscriptions returned: 1
+[2025-05-08 16:49:27] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:49:27] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:49:27] Count query result with IN clause: 1
+[2025-05-08 16:49:27] Found 1 subscriptions
+[2025-05-08 16:49:27] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:49:27] Final number of subscriptions returned: 1
+[2025-05-08 16:49:29] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:49:29] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:49:29] Count query result with IN clause: 1
+[2025-05-08 16:49:29] Found 1 subscriptions
+[2025-05-08 16:49:29] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:49:29] Final number of subscriptions returned: 1
+[2025-05-08 16:49:38] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:49:38] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:49:38] Count query result with IN clause: 1
+[2025-05-08 16:49:38] Found 1 subscriptions
+[2025-05-08 16:49:38] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:49:38] Final number of subscriptions returned: 1
+[2025-05-08 16:50:17] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:50:17] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:50:17] Count query result with IN clause: 1
+[2025-05-08 16:50:17] Found 1 subscriptions
+[2025-05-08 16:50:17] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:50:17] Final number of subscriptions returned: 1
+[2025-05-08 16:50:32] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:50:32] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:50:32] Count query result with IN clause: 1
+[2025-05-08 16:50:32] Found 1 subscriptions
+[2025-05-08 16:50:32] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:50:32] Final number of subscriptions returned: 1
+[2025-05-08 16:50:49] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:50:49] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:50:49] Count query result with IN clause: 1
+[2025-05-08 16:50:49] Found 1 subscriptions
+[2025-05-08 16:50:49] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:50:49] Final number of subscriptions returned: 1
+[2025-05-08 16:52:31] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:52:31] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:52:31] Count query result with IN clause: 1
+[2025-05-08 16:52:31] Found 1 subscriptions
+[2025-05-08 16:52:31] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:52:31] Final number of subscriptions returned: 1
+[2025-05-08 16:54:52] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:54:52] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:54:52] Count query result with IN clause: 1
+[2025-05-08 16:54:52] Found 1 subscriptions
+[2025-05-08 16:54:52] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:54:52] Final number of subscriptions returned: 1
+[2025-05-08 16:55:11] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:55:11] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:55:11] Count query result with IN clause: 1
+[2025-05-08 16:55:11] Found 1 subscriptions
+[2025-05-08 16:55:11] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:55:11] Final number of subscriptions returned: 1
+[2025-05-08 16:59:50] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 16:59:50] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 16:59:50] Count query result with IN clause: 1
+[2025-05-08 16:59:50] Found 1 subscriptions
+[2025-05-08 16:59:50] Successfully enriched 1 subscriptions with related data
+[2025-05-08 16:59:50] Final number of subscriptions returned: 1
+[2025-05-08 17:00:11] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 17:00:11] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 17:00:11] Count query result with IN clause: 1
+[2025-05-08 17:00:11] Found 1 subscriptions
+[2025-05-08 17:00:11] Successfully enriched 1 subscriptions with related data
+[2025-05-08 17:00:11] Final number of subscriptions returned: 1
+[2025-05-08 17:00:27] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 17:00:27] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 17:00:27] Count query result with IN clause: 1
+[2025-05-08 17:00:27] Found 1 subscriptions
+[2025-05-08 17:00:27] Successfully enriched 1 subscriptions with related data
+[2025-05-08 17:00:27] Final number of subscriptions returned: 1
+[2025-05-08 17:00:35] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 17:00:35] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 17:00:35] Count query result with IN clause: 1
+[2025-05-08 17:00:35] Found 1 subscriptions
+[2025-05-08 17:00:35] Successfully enriched 1 subscriptions with related data
+[2025-05-08 17:00:35] Final number of subscriptions returned: 1
+[2025-05-08 17:00:49] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 17:00:49] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 17:00:49] Count query result with IN clause: 1
+[2025-05-08 17:00:49] Found 1 subscriptions
+[2025-05-08 17:00:49] Successfully enriched 1 subscriptions with related data
+[2025-05-08 17:00:49] Final number of subscriptions returned: 1
+[2025-05-08 17:01:01] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 17:01:01] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 17:01:01] Count query result with IN clause: 1
+[2025-05-08 17:01:01] Found 1 subscriptions
+[2025-05-08 17:01:01] Successfully enriched 1 subscriptions with related data
+[2025-05-08 17:01:01] Final number of subscriptions returned: 1
+[2025-05-08 17:18:02] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 17:18:02] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 17:18:02] Count query result with IN clause: 1
+[2025-05-08 17:18:02] Found 1 subscriptions
+[2025-05-08 17:18:02] Successfully enriched 1 subscriptions with related data
+[2025-05-08 17:18:02] Final number of subscriptions returned: 1
+[2025-05-08 17:18:31] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 17:18:31] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 17:18:31] Count query result with IN clause: 1
+[2025-05-08 17:18:31] Found 1 subscriptions
+[2025-05-08 17:18:31] Successfully enriched 1 subscriptions with related data
+[2025-05-08 17:18:31] Final number of subscriptions returned: 1
+[2025-05-08 17:18:43] Starting subscriptions method for sub-admin ID: 2
+[2025-05-08 17:18:43] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-08 17:18:43] Count query result with IN clause: 1
+[2025-05-08 17:18:43] Found 1 subscriptions
+[2025-05-08 17:18:43] Successfully enriched 1 subscriptions with related data
+[2025-05-08 17:18:43] Final number of subscriptions returned: 1
+[2025-05-11 17:37:33] Starting subscriptions method for sub-admin ID: 2
+[2025-05-11 17:37:33] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-11 17:37:33] Count query result with IN clause: 1
+[2025-05-11 17:37:33] Found 1 subscriptions
+[2025-05-11 17:37:33] Successfully enriched 1 subscriptions with related data
+[2025-05-11 17:37:33] Final number of subscriptions returned: 1
+[2025-05-11 17:37:48] Starting subscriptions method for sub-admin ID: 2
+[2025-05-11 17:37:48] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-11 17:37:48] Count query result with IN clause: 1
+[2025-05-11 17:37:48] Found 1 subscriptions
+[2025-05-11 17:37:48] Successfully enriched 1 subscriptions with related data
+[2025-05-11 17:37:48] Final number of subscriptions returned: 1
+[2025-05-11 17:38:05] Starting subscriptions method for sub-admin ID: 2
+[2025-05-11 17:38:05] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-11 17:38:05] Count query result with IN clause: 1
+[2025-05-11 17:38:05] Found 1 subscriptions
+[2025-05-11 17:38:05] Successfully enriched 1 subscriptions with related data
+[2025-05-11 17:38:05] Final number of subscriptions returned: 1
+[2025-05-11 17:38:28] Starting subscriptions method for sub-admin ID: 2
+[2025-05-11 17:38:28] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-11 17:38:28] Count query result with IN clause: 1
+[2025-05-11 17:38:28] Found 1 subscriptions
+[2025-05-11 17:38:28] Successfully enriched 1 subscriptions with related data
+[2025-05-11 17:38:28] Final number of subscriptions returned: 1
+[2025-05-11 17:38:44] Starting subscriptions method for sub-admin ID: 2
+[2025-05-11 17:38:44] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-11 17:38:44] Count query result with IN clause: 1
+[2025-05-11 17:38:44] Found 1 subscriptions
+[2025-05-11 17:38:44] Successfully enriched 1 subscriptions with related data
+[2025-05-11 17:38:44] Final number of subscriptions returned: 1
+[2025-05-11 17:39:13] Starting subscriptions method for sub-admin ID: 2
+[2025-05-11 17:39:13] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-11 17:39:13] Count query result with IN clause: 1
+[2025-05-11 17:39:13] Found 1 subscriptions
+[2025-05-11 17:39:13] Successfully enriched 1 subscriptions with related data
+[2025-05-11 17:39:13] Final number of subscriptions returned: 1
+[2025-05-11 17:45:28] Starting subscriptions method for sub-admin ID: 2
+[2025-05-11 17:45:28] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-11 17:45:28] Count query result with IN clause: 1
+[2025-05-11 17:45:28] Found 1 subscriptions
+[2025-05-11 17:45:28] Successfully enriched 1 subscriptions with related data
+[2025-05-11 17:45:28] Final number of subscriptions returned: 1
+[2025-05-11 17:49:36] Starting subscriptions method for sub-admin ID: 2
+[2025-05-11 17:49:36] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-11 17:49:36] Count query result with IN clause: 1
+[2025-05-11 17:49:36] Found 1 subscriptions
+[2025-05-11 17:49:36] Successfully enriched 1 subscriptions with related data
+[2025-05-11 17:49:36] Final number of subscriptions returned: 1
+[2025-05-11 17:52:35] Starting subscriptions method for sub-admin ID: 2
+[2025-05-11 17:52:35] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-11 17:52:35] Count query result with IN clause: 1
+[2025-05-11 17:52:35] Found 1 subscriptions
+[2025-05-11 17:52:35] Successfully enriched 1 subscriptions with related data
+[2025-05-11 17:52:35] Final number of subscriptions returned: 1
+[2025-05-11 17:52:55] Starting subscriptions method for sub-admin ID: 2
+[2025-05-11 17:52:55] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-11 17:52:55] Count query result with IN clause: 1
+[2025-05-11 17:52:55] Found 1 subscriptions
+[2025-05-11 17:52:55] Successfully enriched 1 subscriptions with related data
+[2025-05-11 17:52:55] Final number of subscriptions returned: 1
+[2025-05-11 17:58:25] Starting userIndex method for sub-admin ID: 2
+[2025-05-11 17:58:25] Counter value (total users found): 2
+[2025-05-11 17:58:25] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-11 17:58:25] Number of users returned: 2
+[2025-05-11 17:58:31] Starting subscriptions method for sub-admin ID: 2
+[2025-05-11 17:58:31] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-11 17:58:31] Count query result with IN clause: 1
+[2025-05-11 17:58:31] Found 1 subscriptions
+[2025-05-11 17:58:31] Successfully enriched 1 subscriptions with related data
+[2025-05-11 17:58:31] Final number of subscriptions returned: 1
+[2025-05-11 17:58:31] Starting userIndex method for sub-admin ID: 2
+[2025-05-11 17:58:31] Counter value (total users found): 2
+[2025-05-11 17:58:31] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-11 17:58:32] Number of users returned: 2
+[2025-05-11 17:58:36] Starting userIndex method for sub-admin ID: 2
+[2025-05-11 17:58:36] Counter value (total users found): 2
+[2025-05-11 17:58:36] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-11 17:58:36] Number of users returned: 2
+[2025-05-11 17:58:42] Starting userIndex method for sub-admin ID: 2
+[2025-05-11 17:58:42] Counter value (total users found): 2
+[2025-05-11 17:58:42] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-11 17:58:43] Number of users returned: 2
+[2025-05-11 18:33:51] Starting subscriptions method for sub-admin ID: 2
+[2025-05-11 18:33:51] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-11 18:33:51] Count query result with IN clause: 1
+[2025-05-11 18:33:51] Found 1 subscriptions
+[2025-05-11 18:33:51] Successfully enriched 1 subscriptions with related data
+[2025-05-11 18:33:51] Final number of subscriptions returned: 1
+[2025-05-11 18:34:19] Processing processUpdateOrder request
+[2025-05-11 18:34:19] Updating customer information on Salla for order 772780201
+[2025-05-11 18:34:20] Successfully updated customer information on Salla for order 772780201
+[2025-05-11 18:34:20] Updating receiver information on Salla for order 772780201
+[2025-05-11 18:34:21] Successfully updated receiver information on Salla for order 772780201
+[2025-05-11 18:34:21] Successfully updated local subscription data for ID: 1
+[2025-05-11 18:35:32] Processing processUpdateOrder request
+[2025-05-11 18:35:32] Updating customer information on Salla for order 772780201
+[2025-05-11 18:35:33] Successfully updated customer information on Salla for order 772780201
+[2025-05-11 18:35:33] Updating receiver information on Salla for order 772780201
+[2025-05-11 18:35:34] Successfully updated receiver information on Salla for order 772780201
+[2025-05-11 18:35:34] Successfully updated local subscription data for ID: 1
+[2025-05-11 18:35:41] Processing processUpdateOrder request
+[2025-05-11 18:35:41] Updating customer information on Salla for order 772780201
+[2025-05-11 18:35:42] Successfully updated customer information on Salla for order 772780201
+[2025-05-11 18:35:42] Updating receiver information on Salla for order 772780201
+[2025-05-11 18:35:43] Successfully updated receiver information on Salla for order 772780201
+[2025-05-11 18:35:43] Successfully updated local subscription data for ID: 1
+[2025-05-11 18:42:19] Processing processUpdateOrder request
+[2025-05-11 18:42:19] Updating customer information on Salla for order 772780201
+[2025-05-11 18:42:19] Successfully updated customer information on Salla for order 772780201
+[2025-05-11 18:42:19] Updating receiver information on Salla for order 772780201
+[2025-05-11 18:42:20] Successfully updated receiver information on Salla for order 772780201
+[2025-05-11 18:42:20] Successfully updated local subscription data for ID: 1
+[2025-05-11 18:44:38] Processing processUpdateOrder request
+[2025-05-11 18:44:38] Updating customer information on Salla for order 772780201
+[2025-05-11 18:44:39] Successfully updated customer information on Salla for order 772780201
+[2025-05-11 18:44:39] Updating receiver information on Salla for order 772780201
+[2025-05-11 18:44:40] Successfully updated receiver information on Salla for order 772780201
+[2025-05-11 18:44:40] Successfully updated local subscription data for ID: 1
+[2025-05-11 18:44:42] Starting subscriptionDetail method for ID: 1
+[2025-05-11 18:44:42] Successfully loaded subscription detail for ID: 1
+[2025-05-11 18:44:51] Starting subscriptions method for sub-admin ID: 2
+[2025-05-11 18:44:51] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-11 18:44:51] Count query result with IN clause: 1
+[2025-05-11 18:44:51] Found 1 subscriptions
+[2025-05-11 18:44:51] Successfully enriched 1 subscriptions with related data
+[2025-05-11 18:44:51] Final number of subscriptions returned: 1
+[2025-05-11 18:47:49] Starting subscriptions method for sub-admin ID: 2
+[2025-05-11 18:47:49] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-11 18:47:49] Count query result with IN clause: 1
+[2025-05-11 18:47:49] Found 1 subscriptions
+[2025-05-11 18:47:49] Successfully enriched 1 subscriptions with related data
+[2025-05-11 18:47:49] Final number of subscriptions returned: 1
+[2025-05-11 18:47:49] Starting userIndex method for sub-admin ID: 2
+[2025-05-11 18:47:49] Counter value (total users found): 2
+[2025-05-11 18:47:49] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-11 18:47:49] Number of users returned: 2
+[2025-05-12 17:49:08] Starting subscriptions method for sub-admin ID: 2
+[2025-05-12 17:49:08] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-12 17:49:08] Count query result with IN clause: 1
+[2025-05-12 17:49:08] Found 1 subscriptions
+[2025-05-12 17:49:08] Successfully enriched 1 subscriptions with related data
+[2025-05-12 17:49:08] Final number of subscriptions returned: 1
+[2025-05-12 17:49:42] Starting subscriptions method for sub-admin ID: 2
+[2025-05-12 17:49:42] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-12 17:49:42] Count query result with IN clause: 1
+[2025-05-12 17:49:42] Found 1 subscriptions
+[2025-05-12 17:49:42] Successfully enriched 1 subscriptions with related data
+[2025-05-12 17:49:42] Final number of subscriptions returned: 1
+[2025-05-12 17:49:53] Starting subscriptions method for sub-admin ID: 2
+[2025-05-12 17:49:53] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-12 17:49:53] Count query result with IN clause: 1
+[2025-05-12 17:49:53] Found 1 subscriptions
+[2025-05-12 17:49:53] Successfully enriched 1 subscriptions with related data
+[2025-05-12 17:49:53] Final number of subscriptions returned: 1
+[2025-05-12 17:50:07] Starting userIndex method for sub-admin ID: 2
+[2025-05-12 17:50:07] Counter value (total users found): 2
+[2025-05-12 17:50:07] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-12 17:50:07] Number of users returned: 2
+[2025-05-12 17:50:13] Starting subscriptions method for sub-admin ID: 2
+[2025-05-12 17:50:13] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-12 17:50:13] Count query result with IN clause: 1
+[2025-05-12 17:50:13] Found 1 subscriptions
+[2025-05-12 17:50:13] Successfully enriched 1 subscriptions with related data
+[2025-05-12 17:50:13] Final number of subscriptions returned: 1
+[2025-05-12 18:03:56] Starting userIndex method for sub-admin ID: 2
+[2025-05-12 18:03:56] Counter value (total users found): 2
+[2025-05-12 18:03:56] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-12 18:03:56] Number of users returned: 2
+[2025-05-12 18:04:10] Starting subscriptions method for sub-admin ID: 2
+[2025-05-12 18:04:10] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-12 18:04:10] Count query result with IN clause: 1
+[2025-05-12 18:04:10] Found 1 subscriptions
+[2025-05-12 18:04:10] Successfully enriched 1 subscriptions with related data
+[2025-05-12 18:04:10] Final number of subscriptions returned: 1
+[2025-05-12 18:04:45] Starting userIndex method for sub-admin ID: 2
+[2025-05-12 18:04:45] Counter value (total users found): 2
+[2025-05-12 18:04:45] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-12 18:04:45] Number of users returned: 2
+[2025-05-12 18:06:03] Starting subscriptions method for sub-admin ID: 2
+[2025-05-12 18:06:03] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-12 18:06:03] Count query result with IN clause: 1
+[2025-05-12 18:06:03] Found 1 subscriptions
+[2025-05-12 18:06:03] Successfully enriched 1 subscriptions with related data
+[2025-05-12 18:06:03] Final number of subscriptions returned: 1
+[2025-05-12 18:06:06] Starting subscriptionDetail method for ID: 1
+[2025-05-12 18:06:06] Successfully loaded subscription detail for ID: 1
+[2025-05-12 18:07:14] Starting subscriptions method for sub-admin ID: 2
+[2025-05-12 18:07:14] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-12 18:07:14] Count query result with IN clause: 1
+[2025-05-12 18:07:14] Found 1 subscriptions
+[2025-05-12 18:07:14] Successfully enriched 1 subscriptions with related data
+[2025-05-12 18:07:14] Final number of subscriptions returned: 1
+[2025-05-14 05:24:44] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 05:24:44] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 05:24:44] Count query result with IN clause: 1
+[2025-05-14 05:24:44] Found 1 subscriptions
+[2025-05-14 05:24:44] Successfully enriched 1 subscriptions with related data
+[2025-05-14 05:24:44] Final number of subscriptions returned: 1
+[2025-05-14 07:18:40] Starting subscriptions method for sub-admin ID: 30
+[2025-05-14 07:18:40] No products found for this sub-admin
+[2025-05-14 07:19:05] Starting Salla callback handling process
+[2025-05-14 07:19:05] Starting Salla callback handling process
+[2025-05-14 07:19:06] Inserted new Salla tokens for user ID: 30
+[2025-05-14 07:19:07] Retrieved 2 products from Salla
+[2025-05-14 07:19:08] Retrieved 0 orders containing product: فستان وردي
+[2025-05-14 07:19:09] Retrieved 0 orders containing product: t9xira
+[2025-05-14 07:19:09] Starting import of Salla customers after product import
+[2025-05-14 07:19:09] Retrieved 2 customers from Salla API during store connection
+[2025-05-14 07:19:10] Updated existing user (ID: 28) from Salla customer ID: 1417499419
+[2025-05-14 07:19:10] Updated existing user (ID: 27) from Salla customer ID: 1109900279
+[2025-05-14 07:19:10] Customer import completed during store connection. Imported: 0, Updated: 2
+[2025-05-14 07:19:13] Starting subscriptions method for sub-admin ID: 30
+[2025-05-14 07:19:13] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 07:19:13] Count query result with IN clause: 1
+[2025-05-14 07:19:13] Found 1 subscriptions
+[2025-05-14 07:19:13] Successfully enriched 1 subscriptions with related data
+[2025-05-14 07:19:13] Final number of subscriptions returned: 1
+[2025-05-14 07:19:17] Starting userIndex method for sub-admin ID: 30
+[2025-05-14 07:19:17] Counter value (total users found): 2
+[2025-05-14 07:19:17] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 30 ORDER BY  created DESC LIMIT 0,12
+[2025-05-14 07:19:17] Number of users returned: 2
+[2025-05-14 07:37:27] Starting userIndex method for sub-admin ID: 30
+[2025-05-14 07:37:27] Counter value (total users found): 2
+[2025-05-14 07:37:27] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 30 ORDER BY  created DESC LIMIT 0,12
+[2025-05-14 07:37:27] Number of users returned: 2

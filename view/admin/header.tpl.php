@@ -40,6 +40,7 @@
          <div class="columns phone-order-5 mobile-order-5 mobile-100 phone-100">
             <nav class="wojo menu">
                <ul>
+                   <?php /*
                   <li<?php echo Utility::isActiveMulti(['templates', 'menus', 'pages', 'language', 'fields', 'coupons', 'mailer'], $this->segments); ?>>
                      <a href="#"><?php echo Language::$word->ADM_CONTENT; ?></a>
                      <ul>
@@ -80,12 +81,13 @@
                         <?php endif; ?>
                      </ul>
                   </li>
+                   */ ?>
 
-                  <?php if (Auth::hasPrivileges('manage_memberships')): ?>
+                  <?php /* if (Auth::hasPrivileges('manage_memberships')): ?>
                      <li>
                         <a<?php echo Utility::isActive('memberships', $this->segments); ?> href="<?php echo Url::url('/admin/memberships'); ?>"><?php echo Language::$word->ADM_MEMBS; ?></a>
                      </li>
-                  <?php endif; ?>
+                  <?php endif; */ ?>
 
                   <?php if (Auth::hasPrivileges('manage_users')): ?>
                      <li>
@@ -93,11 +95,11 @@
                      </li>
                   <?php endif; ?>
 
-                  <?php if (Auth::hasPrivileges('manage_files')): ?>
+                  <?php /* if (Auth::hasPrivileges('manage_files')): ?>
                      <li>
                         <a<?php echo Utility::isActive('files', $this->segments); ?> href="<?php echo Url::url('/admin/files'); ?>"><?php echo Language::$word->ADM_FILES; ?></a>
                      </li>
-                  <?php endif; ?>
+                  <?php endif; */ ?>
 
                </ul>
             </nav>

@@ -50,9 +50,14 @@
                   <li>
                      <a<?php echo Utility::isActive('users', $this->segments); ?> href="<?php echo Url::url('/sub_admin/users'); ?>"><?php echo Language::$word->ADM_USERS; ?></a>
                   </li>
+                    <li>
+                     <a<?php echo Utility::isActive('subscriptions', $this->segments); ?> href="<?php echo Url::url('/sub_admin/subscriptions'); ?>">Subscriptions</a>
+                  </li>
                   
                   <li>
-                     <a<?php echo Utility::isActive('subscriptions', $this->segments); ?> href="<?php echo Url::url('/sub_admin/subscriptions'); ?>">Subscriptions</a>
+                     <a href="<?php echo Url::url('/sub_admin/connect'); ?>" class="wojo small positive button" style="margin-left: 10px;">
+                        <i class="icon link"></i> Connect Salla Store
+                     </a>
                   </li>
 
                </ul>

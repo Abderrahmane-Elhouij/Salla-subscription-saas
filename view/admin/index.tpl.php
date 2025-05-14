@@ -1,48 +1,53 @@
 <?php
-   /**
-    * index
-    *
-    * @package Wojo Framework
-    * @author wojoscripts.com
-    * @copyright 2023
-    * @version 5.00: index.tpl.php, v1.00 7/1/2023 10:32 PM Gewa Exp $
-    *
-    */
-   if (!defined('_WOJO')) {
-      die('Direct access to this location is not allowed.');
-   }
+/**
+ * index
+ *
+ * @package Wojo Framework
+ * @author wojoscripts.com
+ * @copyright 2023
+ * @version 5.00: index.tpl.php, v1.00 7/1/2023 10:32 PM Gewa Exp $
+ *
+ */
+if (!defined('_WOJO')) {
+    die('Direct access to this location is not allowed.');
+}
 ?>
-<div class="row gutters">
-   <div class="columns screen-25 tablet-50 mobile-50 phone-100">
-      <a href="<?php echo Url::url('/admin/users', '?type=registered'); ?>" class="wojo basic attached card">
-         <div class="content center-align"><span class="text-color-positive text-size-massive counter"><?php echo $this->data->users; ?></span>
-            <p class="text-color-positive"><?php echo Language::$word->AD_RUSER; ?></p>
-         </div>
-      </a>
-   </div>
-   <div class="columns screen-25 tablet-50 mobile-50 phone-100">
-      <a href="<?php echo Url::url('/admin/users', '?type=active'); ?>" class="wojo basic attached card">
-         <div class="content center-align"><span class="text-color-secondary text-size-massive counter"><?php echo $this->data->active; ?></span>
-            <p class="text-color-secondary"><?php echo Language::$word->AD_AUSER; ?></p>
-         </div>
-      </a>
-   </div>
-   <div class="columns screen-25 tablet-50 mobile-50 phone-100">
-      <a href="<?php echo Url::url('/admin/users', '?type=pending'); ?>" class="wojo basic attached card">
-         <div class="content center-align"><span class="text-color-negative text-size-massive counter"><?php echo $this->data->pending; ?></span>
-            <p class="text-color-negative"><?php echo Language::$word->AD_PUSER; ?></p>
-         </div>
-      </a>
-   </div>
-   <div class="columns screen-25 tablet-50 mobile-50 phone-100">
-      <a href="<?php echo Url::url('/admin/users', '?type=membership'); ?>" class="wojo basic attached card">
-         <div class="content center-align"><span class="text-color-primary text-size-massive counter"><?php echo $this->data->memberships; ?></span>
-            <p class="text-color-primary"><?php echo Language::$word->AD_AMEM; ?></p>
-         </div>
-      </a>
-   </div>
-</div>
-<?php if (Auth::checkAcl('owner')): ?>
+    <div class="row gutters">
+        <div class="columns screen-25 tablet-50 mobile-50 phone-100">
+            <a href="<?php echo Url::url('/admin/users', '?type=registered'); ?>" class="wojo basic attached card">
+                <div class="content center-align"><span
+                            class="text-color-positive text-size-massive counter"><?php echo $this->data->users; ?></span>
+                    <p class="text-color-positive"><?php echo Language::$word->AD_RUSER; ?></p>
+                </div>
+            </a>
+        </div>
+        <div class="columns screen-25 tablet-50 mobile-50 phone-100">
+            <a href="<?php echo Url::url('/admin/users', '?type=active'); ?>" class="wojo basic attached card">
+                <div class="content center-align"><span
+                            class="text-color-secondary text-size-massive counter"><?php echo $this->data->active; ?></span>
+                    <p class="text-color-secondary"><?php echo Language::$word->AD_AUSER; ?></p>
+                </div>
+            </a>
+        </div>
+        <div class="columns screen-25 tablet-50 mobile-50 phone-100">
+            <a href="<?php echo Url::url('/admin/users', '?type=pending'); ?>" class="wojo basic attached card">
+                <div class="content center-align"><span
+                            class="text-color-negative text-size-massive counter"><?php echo $this->data->pending; ?></span>
+                    <p class="text-color-negative"><?php echo Language::$word->AD_PUSER; ?></p>
+                </div>
+            </a>
+        </div>
+        <div class="columns screen-25 tablet-50 mobile-50 phone-100">
+            <!--<a href="<?php echo Url::url('/admin/memberships'); ?>" class="wojo basic attached card">-->
+            <a class="wojo basic attached card">
+                <div class="content center-align"><span
+                            class="text-color-primary text-size-massive counter"><?php echo $this->data->memberships; ?></span>
+                    <p class="text-color-primary"><?php echo Language::$word->AD_AMEM; ?></p>
+                </div>
+            </a>
+        </div>
+    </div>
+<?php /* if (Auth::checkAcl('owner')): ?>
    <h5><?php echo Language::$word->AD_TYEAR; ?></h5>
    <div class="row gutters align-bottom">
       <div class="columns screen-80 tablet-70 mobile-100">
@@ -85,4 +90,4 @@
       });
       // ]]>
    </script>
-<?php endif; ?>
+<?php endif; */ ?>

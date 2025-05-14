@@ -71,6 +71,11 @@ if (!defined('_WOJO')) {
             <div class="wojo relaxed divider"></div>
             <div class="wojo small fluid middle aligned list">
                 <div class="item">
+                    <a href="<?php echo Url::url('/sub_admin/connect'); ?>" class="wojo small positive button">
+                        <i class="icon link"></i> Connect Salla Store
+                    </a>
+                </div>
+                <div class="item">
                     <a href="<?php echo Url::url('/sub_admin/users/new'); ?>" class="wojo small secondary button"><?php echo Language::$word->SUB_ADMIN_NEW_USER; ?></a>
                 </div>
                 <div class="item">
@@ -81,8 +86,7 @@ if (!defined('_WOJO')) {
                 </div>
                 <div class="item">
                     <a href="<?php echo Url::url('/sub_admin/memberships'); ?>" class="wojo small secondary button"><?php echo Language::$word->SUB_ADMIN_VIEW_MEMBERSHIPS; ?></a>
-                </div>
-                <div class="item">
+                </div>                <div class="item">
                     <a href="<?php echo Url::url('/sub_admin/subscriptions'); ?>" class="wojo small secondary button">View Salla Subscriptions</a>
                 </div>
             </div>

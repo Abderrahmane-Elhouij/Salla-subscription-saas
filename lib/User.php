@@ -26,22 +26,16 @@
          * index
          *
          * @return void
-         */
-        public function index(): void
+         */        public function index(): void
         {
             $tpl = App::View(BASEPATH . 'view/');
             $tpl->dir = 'admin/';
             $tpl->title = Language::$word->META_T2;
             $tpl->caption = Language::$word->META_T2;
-            $tpl->subtitle = null;
+            $tpl->subtitle = 'Sub Admin Users';
             
-            $where = match (App::Auth()->usertype) {
-                'owner' => 'WHERE (type = \'staff\' || type = \'editor\' || type = \'member\' || type = \'sub_admin\')',
-                'staff' => 'WHERE (type = \'editor\' || type = \'member\' || type = \'sub_admin\')',
-                'sub_admin' => 'WHERE (type = \'member\')', 
-                'editor' => 'WHERE (type = \'member\')',
-                default => null,
-            };
+            $where = 'WHERE (type = \'sub_admin\')';
+            
             
             $find = isset($_POST['find']) ? Validator::sanitize($_POST['find'], 'string', 20) : null;
             $counter = 0;

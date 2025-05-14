@@ -19,8 +19,7 @@
          * index
          *
          * @return void
-         */
-        public function index(): void
+         */        public function index(): void
         {
             $tpl = App::View(BASEPATH . 'view/');
             $tpl->dir = 'admin/';
@@ -29,12 +28,14 @@
                 SELECT COUNT(*) AS total,
                   COUNT(CASE WHEN type = ? THEN 1  END) AS users,
                   COUNT(CASE WHEN type = ? AND active = ? THEN 1  END) AS active,
-                  COUNT(CASE WHEN type = ? AND active = ? THEN 1  END) AS pending,
-                  COUNT(CASE WHEN type = ? AND membership_id >= 1 THEN 1  END) AS memberships
+                  COUNT(CASE WHEN type = ? AND active = ? THEN 1  END) AS pending
                   FROM `' . User::mTable . '`
                 ';
             
-            $tpl->data = Database::Go()->rawQuery($sql, array('member', 'member', 'y', 'member', 't', 'member'))->first()->run();
+            $tpl->data = Database::Go()->rawQuery($sql, array('member', 'member', 'y', 'member', 't'))->first()->run();
+            
+            // Get actual count of memberships from membership table
+            $tpl->data->memberships = Database::Go()->count(Membership::mTable)->run();
             $tpl->memberships = Stats::MembershipsExpireMonth();
             
             $tpl->template = 'admin/index';

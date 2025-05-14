@@ -33,92 +33,127 @@ require_once("lib/Mailer.php");
 define("UPLOADURL", "uploads");
 define("ADMINVIEW", "view/admin");
 
-// Create a basic registration form
+// Create a registration form that matches the app's style
 $registration_html = '<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Sub-Admin Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="<?php echo $siteurl; ?>/view/admin/css/base.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $siteurl; ?>/view/admin/css/transition.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $siteurl; ?>/view/admin/css/progress.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $siteurl; ?>/view/admin/css/icon.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $siteurl; ?>/view/admin/css/message.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $siteurl; ?>/view/admin/css/login.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="<?php echo $siteurl; ?>/assets/jquery.js"></script>
+    <script type="text/javascript" src="<?php echo $siteurl; ?>/assets/global.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f7f9fc; margin: 0; padding: 0; }
-        .container { max-width: 500px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #333; margin-bottom: 30px; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 5px; color: #555; }
-        input[type="text"], input[type="email"], input[type="password"] { 
-            width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; 
-            font-size: 16px; box-sizing: border-box;
+        /* Additional styles for the standalone registration page */
+        #formContent {
+            max-width: 500px;
         }
-        button { 
-            background: #4a6ee0; color: white; border: none; padding: 12px 20px; 
-            border-radius: 4px; width: 100%; font-size: 16px; cursor: pointer;
-            transition: background 0.3s;
+        .formRow {
+            margin: 0.5rem 0;
         }
-        button:hover { background: #3a5cc0; }
-        .error { color: #e74c3c; margin-top: 20px; }
-        .success { color: #2ecc71; margin-top: 20px; }
-        .login-link { text-align: center; margin-top: 20px; }
-        .login-link a { color: #4a6ee0; text-decoration: none; }
-        .login-link a:hover { text-decoration: underline; }
+        .wojo.message {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 0.25rem;
+        }
+        .wojo.error.message {
+            background-color: #FFF6F6;
+            color: #9F3A38;
+            border-left: 4px solid #9F3A38;
+        }
+        .wojo.success.message {
+            background-color: #FCFFF5;
+            color: #2C662D;
+            border-left: 4px solid #2C662D;
+        }
+        .wojo.message .header {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .wojo.message ul {
+            margin: 0.5em 0;
+            padding-left: 1em;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Sub-Admin Registration</h1>
-        
-        <!-- Display errors if any -->
-        <?php if(count(Message::$msgs) > 0): ?>
-        <div class="error">
-            <?php echo Message::display(); ?>
+<div class="wrap">
+    <div id="formContent">
+        <h2 class="center-align">Sub-Admin Registration</h2>
+        <div class="fadeIn first">
+            <img src="<?php echo $siteurl; ?>/uploads/avatars/default.svg" id="avatar" alt="User Icon"/>
         </div>
-        <?php endif; ?>
         
         <!-- Display success message if registration successful -->
         <?php if(isset($success) && $success): ?>
-        <div class="success">
+        <div class="wojo success message">
+            <div class="header">Success</div>
             <p><?php echo $message; ?></p>
-            <div class="login-link">
-                <a href="<?php echo $siteurl; ?>/sub_admin/login">Go to Login</a>
-            </div>
+        </div>
+        <div class="formFooter">
+            <a href="<?php echo $siteurl; ?>/sub_admin/login" class="underlineHover">Go to Login</a>
         </div>
         <?php else: ?>
         
-        <!-- Registration Form -->
-        <form method="post" action="">
-            <div class="form-group">
-                <label for="fname">First Name</label>
-                <input type="text" id="fname" name="fname" value="<?php echo Validator::post(\'fname\'); ?>" required>
+        <div id="registerform">            <!-- Display errors if any -->
+            <?php if(count(Message::$msgs) > 0): ?>
+            <div class="wojo error message">
+                <div class="header">Error</div>
+                <ul>
+                    <?php foreach (Message::$msgs as $msg): ?>
+                    <li><?php echo $msg; ?></li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
+            <?php endif; ?>
             
-            <div class="form-group">
-                <label for="lname">Last Name</label>
-                <input type="text" id="lname" name="lname" value="<?php echo Validator::post(\'lname\'); ?>" required>
+            <!-- Registration Form -->
+            <form id="admin_form" name="admin_form" method="post">
+                <div class="formRow">
+                    <input type="text" class="fadeIn second" name="fname" placeholder="First Name" value="<?php echo Validator::post(\'fname\'); ?>">
+                </div>
+                
+                <div class="formRow">
+                    <input type="text" class="fadeIn second" name="lname" placeholder="Last Name" value="<?php echo Validator::post(\'lname\'); ?>">
+                </div>
+                
+                <div class="formRow">
+                    <input type="text" class="fadeIn third" name="email" placeholder="Email Address" value="<?php echo Validator::post(\'email\'); ?>">
+                </div>
+                
+                <div class="formRow">
+                    <input type="password" class="fadeIn fourth" name="password" placeholder="Password">
+                </div>
+                
+                <div class="formRow">
+                    <input type="password" class="fadeIn fourth" name="password2" placeholder="Confirm Password">
+                </div>
+                
+                <input type="hidden" name="dosubmit" value="1">
+                <button type="submit" name="submit" class="fadeIn fifth">Register</button>
+            </form>
+            
+            <div class="formFooter">
+                <p>Already have an account? <a href="<?php echo $siteurl; ?>/sub_admin/login" class="underlineHover">Login</a></p>
             </div>
-            
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="<?php echo Validator::post(\'email\'); ?>" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="password2">Confirm Password</label>
-                <input type="password" id="password2" name="password2" required>
-            </div>
-            
-            <input type="hidden" name="dosubmit" value="1">
-            <button type="submit">Register</button>
-            
-            <div class="login-link">
-                Already have an account? <a href="<?php echo $siteurl; ?>/sub_admin/login">Login</a>
-            </div>
-        </form>
+        </div>
         <?php endif; ?>
     </div>
+    <footer> Copyright &copy;<?php echo date(\'Y\') . \' \' . App::Core()->company; ?></footer>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Handle message close functionality
+        $(\'.message .close\').on(\'click\', function() {
+            $(this).closest(\'.message\').transition(\'fade\');
+        });
+    });
+</script>
 </body>
 </html>';
 

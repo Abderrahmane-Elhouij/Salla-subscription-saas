@@ -1,12 +1,11 @@
-<?php
-   /**
+<?php   /**
     * _users_list
     *
     * @package Wojo Framework
     * @author wojoscripts.com
     * @copyright 2023
     * @version 5.00: _users_list.tpl.php, v1.00 7/6/2023 4:11 PM Gewa Exp $
-    *
+    * @modified to display only sub_admin users
     */
    if (!defined('_WOJO')) {
       die('Direct access to this location is not allowed.');
@@ -24,9 +23,8 @@
       </form>
    </div>
    <div class="columns mobile-hide phone-hide"></div>
-   <div class="columns auto mobile-50 phone-100">
-      <a href="<?php echo Url::url(Router::$path, 'new/'); ?>" class="wojo small secondary fluid button">
-         <i class="icon plus alt"></i><?php echo Language::$word->M_TITLE5; ?></a>
+   <div class="columns auto mobile-50 phone-100">      <a href="<?php echo Url::url(Router::$path, 'new/'); ?>" class="wojo small secondary fluid button">
+         <i class="icon plus alt"></i><?php echo Language::$word->M_TITLE5; ?> Sub Admin</a>
    </div>
    <div class="columns auto mobile-25 phone-50">
       <a class="wojo secondary passive inverted small icon button">
