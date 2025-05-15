@@ -747,3 +747,251 @@
                 LEFT JOIN `memberships` as m ON m.id = u.membership_id 
                 WHERE u.type = 'member' AND u.created_by = 30 ORDER BY  created DESC LIMIT 0,12
 [2025-05-14 07:37:27] Number of users returned: 2
+[2025-05-14 19:21:53] Starting userIndex method for sub-admin ID: 2
+[2025-05-14 19:21:53] Counter value (total users found): 0
+[2025-05-14 19:21:53] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC
+[2025-05-14 19:21:53] Number of users returned: 0
+[2025-05-14 19:21:55] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:21:55] No products found for this sub-admin
+[2025-05-14 19:22:25] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:22:25] No products found for this sub-admin
+[2025-05-14 19:23:17] Starting Salla callback handling process
+[2025-05-14 19:23:17] Starting Salla callback handling process
+[2025-05-14 19:23:18] Updated existing Salla tokens for user ID: 2
+[2025-05-14 19:23:20] Retrieved 2 products from Salla
+[2025-05-14 19:23:21] No items found matching 'فستان وردي' in order 545880507
+[2025-05-14 19:23:21] Retrieved 0 orders containing product: فستان وردي
+[2025-05-14 19:23:23] No items found matching 't9xira' in order 545880507
+[2025-05-14 19:23:23] Retrieved 0 orders containing product: t9xira
+[2025-05-14 19:23:23] Starting import of Salla customers after product import
+[2025-05-14 19:23:24] Retrieved 2 customers from Salla API during store connection
+[2025-05-14 19:23:25] Updated existing user (ID: 28) from Salla customer ID: 1417499419
+[2025-05-14 19:23:25] Updated existing user (ID: 27) from Salla customer ID: 1109900279
+[2025-05-14 19:23:25] Customer import completed during store connection. Imported: 0, Updated: 2
+[2025-05-14 19:23:31] Starting userIndex method for sub-admin ID: 2
+[2025-05-14 19:23:31] Counter value (total users found): 2
+[2025-05-14 19:23:31] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-14 19:23:31] Number of users returned: 2
+[2025-05-14 19:23:34] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:23:34] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 19:23:34] Count query result with IN clause: 1
+[2025-05-14 19:23:34] Found 1 subscriptions
+[2025-05-14 19:23:34] Successfully enriched 1 subscriptions with related data
+[2025-05-14 19:23:34] Final number of subscriptions returned: 1
+[2025-05-14 19:23:37] Starting userIndex method for sub-admin ID: 2
+[2025-05-14 19:23:37] Counter value (total users found): 2
+[2025-05-14 19:23:37] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-14 19:23:37] Number of users returned: 2
+[2025-05-14 19:23:48] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:23:48] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 19:23:48] Count query result with IN clause: 1
+[2025-05-14 19:23:48] Found 1 subscriptions
+[2025-05-14 19:23:48] Successfully enriched 1 subscriptions with related data
+[2025-05-14 19:23:48] Final number of subscriptions returned: 1
+[2025-05-14 19:23:53] Starting subscriptionDetail method for ID: 1
+[2025-05-14 19:23:53] Successfully loaded subscription detail for ID: 1
+[2025-05-14 19:23:54] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:23:54] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 19:23:54] Count query result with IN clause: 1
+[2025-05-14 19:23:54] Found 1 subscriptions
+[2025-05-14 19:23:54] Successfully enriched 1 subscriptions with related data
+[2025-05-14 19:23:54] Final number of subscriptions returned: 1
+[2025-05-14 19:26:55] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:26:55] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 19:26:55] Count query result with IN clause: 1
+[2025-05-14 19:26:55] Found 1 subscriptions
+[2025-05-14 19:26:55] Successfully enriched 1 subscriptions with related data
+[2025-05-14 19:26:55] Final number of subscriptions returned: 1
+[2025-05-14 19:27:11] Processing processUpdateOrder request
+[2025-05-14 19:27:11] Updating customer information on Salla for order 772780201
+[2025-05-14 19:27:12] Successfully updated customer information on Salla for order 772780201
+[2025-05-14 19:27:12] Updating receiver information on Salla for order 772780201
+[2025-05-14 19:27:13] Successfully updated receiver information on Salla for order 772780201
+[2025-05-14 19:27:13] Successfully updated local subscription data for ID: 1
+[2025-05-14 19:27:16] Starting subscriptionDetail method for ID: 1
+[2025-05-14 19:27:16] Successfully loaded subscription detail for ID: 1
+[2025-05-14 19:27:17] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:27:17] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 19:27:17] Count query result with IN clause: 1
+[2025-05-14 19:27:17] Found 1 subscriptions
+[2025-05-14 19:27:17] Successfully enriched 1 subscriptions with related data
+[2025-05-14 19:27:17] Final number of subscriptions returned: 1
+[2025-05-14 19:28:37] Processing processUpdateOrder request
+[2025-05-14 19:28:37] Updating customer information on Salla for order 772780201
+[2025-05-14 19:28:38] Successfully updated customer information on Salla for order 772780201
+[2025-05-14 19:28:38] Updating receiver information on Salla for order 772780201
+[2025-05-14 19:28:39] Successfully updated receiver information on Salla for order 772780201
+[2025-05-14 19:28:39] Successfully updated local subscription data for ID: 1
+[2025-05-14 19:28:41] Starting subscriptionDetail method for ID: 1
+[2025-05-14 19:28:41] Successfully loaded subscription detail for ID: 1
+[2025-05-14 19:28:42] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:28:42] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 19:28:42] Count query result with IN clause: 1
+[2025-05-14 19:28:42] Found 1 subscriptions
+[2025-05-14 19:28:42] Successfully enriched 1 subscriptions with related data
+[2025-05-14 19:28:42] Final number of subscriptions returned: 1
+[2025-05-14 19:31:42] Starting userIndex method for sub-admin ID: 2
+[2025-05-14 19:31:42] Counter value (total users found): 2
+[2025-05-14 19:31:42] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-14 19:31:42] Number of users returned: 2
+[2025-05-14 19:32:02] Starting Salla callback handling process
+[2025-05-14 19:32:02] Starting Salla callback handling process
+[2025-05-14 19:32:03] Updated existing Salla tokens for user ID: 2
+[2025-05-14 19:32:04] Retrieved 2 products from Salla
+[2025-05-14 19:32:06] No items found matching 'فستان وردي' in order 545880507
+[2025-05-14 19:32:06] Retrieved 0 orders containing product: فستان وردي
+[2025-05-14 19:32:08] No items found matching 't9xira' in order 545880507
+[2025-05-14 19:32:08] Retrieved 0 orders containing product: t9xira
+[2025-05-14 19:32:08] Starting import of Salla customers after product import
+[2025-05-14 19:32:08] Retrieved 3 customers from Salla API during store connection
+[2025-05-14 19:32:09] Created new user (ID: 31) from Salla customer ID: 1162824309
+[2025-05-14 19:32:09] Updated existing user (ID: 28) from Salla customer ID: 1417499419
+[2025-05-14 19:32:09] Updated existing user (ID: 27) from Salla customer ID: 1109900279
+[2025-05-14 19:32:09] Customer import completed during store connection. Imported: 1, Updated: 2
+[2025-05-14 19:32:12] Starting userIndex method for sub-admin ID: 2
+[2025-05-14 19:32:12] Counter value (total users found): 3
+[2025-05-14 19:32:12] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-14 19:32:12] Number of users returned: 3
+[2025-05-14 19:35:24] Starting Salla callback handling process
+[2025-05-14 19:35:24] Starting Salla callback handling process
+[2025-05-14 19:35:25] Updated existing Salla tokens for user ID: 2
+[2025-05-14 19:35:26] Retrieved 2 products from Salla
+[2025-05-14 19:35:27] Retrieved 0 orders containing product: فستان وردي
+[2025-05-14 19:35:28] Found product 't9xira' in order 545880507 (using list response)
+[2025-05-14 19:35:28] Retrieved 1 orders containing product: t9xira
+[2025-05-14 19:35:28] Subscription details - Membership ID: , Salla Product ID: 1560072355, Order ID: 545880507, Quantity: 1, Start: 2025-05-15 02:35:11, End: 2025-06-14 02:35:11
+[2025-05-14 19:35:28] Error processing subscription for order ID 545880507: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'membership_id' cannot be null
+[2025-05-14 19:35:28] Starting import of Salla customers after product import
+[2025-05-14 19:35:29] Retrieved 3 customers from Salla API during store connection
+[2025-05-14 19:35:29] Updated existing user (ID: 31) from Salla customer ID: 1162824309
+[2025-05-14 19:35:29] Updated existing user (ID: 28) from Salla customer ID: 1417499419
+[2025-05-14 19:35:29] Updated existing user (ID: 27) from Salla customer ID: 1109900279
+[2025-05-14 19:35:29] Customer import completed during store connection. Imported: 0, Updated: 3
+[2025-05-14 19:35:35] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:35:35] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 19:35:35] Count query result with IN clause: 1
+[2025-05-14 19:35:35] Found 1 subscriptions
+[2025-05-14 19:35:35] Successfully enriched 1 subscriptions with related data
+[2025-05-14 19:35:35] Final number of subscriptions returned: 1
+[2025-05-14 19:35:39] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:35:39] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 19:35:39] Count query result with IN clause: 1
+[2025-05-14 19:35:39] Found 1 subscriptions
+[2025-05-14 19:35:39] Successfully enriched 1 subscriptions with related data
+[2025-05-14 19:35:39] Final number of subscriptions returned: 1
+[2025-05-14 19:35:57] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:35:57] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 19:35:57] Count query result with IN clause: 1
+[2025-05-14 19:35:57] Found 1 subscriptions
+[2025-05-14 19:35:57] Successfully enriched 1 subscriptions with related data
+[2025-05-14 19:35:57] Final number of subscriptions returned: 1
+[2025-05-14 19:36:05] Starting Salla callback handling process
+[2025-05-14 19:36:05] Starting Salla callback handling process
+[2025-05-14 19:36:06] Updated existing Salla tokens for user ID: 2
+[2025-05-14 19:36:07] Retrieved 2 products from Salla
+[2025-05-14 19:36:08] Retrieved 0 orders containing product: فستان وردي
+[2025-05-14 19:36:09] Found product 't9xira' in order 545880507 (using list response)
+[2025-05-14 19:36:09] Retrieved 1 orders containing product: t9xira
+[2025-05-14 19:36:09] Subscription details - Membership ID: , Salla Product ID: 1560072355, Order ID: 545880507, Quantity: 1, Start: 2025-05-15 02:35:11, End: 2025-06-14 02:35:11
+[2025-05-14 19:36:09] Error processing subscription for order ID 545880507: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'membership_id' cannot be null
+[2025-05-14 19:36:09] Starting import of Salla customers after product import
+[2025-05-14 19:36:10] Retrieved 3 customers from Salla API during store connection
+[2025-05-14 19:36:10] Updated existing user (ID: 31) from Salla customer ID: 1162824309
+[2025-05-14 19:36:11] Updated existing user (ID: 28) from Salla customer ID: 1417499419
+[2025-05-14 19:36:11] Updated existing user (ID: 27) from Salla customer ID: 1109900279
+[2025-05-14 19:36:11] Customer import completed during store connection. Imported: 0, Updated: 3
+[2025-05-14 19:36:15] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:36:15] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 19:36:15] Count query result with IN clause: 1
+[2025-05-14 19:36:15] Found 1 subscriptions
+[2025-05-14 19:36:15] Successfully enriched 1 subscriptions with related data
+[2025-05-14 19:36:15] Final number of subscriptions returned: 1
+[2025-05-14 19:36:18] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:36:18] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 19:36:18] Count query result with IN clause: 1
+[2025-05-14 19:36:18] Found 1 subscriptions
+[2025-05-14 19:36:18] Successfully enriched 1 subscriptions with related data
+[2025-05-14 19:36:18] Final number of subscriptions returned: 1
+[2025-05-14 19:37:13] Starting Salla callback handling process
+[2025-05-14 19:37:13] Starting Salla callback handling process
+[2025-05-14 19:37:14] Updated existing Salla tokens for user ID: 2
+[2025-05-14 19:37:16] Retrieved 2 products from Salla
+[2025-05-14 19:37:17] Retrieved 0 orders containing product: فستان وردي
+[2025-05-14 19:37:18] Found product 't9xira' in order 545880507 (using list response)
+[2025-05-14 19:37:18] Retrieved 1 orders containing product: t9xira
+[2025-05-14 19:37:18] Subscription details - Membership ID: , Salla Product ID: 1560072355, Order ID: 545880507, Quantity: 1, Start: 2025-05-15 02:35:11, End: 2025-06-14 02:35:11
+[2025-05-14 19:37:18] Error processing subscription for order ID 545880507: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'membership_id' cannot be null
+[2025-05-14 19:37:18] Starting import of Salla customers after product import
+[2025-05-14 19:37:19] Retrieved 3 customers from Salla API during store connection
+[2025-05-14 19:37:19] Updated existing user (ID: 31) from Salla customer ID: 1162824309
+[2025-05-14 19:37:19] Updated existing user (ID: 28) from Salla customer ID: 1417499419
+[2025-05-14 19:37:19] Updated existing user (ID: 27) from Salla customer ID: 1109900279
+[2025-05-14 19:37:19] Customer import completed during store connection. Imported: 0, Updated: 3
+[2025-05-14 19:37:25] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:37:25] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 19:37:25] Count query result with IN clause: 1
+[2025-05-14 19:37:25] Found 1 subscriptions
+[2025-05-14 19:37:25] Successfully enriched 1 subscriptions with related data
+[2025-05-14 19:37:25] Final number of subscriptions returned: 1
+[2025-05-14 19:37:28] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:37:28] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 19:37:28] Count query result with IN clause: 1
+[2025-05-14 19:37:28] Found 1 subscriptions
+[2025-05-14 19:37:28] Successfully enriched 1 subscriptions with related data
+[2025-05-14 19:37:28] Final number of subscriptions returned: 1
+[2025-05-14 19:38:29] Starting subscriptions method for sub-admin ID: 2
+[2025-05-14 19:38:29] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-14 19:38:29] Count query result with IN clause: 1
+[2025-05-14 19:38:29] Found 1 subscriptions
+[2025-05-14 19:38:29] Successfully enriched 1 subscriptions with related data
+[2025-05-14 19:38:29] Final number of subscriptions returned: 1
+[2025-05-14 19:38:35] Starting userIndex method for sub-admin ID: 2
+[2025-05-14 19:38:35] Counter value (total users found): 3
+[2025-05-14 19:38:35] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-14 19:38:35] Number of users returned: 3
+[2025-05-14 19:39:46] Starting userIndex method for sub-admin ID: 2
+[2025-05-14 19:39:46] Counter value (total users found): 3
+[2025-05-14 19:39:46] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-14 19:39:46] Number of users returned: 3
+[2025-05-15 06:37:49] Starting userIndex method for sub-admin ID: 2
+[2025-05-15 06:37:49] Counter value (total users found): 3
+[2025-05-15 06:37:49] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-15 06:37:49] Number of users returned: 3
+[2025-05-15 06:37:52] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 06:37:52] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 06:37:52] Count query result with IN clause: 1
+[2025-05-15 06:37:52] Found 1 subscriptions
+[2025-05-15 06:37:52] Successfully enriched 1 subscriptions with related data
+[2025-05-15 06:37:52] Final number of subscriptions returned: 1
+[2025-05-15 06:38:04] Processing processUpdateOrder request
+[2025-05-15 06:38:04] Updating customer information on Salla for order 772780201
+[2025-05-15 06:38:05] Successfully updated customer information on Salla for order 772780201
+[2025-05-15 06:38:05] Updating receiver information on Salla for order 772780201
+[2025-05-15 06:38:06] Successfully updated receiver information on Salla for order 772780201
+[2025-05-15 06:38:06] Successfully updated local subscription data for ID: 1
+[2025-05-15 06:38:09] Starting subscriptionDetail method for ID: 1
+[2025-05-15 06:38:09] Successfully loaded subscription detail for ID: 1

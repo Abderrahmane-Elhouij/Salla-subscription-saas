@@ -13,9 +13,14 @@
     
     const _WOJO = true;
     require_once '../init.php';
-    
-    try {
+      try {
+        // Run regular system cron jobs
         Cron::run(1);
+          // Check if we need to run subscription expiry notifications (once a day)
+        if (date('H') == '00') { // Run at midnight
+            // Include the Salla subscription expiry notification script
+            include_once 'salla_subscription_expiry_notification.php';
+        }
     } catch (\PHPMailer\PHPMailer\Exception|ApiErrorException|NotFoundException $e) {
         error_log($e->getMessage(), 3, 'cron.log');
     }
