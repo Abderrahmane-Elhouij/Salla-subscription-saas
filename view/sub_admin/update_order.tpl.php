@@ -29,16 +29,80 @@ if (!defined("_WOJO"))
     margin: 0;
     color: var(--secondary-color);
   }
+  
+  /* Page Header Styles */
+  .page-header {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: all 0.3s ease;
+  }
+  
+  .page-header:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  }
+  
+  .page-header-title {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  
+  .page-header-desc {
+    margin-bottom: 0;
+    color: var(--secondary-color);
+    font-size: 0.95rem;
+  }
+  
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.2s ease;
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    background-color: transparent;
+    color: var(--secondary-color);
+  }
+  
+  .back-button:hover {
+    transform: translateX(-3px);
+    background-color: var(--light-color);
+  }
+  
+  .back-button i {
+    margin-right: 0.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    .header-container {
+      flex-direction: column;
+      align-items: flex-start !important;
+    }
+    
+    .header-actions {
+      margin-top: 1rem;
+      width: 100%;
+    }
+    
+    .back-button {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+    }
+  }
 </style>
-<div class="row gutters align-middle">
-  <div class="column">
-    <h3 class="text-color-primary">Update Order</h3>
-    <p class="wojo small text text-color-secondary">Update order information on Salla</p>
-  </div>
-  <div class="column auto">
-    <a aria-readonly="true" href="<?php echo Url::url('/sub_admin/subscriptions/detail/' . $this->data->id); ?>" class="wojo small simple button">
-      <i class="icon chevron left"></i> Back to Subscription
-    </a>
+
+<div class="page-header wojo segment shadow">
+  <div class="row gutters align-middle header-container">
+    <div class="column auto header-actions">
+      <a href="<?php echo Url::url('/sub_admin/subscriptions/detail/' . $this->data->id); ?>" class="back-button">
+        <i class="icon chevron left"></i> <?php echo Language::$word->SUB_BACK_TO_SUBSCRIPTIONS; ?>
+      </a>
+    </div>
   </div>
 </div>
 
@@ -48,37 +112,33 @@ if (!defined("_WOJO"))
     <div class="form-section">
       <div class="section-title">
         <i class="icon shopping bag"></i>
-        <h4>Order Information</h4>
+        <h4><?php echo Language::$word->SUB_ORDER_INFO; ?></h4>
       </div>
       
       <div class="wojo fields">
-        <div class="field">
-          <label>Order ID</label>
+        <div class="field">          <label><?php echo Language::$word->SUB_ORDER_ID; ?></label>
           <input type="text" value="<?php echo $this->data->salla_order_id; ?>" readonly>
-          <p class="wojo small text">Order ID cannot be changed</p>
+          <p class="wojo small text"><?php echo Language::$word->SUB_ORDER_ID_CANNOT_CHANGE; ?></p>
         </div>
-        <div class="field">
-          <label>Status</label>
+        <div class="field">          <label><?php echo Language::$word->SUB_STATUS; ?></label>
           <select name="status">
-            <option value="active" <?php echo $this->data->status == 'active' ? 'selected' : ''; ?>>Active</option>
-            <option value="pending" <?php echo $this->data->status == 'pending' ? 'selected' : ''; ?>>Pending</option>
-            <option value="canceled" <?php echo $this->data->status == 'canceled' ? 'selected' : ''; ?>>Canceled</option>
+            <option value="active" <?php echo $this->data->status == 'active' ? 'selected' : ''; ?>><?php echo Language::$word->SUB_ACTIVE; ?></option>
+            <option value="pending" <?php echo $this->data->status == 'pending' ? 'selected' : ''; ?>><?php echo Language::$word->SUB_PENDING; ?></option>
+            <option value="canceled" <?php echo $this->data->status == 'canceled' ? 'selected' : ''; ?>><?php echo Language::$word->SUB_CANCELED; ?></option>
           </select>
         </div>
       </div>
       
       <div class="wojo fields">
-        <div class="field">
-          <label>Start Date</label>
+        <div class="field">          <label><?php echo Language::$word->SUB_START_DATE; ?></label>
           <div class="wojo icon input" data-datepicker="true">
-            <input name="start_date" type="text" placeholder="Start Date" value="<?php echo Date::doDate('calendar', $this->data->start_date); ?>" readonly class="datepick">
+            <input name="start_date" type="text" placeholder="<?php echo Language::$word->SUB_START_DATE; ?>" value="<?php echo Date::doDate('calendar', $this->data->start_date); ?>" readonly class="datepick">
             <i class="icon calendar"></i>
           </div>
         </div>
-        <div class="field">
-          <label>End Date</label>
+        <div class="field">          <label><?php echo Language::$word->SUB_END_DATE; ?></label>
           <div class="wojo icon input" data-datepicker="true">
-            <input name="end_date" type="text" placeholder="End Date" value="<?php echo Date::doDate('calendar', $this->data->end_date); ?>" readonly class="datepick">
+            <input name="end_date" type="text" placeholder="<?php echo Language::$word->SUB_END_DATE; ?>" value="<?php echo Date::doDate('calendar', $this->data->end_date); ?>" readonly class="datepick">
             <i class="icon calendar"></i>
           </div>
         </div>
@@ -87,26 +147,22 @@ if (!defined("_WOJO"))
     
     <!-- Customer Information -->
     <div class="form-section">
-      <div class="section-title">
-        <i class="icon user"></i>
-        <h4>Customer Information</h4>
+      <div class="section-title">        <i class="icon user"></i>
+        <h4><?php echo Language::$word->SUB_CUSTOMER_INFO; ?></h4>
       </div>
       
       <div class="wojo fields">
-        <div class="field">
-          <label>Customer Name</label>
-          <input readonly type="text" name="customer_name" value="<?php echo $this->data->customer_name; ?>" placeholder="Customer Name">
+        <div class="field">          <label><?php echo Language::$word->SUB_CUSTOMER_NAME; ?></label>
+          <input readonly type="text" name="customer_name" value="<?php echo $this->data->customer_name; ?>" placeholder="<?php echo Language::$word->SUB_CUSTOMER_NAME; ?>">
         </div>
-        <div class="field">
-          <label>Customer Email</label>
-          <input readonly type="email" name="customer_email" value="<?php echo $this->data->customer_email; ?>" placeholder="Customer Email">
+        <div class="field">          <label><?php echo Language::$word->SUB_CUSTOMER_EMAIL; ?></label>
+          <input readonly type="email" name="customer_email" value="<?php echo $this->data->customer_email; ?>" placeholder="<?php echo Language::$word->SUB_CUSTOMER_EMAIL; ?>">
         </div>
       </div>
       
       <div class="wojo fields">
-        <div class="field">
-          <label>Customer Phone</label>
-          <input readonly type="text" name="customer_phone" value="<?php echo $this->data->customer_phone; ?>" placeholder="Customer Phone">
+        <div class="field">          <label><?php echo Language::$word->SUB_CUSTOMER_PHONE; ?></label>
+          <input readonly type="text" name="customer_phone" value="<?php echo $this->data->customer_phone; ?>" placeholder="<?php echo Language::$word->SUB_CUSTOMER_PHONE; ?>">
         </div>
       </div>
     </div>
@@ -114,7 +170,7 @@ if (!defined("_WOJO"))
     <div class="wojo divider"></div>
     
     <div class="center aligned">
-      <button type="button" data-action="updateOrder" class="wojo primary button"><i class="icon pencil"></i> Update Order</button>
+      <button type="button" data-action="updateOrder" class="wojo primary button"><i class="icon pencil"></i> <?php echo Language::$word->SUB_UPDATE_BUTTON; ?></button>
     </div>
     
     <input type="hidden" name="id" value="<?php echo $this->data->id; ?>">

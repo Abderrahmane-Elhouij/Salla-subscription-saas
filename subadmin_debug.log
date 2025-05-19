@@ -995,3 +995,927 @@
 [2025-05-15 06:38:06] Successfully updated local subscription data for ID: 1
 [2025-05-15 06:38:09] Starting subscriptionDetail method for ID: 1
 [2025-05-15 06:38:09] Successfully loaded subscription detail for ID: 1
+[2025-05-15 07:21:16] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 07:21:16] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 07:21:16] Count query result with IN clause: 1
+[2025-05-15 07:21:16] Found 1 subscriptions
+[2025-05-15 07:21:16] Successfully enriched 1 subscriptions with related data
+[2025-05-15 07:21:16] Final number of subscriptions returned: 1
+[2025-05-15 07:21:29] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 07:21:29] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 07:21:29] Count query result with IN clause: 1
+[2025-05-15 07:21:29] Found 1 subscriptions
+[2025-05-15 07:21:29] Successfully enriched 1 subscriptions with related data
+[2025-05-15 07:21:29] Final number of subscriptions returned: 1
+[2025-05-15 07:21:34] Starting subscriptionDetail method for ID: 1
+[2025-05-15 07:21:34] Successfully loaded subscription detail for ID: 1
+[2025-05-15 07:22:03] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 07:22:03] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 07:22:03] Count query result with IN clause: 1
+[2025-05-15 07:22:03] Found 1 subscriptions
+[2025-05-15 07:22:03] Successfully enriched 1 subscriptions with related data
+[2025-05-15 07:22:03] Final number of subscriptions returned: 1
+[2025-05-15 08:17:53] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 08:17:53] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 08:17:53] Count query result with IN clause: 1
+[2025-05-15 08:17:53] Found 1 subscriptions
+[2025-05-15 08:17:53] Successfully enriched 1 subscriptions with related data
+[2025-05-15 08:17:53] Final number of subscriptions returned: 1
+[2025-05-15 08:17:57] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 08:17:57] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 08:17:57] Count query result with IN clause: 1
+[2025-05-15 08:17:57] Found 1 subscriptions
+[2025-05-15 08:17:57] Successfully enriched 1 subscriptions with related data
+[2025-05-15 08:17:57] Final number of subscriptions returned: 1
+[2025-05-15 08:18:00] Starting userIndex method for sub-admin ID: 2
+[2025-05-15 08:18:00] Counter value (total users found): 3
+[2025-05-15 08:18:00] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-15 08:18:00] Number of users returned: 3
+[2025-05-15 08:18:09] Starting userIndex method for sub-admin ID: 2
+[2025-05-15 08:18:09] Counter value (total users found): 3
+[2025-05-15 08:18:09] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-15 08:18:09] Number of users returned: 3
+[2025-05-15 08:18:14] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 08:18:14] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 08:18:14] Count query result with IN clause: 1
+[2025-05-15 08:18:14] Found 1 subscriptions
+[2025-05-15 08:18:14] Successfully enriched 1 subscriptions with related data
+[2025-05-15 08:18:14] Final number of subscriptions returned: 1
+[2025-05-15 08:18:23] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 08:18:23] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 08:18:23] Count query result with IN clause: 1
+[2025-05-15 08:18:23] Found 1 subscriptions
+[2025-05-15 08:18:23] Successfully enriched 1 subscriptions with related data
+[2025-05-15 08:18:23] Final number of subscriptions returned: 1
+[2025-05-15 08:18:35] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 08:18:35] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 08:18:35] Count query result with IN clause: 1
+[2025-05-15 08:18:35] Found 1 subscriptions
+[2025-05-15 08:18:35] Successfully enriched 1 subscriptions with related data
+[2025-05-15 08:18:35] Final number of subscriptions returned: 1
+[2025-05-15 08:19:02] Starting userIndex method for sub-admin ID: 2
+[2025-05-15 08:19:02] Counter value (total users found): 3
+[2025-05-15 08:19:02] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-15 08:19:02] Number of users returned: 3
+[2025-05-15 08:45:34] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 08:45:34] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 08:45:34] Count query result with IN clause: 1
+[2025-05-15 08:45:34] Found 1 subscriptions
+[2025-05-15 08:45:34] Successfully enriched 1 subscriptions with related data
+[2025-05-15 08:45:34] Final number of subscriptions returned: 1
+[2025-05-15 09:43:52] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 09:43:52] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 09:43:52] Count query result with IN clause: 1
+[2025-05-15 09:43:52] Found 1 subscriptions
+[2025-05-15 09:43:52] Successfully enriched 1 subscriptions with related data
+[2025-05-15 09:43:52] Final number of subscriptions returned: 1
+[2025-05-15 09:55:35] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 09:55:35] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 09:55:35] Count query result with IN clause: 1
+[2025-05-15 09:55:35] Found 1 subscriptions
+[2025-05-15 09:55:35] Successfully enriched 1 subscriptions with related data
+[2025-05-15 09:55:35] Final number of subscriptions returned: 1
+[2025-05-15 09:57:14] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 09:57:14] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 09:57:14] Count query result with IN clause: 1
+[2025-05-15 09:57:14] Found 1 subscriptions
+[2025-05-15 09:57:14] Successfully enriched 1 subscriptions with related data
+[2025-05-15 09:57:14] Final number of subscriptions returned: 1
+[2025-05-15 10:00:04] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 10:00:04] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 10:00:04] Count query result with IN clause: 1
+[2025-05-15 10:00:04] Found 1 subscriptions
+[2025-05-15 10:00:04] Successfully enriched 1 subscriptions with related data
+[2025-05-15 10:00:04] Final number of subscriptions returned: 1
+[2025-05-15 10:07:30] Starting subscriptionDetail method for ID: 1
+[2025-05-15 10:07:30] Successfully loaded subscription detail for ID: 1
+[2025-05-15 10:07:33] Starting subscriptionDetail method for ID: 1
+[2025-05-15 10:07:33] Successfully loaded subscription detail for ID: 1
+[2025-05-15 10:07:45] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 10:07:45] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 10:07:45] Count query result with IN clause: 1
+[2025-05-15 10:07:45] Found 1 subscriptions
+[2025-05-15 10:07:45] Successfully enriched 1 subscriptions with related data
+[2025-05-15 10:07:45] Final number of subscriptions returned: 1
+[2025-05-15 10:07:52] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 10:07:52] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 10:07:52] Count query result with IN clause: 1
+[2025-05-15 10:07:52] Found 1 subscriptions
+[2025-05-15 10:07:52] Successfully enriched 1 subscriptions with related data
+[2025-05-15 10:07:52] Final number of subscriptions returned: 1
+[2025-05-15 10:07:54] Starting subscriptionDetail method for ID: 1
+[2025-05-15 10:07:54] Successfully loaded subscription detail for ID: 1
+[2025-05-15 10:12:38] Starting subscriptionDetail method for ID: 1
+[2025-05-15 10:12:38] Successfully loaded subscription detail for ID: 1
+[2025-05-15 10:31:40] Starting subscriptionDetail method for ID: 1
+[2025-05-15 10:31:40] Successfully loaded subscription detail for ID: 1
+[2025-05-15 10:34:13] Starting subscriptionDetail method for ID: 1
+[2025-05-15 10:34:13] Successfully loaded subscription detail for ID: 1
+[2025-05-15 10:37:55] Starting subscriptionDetail method for ID: 1
+[2025-05-15 10:37:55] Successfully loaded subscription detail for ID: 1
+[2025-05-15 10:42:04] Starting subscriptionDetail method for ID: 1
+[2025-05-15 10:42:04] Successfully loaded subscription detail for ID: 1
+[2025-05-15 10:42:23] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 10:42:23] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 10:42:23] Count query result with IN clause: 1
+[2025-05-15 10:42:23] Found 1 subscriptions
+[2025-05-15 10:42:23] Successfully enriched 1 subscriptions with related data
+[2025-05-15 10:42:23] Final number of subscriptions returned: 1
+[2025-05-15 10:42:33] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 10:42:33] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 10:42:33] Count query result with IN clause: 1
+[2025-05-15 10:42:33] Found 1 subscriptions
+[2025-05-15 10:42:33] Successfully enriched 1 subscriptions with related data
+[2025-05-15 10:42:33] Final number of subscriptions returned: 1
+[2025-05-15 10:42:38] Starting userIndex method for sub-admin ID: 2
+[2025-05-15 10:42:38] Counter value (total users found): 3
+[2025-05-15 10:42:38] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-15 10:42:38] Number of users returned: 3
+[2025-05-15 10:42:39] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 10:42:39] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 10:42:39] Count query result with IN clause: 1
+[2025-05-15 10:42:39] Found 1 subscriptions
+[2025-05-15 10:42:39] Successfully enriched 1 subscriptions with related data
+[2025-05-15 10:42:39] Final number of subscriptions returned: 1
+[2025-05-15 10:42:40] Starting userIndex method for sub-admin ID: 2
+[2025-05-15 10:42:40] Counter value (total users found): 3
+[2025-05-15 10:42:40] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-15 10:42:40] Number of users returned: 3
+[2025-05-15 10:45:25] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 10:45:25] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 10:45:25] Count query result with IN clause: 1
+[2025-05-15 10:45:25] Found 1 subscriptions
+[2025-05-15 10:45:25] Successfully enriched 1 subscriptions with related data
+[2025-05-15 10:45:25] Final number of subscriptions returned: 1
+[2025-05-15 10:45:28] Starting subscriptionDetail method for ID: 1
+[2025-05-15 10:45:28] Successfully loaded subscription detail for ID: 1
+[2025-05-15 10:46:04] Starting userIndex method for sub-admin ID: 2
+[2025-05-15 10:46:04] Counter value (total users found): 3
+[2025-05-15 10:46:04] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-15 10:46:04] Number of users returned: 3
+[2025-05-15 10:46:07] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 10:46:07] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 10:46:07] Count query result with IN clause: 1
+[2025-05-15 10:46:07] Found 1 subscriptions
+[2025-05-15 10:46:07] Successfully enriched 1 subscriptions with related data
+[2025-05-15 10:46:07] Final number of subscriptions returned: 1
+[2025-05-15 10:46:13] Starting subscriptions method for sub-admin ID: 2
+[2025-05-15 10:46:13] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-15 10:46:13] Count query result with IN clause: 1
+[2025-05-15 10:46:13] Found 1 subscriptions
+[2025-05-15 10:46:13] Successfully enriched 1 subscriptions with related data
+[2025-05-15 10:46:13] Final number of subscriptions returned: 1
+[2025-05-16 06:07:49] Starting userIndex method for sub-admin ID: 2
+[2025-05-16 06:07:49] Counter value (total users found): 3
+[2025-05-16 06:07:49] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-16 06:07:49] Number of users returned: 3
+[2025-05-16 06:11:19] Starting subscriptions method for sub-admin ID: 2
+[2025-05-16 06:11:19] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-16 06:11:19] Count query result with IN clause: 1
+[2025-05-16 06:11:19] Found 1 subscriptions
+[2025-05-16 06:11:19] Successfully enriched 1 subscriptions with related data
+[2025-05-16 06:11:19] Final number of subscriptions returned: 1
+[2025-05-16 06:11:21] Starting subscriptionDetail method for ID: 1
+[2025-05-16 06:11:21] Successfully loaded subscription detail for ID: 1
+[2025-05-16 06:11:27] Starting subscriptions method for sub-admin ID: 2
+[2025-05-16 06:11:27] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-16 06:11:27] Count query result with IN clause: 1
+[2025-05-16 06:11:27] Found 1 subscriptions
+[2025-05-16 06:11:27] Successfully enriched 1 subscriptions with related data
+[2025-05-16 06:11:27] Final number of subscriptions returned: 1
+[2025-05-16 16:51:11] Starting subscriptions method for sub-admin ID: 2
+[2025-05-16 16:51:11] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-16 16:51:11] Count query result with IN clause: 1
+[2025-05-16 16:51:11] Found 1 subscriptions
+[2025-05-16 16:51:11] Successfully enriched 1 subscriptions with related data
+[2025-05-16 16:51:11] Final number of subscriptions returned: 1
+[2025-05-16 16:52:26] Starting subscriptions method for sub-admin ID: 2
+[2025-05-16 16:52:26] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-16 16:52:26] Count query result with IN clause: 1
+[2025-05-16 16:52:26] Found 1 subscriptions
+[2025-05-16 16:52:26] Successfully enriched 1 subscriptions with related data
+[2025-05-16 16:52:26] Final number of subscriptions returned: 1
+[2025-05-16 16:52:34] Starting subscriptionDetail method for ID: 1
+[2025-05-16 16:52:34] Successfully loaded subscription detail for ID: 1
+[2025-05-16 16:52:38] Starting subscriptions method for sub-admin ID: 2
+[2025-05-16 16:52:38] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-16 16:52:38] Count query result with IN clause: 1
+[2025-05-16 16:52:38] Found 1 subscriptions
+[2025-05-16 16:52:38] Successfully enriched 1 subscriptions with related data
+[2025-05-16 16:52:38] Final number of subscriptions returned: 1
+[2025-05-16 16:58:12] Starting userIndex method for sub-admin ID: 2
+[2025-05-16 16:58:12] Counter value (total users found): 3
+[2025-05-16 16:58:12] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-16 16:58:12] Number of users returned: 3
+[2025-05-16 16:58:17] Starting subscriptions method for sub-admin ID: 2
+[2025-05-16 16:58:17] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-16 16:58:17] Count query result with IN clause: 1
+[2025-05-16 16:58:17] Found 1 subscriptions
+[2025-05-16 16:58:17] Successfully enriched 1 subscriptions with related data
+[2025-05-16 16:58:17] Final number of subscriptions returned: 1
+[2025-05-16 16:58:28] Starting subscriptions method for sub-admin ID: 2
+[2025-05-16 16:58:28] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-16 16:58:28] Count query result with IN clause: 1
+[2025-05-16 16:58:28] Found 1 subscriptions
+[2025-05-16 16:58:28] Successfully enriched 1 subscriptions with related data
+[2025-05-16 16:58:28] Final number of subscriptions returned: 1
+[2025-05-16 16:59:05] Starting subscriptions method for sub-admin ID: 2
+[2025-05-16 16:59:05] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-16 16:59:05] Count query result with IN clause: 1
+[2025-05-16 16:59:05] Found 1 subscriptions
+[2025-05-16 16:59:05] Successfully enriched 1 subscriptions with related data
+[2025-05-16 16:59:05] Final number of subscriptions returned: 1
+[2025-05-16 16:59:21] Starting userIndex method for sub-admin ID: 2
+[2025-05-16 16:59:21] Counter value (total users found): 3
+[2025-05-16 16:59:21] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-16 16:59:21] Number of users returned: 3
+[2025-05-16 17:02:07] Starting userIndex method for sub-admin ID: 2
+[2025-05-16 17:02:07] Counter value (total users found): 3
+[2025-05-16 17:02:07] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-16 17:02:07] Number of users returned: 3
+[2025-05-16 17:02:08] Starting subscriptions method for sub-admin ID: 2
+[2025-05-16 17:02:08] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-16 17:02:08] Count query result with IN clause: 1
+[2025-05-16 17:02:08] Found 1 subscriptions
+[2025-05-16 17:02:08] Successfully enriched 1 subscriptions with related data
+[2025-05-16 17:02:08] Final number of subscriptions returned: 1
+[2025-05-16 17:02:20] Starting userIndex method for sub-admin ID: 2
+[2025-05-16 17:02:20] Counter value (total users found): 3
+[2025-05-16 17:02:20] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-16 17:02:20] Number of users returned: 3
+[2025-05-16 17:02:25] Starting userIndex method for sub-admin ID: 2
+[2025-05-16 17:02:25] Counter value (total users found): 0
+[2025-05-16 17:02:25] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 AND u.fname REGEXP '^C' ORDER BY  created DESC
+[2025-05-16 17:02:25] Number of users returned: 0
+[2025-05-16 17:02:27] Starting userIndex method for sub-admin ID: 2
+[2025-05-16 17:02:27] Counter value (total users found): 2
+[2025-05-16 17:02:27] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 AND u.fname REGEXP '^A' ORDER BY  created DESC LIMIT 0,12
+[2025-05-16 17:02:27] Number of users returned: 2
+[2025-05-16 17:02:33] Starting userIndex method for sub-admin ID: 2
+[2025-05-16 17:02:33] Counter value (total users found): 3
+[2025-05-16 17:02:33] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-16 17:02:33] Number of users returned: 3
+[2025-05-16 17:02:54] Starting userIndex method for sub-admin ID: 2
+[2025-05-16 17:02:54] Counter value (total users found): 3
+[2025-05-16 17:02:54] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-16 17:02:54] Number of users returned: 3
+[2025-05-16 17:02:59] Starting userIndex method for sub-admin ID: 2
+[2025-05-16 17:02:59] Counter value (total users found): 3
+[2025-05-16 17:02:59] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-16 17:02:59] Number of users returned: 3
+[2025-05-16 17:03:05] Starting subscriptions method for sub-admin ID: 2
+[2025-05-16 17:03:05] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-16 17:03:05] Count query result with IN clause: 1
+[2025-05-16 17:03:05] Found 1 subscriptions
+[2025-05-16 17:03:05] Successfully enriched 1 subscriptions with related data
+[2025-05-16 17:03:05] Final number of subscriptions returned: 1
+[2025-05-16 17:03:08] Starting userIndex method for sub-admin ID: 2
+[2025-05-16 17:03:08] Counter value (total users found): 3
+[2025-05-16 17:03:08] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-16 17:03:08] Number of users returned: 3
+[2025-05-16 17:04:06] Starting subscriptions method for sub-admin ID: 2
+[2025-05-16 17:04:06] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-16 17:04:06] Count query result with IN clause: 1
+[2025-05-16 17:04:06] Found 1 subscriptions
+[2025-05-16 17:04:06] Successfully enriched 1 subscriptions with related data
+[2025-05-16 17:04:06] Final number of subscriptions returned: 1
+[2025-05-16 17:04:19] Starting userIndex method for sub-admin ID: 2
+[2025-05-16 17:04:19] Counter value (total users found): 3
+[2025-05-16 17:04:19] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-16 17:04:19] Number of users returned: 3
+[2025-05-16 17:04:21] Starting subscriptions method for sub-admin ID: 2
+[2025-05-16 17:04:21] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-16 17:04:21] Count query result with IN clause: 1
+[2025-05-16 17:04:21] Found 1 subscriptions
+[2025-05-16 17:04:21] Successfully enriched 1 subscriptions with related data
+[2025-05-16 17:04:21] Final number of subscriptions returned: 1
+[2025-05-16 18:26:25] Starting Salla callback handling process
+[2025-05-16 18:26:25] Starting Salla callback handling process
+[2025-05-16 18:26:26] Updated existing Salla tokens for user ID: 2
+[2025-05-16 18:26:27] Retrieved 2 products from Salla
+[2025-05-16 18:26:28] Retrieved 0 orders containing product: فستان وردي
+[2025-05-16 18:26:29] Found product 't9xira' in order 545880507 (using list response)
+[2025-05-16 18:26:29] Retrieved 1 orders containing product: t9xira
+[2025-05-16 18:26:29] Subscription details - Membership ID: , Salla Product ID: 1560072355, Order ID: 545880507, Quantity: 1, Start: 2025-05-15 02:35:11, End: 2025-06-14 02:35:11
+[2025-05-16 18:26:29] Error processing subscription for order ID 545880507: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'membership_id' cannot be null
+[2025-05-16 18:26:29] Starting import of Salla customers after product import
+[2025-05-16 18:26:29] Retrieved 3 customers from Salla API during store connection
+[2025-05-16 18:26:30] Updated existing user (ID: 31) from Salla customer ID: 1162824309
+[2025-05-16 18:26:30] Updated existing user (ID: 28) from Salla customer ID: 1417499419
+[2025-05-16 18:26:30] Updated existing user (ID: 27) from Salla customer ID: 1109900279
+[2025-05-16 18:26:30] Customer import completed during store connection. Imported: 0, Updated: 3
+[2025-05-16 18:26:47] Starting userIndex method for sub-admin ID: 2
+[2025-05-16 18:26:47] Counter value (total users found): 3
+[2025-05-16 18:26:47] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-16 18:26:47] Number of users returned: 3
+[2025-05-18 10:57:31] Starting userIndex method for sub-admin ID: 2
+[2025-05-18 10:57:31] Counter value (total users found): 3
+[2025-05-18 10:57:31] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-18 10:57:31] Number of users returned: 3
+[2025-05-18 10:57:33] Starting subscriptions method for sub-admin ID: 2
+[2025-05-18 10:57:33] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-18 10:57:33] Count query result with IN clause: 1
+[2025-05-18 10:57:33] Found 1 subscriptions
+[2025-05-18 10:57:33] Successfully enriched 1 subscriptions with related data
+[2025-05-18 10:57:33] Final number of subscriptions returned: 1
+[2025-05-18 10:58:34] Starting subscriptions method for sub-admin ID: 2
+[2025-05-18 10:58:34] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-18 10:58:34] Count query result with IN clause: 1
+[2025-05-18 10:58:34] Found 1 subscriptions
+[2025-05-18 10:58:34] Successfully enriched 1 subscriptions with related data
+[2025-05-18 10:58:34] Final number of subscriptions returned: 1
+[2025-05-18 10:58:37] Starting userIndex method for sub-admin ID: 2
+[2025-05-18 10:58:37] Counter value (total users found): 3
+[2025-05-18 10:58:37] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-18 10:58:37] Number of users returned: 3
+[2025-05-18 10:58:39] Starting userIndex method for sub-admin ID: 2
+[2025-05-18 10:58:39] Counter value (total users found): 3
+[2025-05-18 10:58:39] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-18 10:58:39] Number of users returned: 3
+[2025-05-18 10:58:43] Starting subscriptions method for sub-admin ID: 2
+[2025-05-18 10:58:43] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-18 10:58:43] Count query result with IN clause: 1
+[2025-05-18 10:58:43] Found 1 subscriptions
+[2025-05-18 10:58:43] Successfully enriched 1 subscriptions with related data
+[2025-05-18 10:58:43] Final number of subscriptions returned: 1
+[2025-05-18 11:09:39] Starting subscriptions method for sub-admin ID: 2
+[2025-05-18 11:09:39] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-18 11:09:39] Count query result with IN clause: 1
+[2025-05-18 11:09:39] Found 1 subscriptions
+[2025-05-18 11:09:39] Successfully enriched 1 subscriptions with related data
+[2025-05-18 11:09:39] Final number of subscriptions returned: 1
+[2025-05-19 09:34:59] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 09:34:59] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 09:34:59] Count query result with IN clause: 1
+[2025-05-19 09:34:59] Found 1 subscriptions
+[2025-05-19 09:34:59] Successfully enriched 1 subscriptions with related data
+[2025-05-19 09:34:59] Final number of subscriptions returned: 1
+[2025-05-19 09:38:49] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 09:38:49] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 09:38:49] Count query result with IN clause: 1
+[2025-05-19 09:38:49] Found 1 subscriptions
+[2025-05-19 09:38:49] Successfully enriched 1 subscriptions with related data
+[2025-05-19 09:38:49] Final number of subscriptions returned: 1
+[2025-05-19 09:41:02] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 09:41:02] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 09:41:02] Count query result with IN clause: 1
+[2025-05-19 09:41:02] Found 1 subscriptions
+[2025-05-19 09:41:02] Successfully enriched 1 subscriptions with related data
+[2025-05-19 09:41:02] Final number of subscriptions returned: 1
+[2025-05-19 09:41:20] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 09:41:20] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 09:41:20] Count query result with IN clause: 1
+[2025-05-19 09:41:20] Found 1 subscriptions
+[2025-05-19 09:41:20] Successfully enriched 1 subscriptions with related data
+[2025-05-19 09:41:20] Final number of subscriptions returned: 1
+[2025-05-19 09:41:22] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 09:41:22] Counter value (total users found): 3
+[2025-05-19 09:41:22] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 09:41:22] Number of users returned: 3
+[2025-05-19 09:41:32] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 09:41:32] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 09:41:32] Count query result with IN clause: 1
+[2025-05-19 09:41:32] Found 1 subscriptions
+[2025-05-19 09:41:32] Successfully enriched 1 subscriptions with related data
+[2025-05-19 09:41:32] Final number of subscriptions returned: 1
+[2025-05-19 09:48:12] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 09:48:12] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 09:48:12] Count query result with IN clause: 1
+[2025-05-19 09:48:12] Found 1 subscriptions
+[2025-05-19 09:48:12] Successfully enriched 1 subscriptions with related data
+[2025-05-19 09:48:12] Final number of subscriptions returned: 1
+[2025-05-19 09:48:32] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 09:48:32] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 09:48:32] Count query result with IN clause: 1
+[2025-05-19 09:48:32] Found 1 subscriptions
+[2025-05-19 09:48:32] Successfully enriched 1 subscriptions with related data
+[2025-05-19 09:48:32] Final number of subscriptions returned: 1
+[2025-05-19 09:48:42] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 09:48:42] Counter value (total users found): 3
+[2025-05-19 09:48:42] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 09:48:42] Number of users returned: 3
+[2025-05-19 09:49:04] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 09:49:04] Counter value (total users found): 3
+[2025-05-19 09:49:04] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 09:49:04] Number of users returned: 3
+[2025-05-19 10:37:47] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 10:37:47] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 10:37:47] Count query result with IN clause: 1
+[2025-05-19 10:37:47] Found 1 subscriptions
+[2025-05-19 10:37:47] Successfully enriched 1 subscriptions with related data
+[2025-05-19 10:37:47] Final number of subscriptions returned: 1
+[2025-05-19 10:38:17] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 10:38:17] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 10:38:17] Count query result with IN clause: 1
+[2025-05-19 10:38:17] Found 1 subscriptions
+[2025-05-19 10:38:17] Successfully enriched 1 subscriptions with related data
+[2025-05-19 10:38:17] Final number of subscriptions returned: 1
+[2025-05-19 10:42:42] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 10:42:42] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 10:42:42] Count query result with IN clause: 1
+[2025-05-19 10:42:42] Found 1 subscriptions
+[2025-05-19 10:42:42] Successfully enriched 1 subscriptions with related data
+[2025-05-19 10:42:42] Final number of subscriptions returned: 1
+[2025-05-19 10:43:02] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 10:43:02] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 10:43:02] Count query result with IN clause: 1
+[2025-05-19 10:43:02] Found 1 subscriptions
+[2025-05-19 10:43:02] Successfully enriched 1 subscriptions with related data
+[2025-05-19 10:43:02] Final number of subscriptions returned: 1
+[2025-05-19 10:43:05] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 10:43:05] Counter value (total users found): 3
+[2025-05-19 10:43:05] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 10:43:05] Number of users returned: 3
+[2025-05-19 10:45:24] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 10:45:24] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 10:45:24] Count query result with IN clause: 1
+[2025-05-19 10:45:24] Found 1 subscriptions
+[2025-05-19 10:45:24] Successfully enriched 1 subscriptions with related data
+[2025-05-19 10:45:24] Final number of subscriptions returned: 1
+[2025-05-19 10:45:25] Starting subscriptionDetail method for ID: 1
+[2025-05-19 10:45:25] Successfully loaded subscription detail for ID: 1
+[2025-05-19 10:46:22] Starting subscriptionDetail method for ID: 1
+[2025-05-19 10:46:22] Successfully loaded subscription detail for ID: 1
+[2025-05-19 10:46:31] Starting subscriptionDetail method for ID: 1
+[2025-05-19 10:46:31] Successfully loaded subscription detail for ID: 1
+[2025-05-19 10:47:07] Starting subscriptionDetail method for ID: 1
+[2025-05-19 10:47:07] Successfully loaded subscription detail for ID: 1
+[2025-05-19 10:47:18] Starting subscriptionDetail method for ID: 1
+[2025-05-19 10:47:18] Successfully loaded subscription detail for ID: 1
+[2025-05-19 10:47:43] Starting subscriptionDetail method for ID: 1
+[2025-05-19 10:47:43] Successfully loaded subscription detail for ID: 1
+[2025-05-19 10:47:51] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 10:47:51] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 10:47:51] Count query result with IN clause: 1
+[2025-05-19 10:47:51] Found 1 subscriptions
+[2025-05-19 10:47:51] Successfully enriched 1 subscriptions with related data
+[2025-05-19 10:47:51] Final number of subscriptions returned: 1
+[2025-05-19 10:47:53] Starting subscriptionDetail method for ID: 1
+[2025-05-19 10:47:53] Successfully loaded subscription detail for ID: 1
+[2025-05-19 10:47:55] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 10:47:55] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 10:47:55] Count query result with IN clause: 1
+[2025-05-19 10:47:55] Found 1 subscriptions
+[2025-05-19 10:47:55] Successfully enriched 1 subscriptions with related data
+[2025-05-19 10:47:55] Final number of subscriptions returned: 1
+[2025-05-19 10:47:57] Starting subscriptionDetail method for ID: 1
+[2025-05-19 10:47:57] Successfully loaded subscription detail for ID: 1
+[2025-05-19 10:47:58] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 10:47:58] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 10:47:58] Count query result with IN clause: 1
+[2025-05-19 10:47:58] Found 1 subscriptions
+[2025-05-19 10:47:58] Successfully enriched 1 subscriptions with related data
+[2025-05-19 10:47:58] Final number of subscriptions returned: 1
+[2025-05-19 10:48:00] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 10:48:00] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 10:48:00] Count query result with IN clause: 1
+[2025-05-19 10:48:00] Found 1 subscriptions
+[2025-05-19 10:48:00] Successfully enriched 1 subscriptions with related data
+[2025-05-19 10:48:00] Final number of subscriptions returned: 1
+[2025-05-19 10:48:02] Starting subscriptionDetail method for ID: 1
+[2025-05-19 10:48:02] Successfully loaded subscription detail for ID: 1
+[2025-05-19 10:48:12] Starting subscriptionDetail method for ID: 1
+[2025-05-19 10:48:12] Successfully loaded subscription detail for ID: 1
+[2025-05-19 10:48:41] Starting subscriptionDetail method for ID: 1
+[2025-05-19 10:48:41] Successfully loaded subscription detail for ID: 1
+[2025-05-19 10:51:05] Starting subscriptionDetail method for ID: 1
+[2025-05-19 10:51:05] Successfully loaded subscription detail for ID: 1
+[2025-05-19 10:51:56] Starting subscriptionDetail method for ID: 1
+[2025-05-19 10:51:56] Successfully loaded subscription detail for ID: 1
+[2025-05-19 12:53:10] Starting subscriptionDetail method for ID: 1
+[2025-05-19 12:53:10] Successfully loaded subscription detail for ID: 1
+[2025-05-19 12:53:13] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 12:53:13] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 12:53:13] Count query result with IN clause: 1
+[2025-05-19 12:53:13] Found 1 subscriptions
+[2025-05-19 12:53:13] Successfully enriched 1 subscriptions with related data
+[2025-05-19 12:53:13] Final number of subscriptions returned: 1
+[2025-05-19 12:53:19] Starting subscriptionDetail method for ID: 1
+[2025-05-19 12:53:19] Successfully loaded subscription detail for ID: 1
+[2025-05-19 12:53:25] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 12:53:25] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 12:53:25] Count query result with IN clause: 1
+[2025-05-19 12:53:25] Found 1 subscriptions
+[2025-05-19 12:53:25] Successfully enriched 1 subscriptions with related data
+[2025-05-19 12:53:25] Final number of subscriptions returned: 1
+[2025-05-19 13:01:03] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:01:03] Counter value (total users found): 3
+[2025-05-19 13:01:03] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:01:03] Number of users returned: 3
+[2025-05-19 13:01:05] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 13:01:05] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 13:01:05] Count query result with IN clause: 1
+[2025-05-19 13:01:05] Found 1 subscriptions
+[2025-05-19 13:01:05] Successfully enriched 1 subscriptions with related data
+[2025-05-19 13:01:05] Final number of subscriptions returned: 1
+[2025-05-19 13:01:07] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:01:07] Counter value (total users found): 3
+[2025-05-19 13:01:07] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:01:07] Number of users returned: 3
+[2025-05-19 13:01:35] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 13:01:35] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 13:01:35] Count query result with IN clause: 1
+[2025-05-19 13:01:35] Found 1 subscriptions
+[2025-05-19 13:01:35] Successfully enriched 1 subscriptions with related data
+[2025-05-19 13:01:35] Final number of subscriptions returned: 1
+[2025-05-19 13:01:44] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 13:01:44] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 13:01:44] Count query result with IN clause: 1
+[2025-05-19 13:01:44] Found 1 subscriptions
+[2025-05-19 13:01:44] Successfully enriched 1 subscriptions with related data
+[2025-05-19 13:01:44] Final number of subscriptions returned: 1
+[2025-05-19 13:02:07] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 13:02:07] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 13:02:07] Count query result with IN clause: 1
+[2025-05-19 13:02:07] Found 1 subscriptions
+[2025-05-19 13:02:07] Successfully enriched 1 subscriptions with related data
+[2025-05-19 13:02:07] Final number of subscriptions returned: 1
+[2025-05-19 13:02:11] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:02:11] Counter value (total users found): 3
+[2025-05-19 13:02:11] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:02:11] Number of users returned: 3
+[2025-05-19 13:03:27] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:03:27] Counter value (total users found): 3
+[2025-05-19 13:03:27] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:03:27] Number of users returned: 3
+[2025-05-19 13:03:46] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:03:46] Counter value (total users found): 3
+[2025-05-19 13:03:46] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:03:46] Number of users returned: 3
+[2025-05-19 13:03:51] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:03:51] Counter value (total users found): 3
+[2025-05-19 13:03:51] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:03:51] Number of users returned: 3
+[2025-05-19 13:04:31] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:04:31] Counter value (total users found): 3
+[2025-05-19 13:04:31] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:04:31] Number of users returned: 3
+[2025-05-19 13:04:48] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:04:48] Counter value (total users found): 3
+[2025-05-19 13:04:48] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:04:48] Number of users returned: 3
+[2025-05-19 13:06:44] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:06:44] Counter value (total users found): 3
+[2025-05-19 13:06:44] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:06:44] Number of users returned: 3
+[2025-05-19 13:06:45] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:06:45] Counter value (total users found): 3
+[2025-05-19 13:06:45] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:06:45] Number of users returned: 3
+[2025-05-19 13:06:48] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:06:48] Counter value (total users found): 3
+[2025-05-19 13:06:48] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:06:48] Number of users returned: 3
+[2025-05-19 13:07:14] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:07:14] Counter value (total users found): 3
+[2025-05-19 13:07:14] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:07:14] Number of users returned: 3
+[2025-05-19 13:09:55] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 13:09:55] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 13:09:55] Count query result with IN clause: 1
+[2025-05-19 13:09:55] Found 1 subscriptions
+[2025-05-19 13:09:55] Successfully enriched 1 subscriptions with related data
+[2025-05-19 13:09:55] Final number of subscriptions returned: 1
+[2025-05-19 13:09:58] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:09:58] Counter value (total users found): 3
+[2025-05-19 13:09:58] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:09:58] Number of users returned: 3
+[2025-05-19 13:10:45] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:10:45] Counter value (total users found): 3
+[2025-05-19 13:10:45] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:10:45] Number of users returned: 3
+[2025-05-19 13:10:47] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:10:47] Counter value (total users found): 3
+[2025-05-19 13:10:47] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:10:47] Number of users returned: 3
+[2025-05-19 13:11:31] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:11:31] Counter value (total users found): 3
+[2025-05-19 13:11:31] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:11:31] Number of users returned: 3
+[2025-05-19 13:21:04] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:21:04] Counter value (total users found): 3
+[2025-05-19 13:21:04] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:21:04] Number of users returned: 3
+[2025-05-19 13:21:05] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 13:21:05] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 13:21:05] Count query result with IN clause: 1
+[2025-05-19 13:21:05] Found 1 subscriptions
+[2025-05-19 13:21:05] Successfully enriched 1 subscriptions with related data
+[2025-05-19 13:21:05] Final number of subscriptions returned: 1
+[2025-05-19 13:21:06] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:21:06] Counter value (total users found): 3
+[2025-05-19 13:21:06] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:21:06] Number of users returned: 3
+[2025-05-19 13:21:14] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:21:14] Counter value (total users found): 3
+[2025-05-19 13:21:14] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:21:14] Number of users returned: 3
+[2025-05-19 13:21:15] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:21:15] Counter value (total users found): 3
+[2025-05-19 13:21:15] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:21:15] Number of users returned: 3
+[2025-05-19 13:21:18] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:21:18] Counter value (total users found): 3
+[2025-05-19 13:21:18] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:21:18] Number of users returned: 3
+[2025-05-19 13:24:32] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:24:32] Counter value (total users found): 3
+[2025-05-19 13:24:32] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:24:32] Number of users returned: 3
+[2025-05-19 13:25:14] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:25:14] Counter value (total users found): 3
+[2025-05-19 13:25:14] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:25:14] Number of users returned: 3
+[2025-05-19 13:25:40] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:25:40] Counter value (total users found): 3
+[2025-05-19 13:25:40] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:25:40] Number of users returned: 3
+[2025-05-19 13:27:00] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:27:00] Counter value (total users found): 3
+[2025-05-19 13:27:00] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:27:00] Number of users returned: 3
+[2025-05-19 13:27:01] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:27:01] Counter value (total users found): 3
+[2025-05-19 13:27:01] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:27:01] Number of users returned: 3
+[2025-05-19 13:27:06] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:27:06] Counter value (total users found): 3
+[2025-05-19 13:27:06] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:27:06] Number of users returned: 3
+[2025-05-19 13:27:47] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:27:47] Counter value (total users found): 3
+[2025-05-19 13:27:47] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:27:47] Number of users returned: 3
+[2025-05-19 13:27:51] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:27:51] Counter value (total users found): 3
+[2025-05-19 13:27:51] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:27:51] Number of users returned: 3
+[2025-05-19 13:27:54] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:27:54] Counter value (total users found): 3
+[2025-05-19 13:27:54] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:27:54] Number of users returned: 3
+[2025-05-19 13:27:57] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:27:57] Counter value (total users found): 3
+[2025-05-19 13:27:57] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:27:57] Number of users returned: 3
+[2025-05-19 13:28:04] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:28:04] Counter value (total users found): 3
+[2025-05-19 13:28:04] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:28:04] Number of users returned: 3
+[2025-05-19 13:28:09] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:28:10] Counter value (total users found): 3
+[2025-05-19 13:28:10] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY membership_id DESC LIMIT 0,12
+[2025-05-19 13:28:10] Number of users returned: 3
+[2025-05-19 13:28:13] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:28:13] Counter value (total users found): 3
+[2025-05-19 13:28:13] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY email DESC LIMIT 0,12
+[2025-05-19 13:28:13] Number of users returned: 3
+[2025-05-19 13:28:16] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:28:16] Counter value (total users found): 3
+[2025-05-19 13:28:16] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY fname DESC LIMIT 0,12
+[2025-05-19 13:28:16] Number of users returned: 3
+[2025-05-19 13:28:18] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:28:18] Counter value (total users found): 3
+[2025-05-19 13:28:18] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:28:18] Number of users returned: 3
+[2025-05-19 13:28:21] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:28:21] Counter value (total users found): 3
+[2025-05-19 13:28:21] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY membership_id DESC LIMIT 0,12
+[2025-05-19 13:28:21] Number of users returned: 3
+[2025-05-19 13:28:25] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:28:25] Counter value (total users found): 3
+[2025-05-19 13:28:25] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:28:25] Number of users returned: 3
+[2025-05-19 13:28:28] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:28:28] Counter value (total users found): 3
+[2025-05-19 13:28:28] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY fname DESC LIMIT 0,12
+[2025-05-19 13:28:28] Number of users returned: 3
+[2025-05-19 13:28:32] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:28:32] Counter value (total users found): 3
+[2025-05-19 13:28:32] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY email DESC LIMIT 0,12
+[2025-05-19 13:28:32] Number of users returned: 3
+[2025-05-19 13:28:41] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:28:41] Counter value (total users found): 3
+[2025-05-19 13:28:41] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY email ASC LIMIT 0,12
+[2025-05-19 13:28:41] Number of users returned: 3
+[2025-05-19 13:28:46] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:28:46] Counter value (total users found): 3
+[2025-05-19 13:28:46] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:28:46] Number of users returned: 3
+[2025-05-19 13:28:57] Starting subscriptions method for sub-admin ID: 2
+[2025-05-19 13:28:57] Searching for subscriptions with product IDs: 786038700, 1560072355
+[2025-05-19 13:28:57] Count query result with IN clause: 1
+[2025-05-19 13:28:57] Found 1 subscriptions
+[2025-05-19 13:28:57] Successfully enriched 1 subscriptions with related data
+[2025-05-19 13:28:57] Final number of subscriptions returned: 1
+[2025-05-19 13:29:00] Starting userIndex method for sub-admin ID: 2
+[2025-05-19 13:29:00] Counter value (total users found): 3
+[2025-05-19 13:29:00] SQL Query: SELECT u.*, u.id as id, u.active as active, CONCAT(fname,' ',lname) as fullname, m.title as mtitle, m.thumb 
+                FROM `users` as u 
+                LEFT JOIN `memberships` as m ON m.id = u.membership_id 
+                WHERE u.type = 'member' AND u.created_by = 2 ORDER BY  created DESC LIMIT 0,12
+[2025-05-19 13:29:00] Number of users returned: 3

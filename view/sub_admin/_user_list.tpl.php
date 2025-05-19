@@ -24,10 +24,12 @@
       </form>
    </div>
    <div class="columns mobile-hide phone-hide"></div>
+    <!--
    <div class="columns auto mobile-50 phone-100">
-      <a href="<?php echo Url::url(Router::$path, 'new/'); ?>" class="wojo small secondary fluid button">
-         <i class="icon plus alt"></i><?php echo Language::$word->M_TITLE5; ?></a>
+      <a href="<?php //echo Url::url(Router::$path, 'new/'); ?>" class="wojo small secondary fluid button">
+         <i class="icon plus alt"></i><?php //echo Language::$word->M_TITLE5; ?></a>
    </div>
+   -->
    <div class="columns auto mobile-25 phone-50">
       <a class="wojo secondary passive inverted small icon button">
          <i class="icon list"></i>

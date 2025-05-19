@@ -84,7 +84,7 @@ $registration_html = '<!DOCTYPE html>
 <body>
 <div class="wrap">
     <div id="formContent">
-        <h2 class="center-align">Sub-Admin Registration</h2>
+        <h2 class="center-align">Salla Seller Registration</h2>
         <div class="fadeIn first">
             <img src="<?php echo $siteurl; ?>/uploads/avatars/default.svg" id="avatar" alt="User Icon"/>
         </div>

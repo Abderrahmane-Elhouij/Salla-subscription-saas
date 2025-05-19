@@ -38,7 +38,7 @@ $pagename = Url::segment($this->segments, 0);
         <li<?php echo ($pagename == "subscriptions") ? ' class="active"' : ''; ?>>
             <a href="<?php echo Url::url("/sub_admin/subscriptions"); ?>">
                 <i class="icon calendar"></i>
-                <span class="tooltip" data-content="Salla Subscriptions"></span>
+                <span class="tooltip" data-content="<?php echo Language::$word->SUB_SALLA_SUBSCRIPTIONS; ?>"></span>
             </a>
         </li>
     </ul>

@@ -62,13 +62,12 @@ class SubAdmin extends Admin
         $tpl = App::View(BASEPATH . 'view/');
         $tpl->dir = 'sub_admin/';
         $tpl->title = Language::$word->META_T1;
-        $tpl->crumbs = ['sub_admin'];
-
-        $tpl->stats = new Stats();
+        $tpl->crumbs = ['sub_admin'];        $tpl->stats = new Stats();
         $tpl->core = App::Core();
 
         $tpl->totalMemberships = $this->getSubAdminMembershipCount();
         $tpl->totalUsers = $this->getSubAdminUserCount();
+        $tpl->totalSubscriptions = $this->getSubAdminSubscriptionCount();
         $tpl->totalRevenue = $this->getSubAdminRevenue();
 
         $tpl->template = 'sub_admin/index';
@@ -96,6 +95,46 @@ class SubAdmin extends Admin
         return Database::Go()->count(User::mTable)
             ->where('created_by', App::Auth()->uid, '=')
             ->run();
+    }    /**
+     * getSubAdminSubscriptionCount
+     * Get count of subscriptions for products created by this sub-admin
+     * @return int
+     */
+    private function getSubAdminSubscriptionCount(): int
+    {
+        // First, get all salla_product_ids created by this sub-admin
+        $products_sql = "SELECT salla_product_id FROM `" . Membership::mTable . "` 
+                         WHERE created_by = ? AND salla_product_id IS NOT NULL";
+        $sub_admin_products = Database::Go()->rawQuery($products_sql, array(App::Auth()->uid))->run();
+        
+        // If no products found, return 0
+        if (!is_array($sub_admin_products) || count($sub_admin_products) == 0) {
+            return 0;
+        }
+        
+        // Create an array of product IDs for use in the IN clause
+        $product_ids = [];
+        foreach ($sub_admin_products as $product) {
+            if (!empty($product->salla_product_id)) {
+                $product_ids[] = $product->salla_product_id;
+            }
+        }
+        
+        // If no valid product IDs found, return 0
+        if (empty($product_ids)) {
+            return 0;
+        }
+        
+        // Create the IN clause placeholders for the SQL query
+        $in_placeholders = implode(',', array_fill(0, count($product_ids), '?'));
+        
+        // Count query using IN clause
+        $count_sql = "SELECT COUNT(*) AS total 
+                      FROM `salla_subscriptions` 
+                      WHERE salla_product_id IN ($in_placeholders)";
+        
+        $count_result = Database::Go()->rawQuery($count_sql, $product_ids)->first()->run();
+        return $count_result && isset($count_result->total) ? (int)$count_result->total : 0;
     }
 
     /**

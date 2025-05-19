@@ -23,11 +23,6 @@
          </div>
       </form>
    </div>
-   <div class="columns mobile-hide phone-hide"></div>
-   <div class="columns auto mobile-50 phone-100">
-      <a href="<?php echo Url::url('/sub_admin/users', 'new/'); ?>" class="wojo small secondary fluid button">
-         <i class="icon plus alt"></i><?php echo Language::$word->M_TITLE5; ?></a>
-   </div>
    <div class="columns auto mobile-25 phone-50">
       <a href="<?php echo Url::url('/sub_admin/users'); ?>" class="wojo small primary icon button">
          <i class="icon list"></i>

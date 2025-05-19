@@ -91,11 +91,11 @@
                   <i class="icon person"></i>
                </a>
             <?php else: ?>
-               <a href="<?php echo Url::url('/login'); ?>" class="wojo white button spaced">
+               <a href="<?php echo Url::url('/sub_admin/login'); ?>" class="wojo white button spaced">
                   <?php echo Language::$word->HP_SUB1; ?>
                </a>
                <?php if ($this->core->reg_allowed): ?>
-                  <a href="<?php echo Url::url('/register'); ?>" class="wojo secondary button">
+                  <a href="<?php echo Url::url('/standalone_register.php'); ?>" class="wojo secondary button">
                      <?php echo Language::$word->M_SUB16; ?>
                   </a>
                <?php endif; ?>
