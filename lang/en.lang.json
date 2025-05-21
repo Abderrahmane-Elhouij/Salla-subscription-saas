@@ -783,8 +783,7 @@
         "FU_ERROR9": "Sorry but there is an error on our server. Please try again later.",
         "FU_ERROR5": "File does not exist. Make sure you specified correct file name",
         "FU_ERROR6": "This item has expired, and it's no longer available."
-    },
-    "Configuration": {
+    },    "Configuration": {
         "CG_AUTOVERIFY": "Auto Registration",
         "CG_CALDATE": "Calendar Date",
         "CG_CURRENCY": "Default Currency",
@@ -813,6 +812,13 @@
         "CG_PERPAGE": "Items Per Page",
         "CG_REGALOWED": "Allow Registration",
         "CG_REGVERIFY": "Registration Verification",
+        "CG_SALLA_INTEGRATION": "Salla Integration",
+        "CG_SALLA_CLIENT_ID": "Salla Client ID",
+        "CG_SALLA_CLIENT_SECRET": "Salla Client Secret",
+        "CG_SALLA_WEBHOOK_SECRET": "Salla Webhook Secret",
+        "CG_SALLA_CLIENT_ID_INFO": "Enter your Salla application Client ID from the Salla Partner Portal",
+        "CG_SALLA_CLIENT_SECRET_INFO": "Enter your Salla application Client Secret from the Salla Partner Portal",
+        "CG_SALLA_WEBHOOK_SECRET_INFO": "Enter your Salla Webhook Secret to verify webhook requests",
         "CG_SHORTDATE": "Short Date",
         "CG_SITENAME": "Website Name",
         "CG_SMAILPATH": "Sendmail Path",

@@ -289,12 +289,33 @@
             </label>
             <textarea class="altpost" name="inv_note"><?php echo $this->data->inv_note; ?></textarea>
          </div>
-      </div>
-      <div class="wojo auto very wide divider"></div>
+      </div>      <div class="wojo auto very wide divider"></div>
       <div class="wojo fields">
          <div class="field">
             <label><?php echo Language::$word->CG_OFFLINE; ?></label>
             <textarea class="altpost" name="offline_info"><?php echo $this->data->offline_info; ?></textarea>
+         </div>
+      </div>
+      <div class="wojo auto very wide divider"></div>
+      <!-- Salla Integration Section -->
+      <h3><?php echo Language::$word->CG_SALLA_INTEGRATION; ?></h3>
+      <div class="wojo fields">
+         <div class="field five wide">
+            <label><?php echo Language::$word->CG_SALLA_CLIENT_ID; ?></label>
+            <input type="text" placeholder="<?php echo Language::$word->CG_SALLA_CLIENT_ID; ?>" value="<?php echo $this->data->salla_client_id; ?>" name="salla_client_id">
+            <p class="wojo small text"><?php echo Language::$word->CG_SALLA_CLIENT_ID_INFO; ?></p>
+         </div>
+         <div class="field five wide">
+            <label><?php echo Language::$word->CG_SALLA_CLIENT_SECRET; ?></label>
+            <input type="text" placeholder="<?php echo Language::$word->CG_SALLA_CLIENT_SECRET; ?>" value="<?php echo $this->data->salla_client_secret; ?>" name="salla_client_secret">
+            <p class="wojo small text"><?php echo Language::$word->CG_SALLA_CLIENT_SECRET_INFO; ?></p>
+         </div>
+      </div>
+      <div class="wojo fields">
+         <div class="field five wide">
+            <label><?php echo Language::$word->CG_SALLA_WEBHOOK_SECRET; ?></label>
+            <input type="text" placeholder="<?php echo Language::$word->CG_SALLA_WEBHOOK_SECRET; ?>" value="<?php echo $this->data->salla_webhook_secret; ?>" name="salla_webhook_secret">
+            <p class="wojo small text"><?php echo Language::$word->CG_SALLA_WEBHOOK_SECRET_INFO; ?></p>
          </div>
       </div>
       <div class="wojo auto very wide divider"></div>

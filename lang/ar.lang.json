@@ -786,7 +786,13 @@
         "SUB_PRODUCT_PREVIEW": "معاينة المنتج",
         "SUB_SALLA_DASHBOARD_NOTE": "لتغيير صور المنتج أو الفئات أو الإعدادات المتقدمة الأخرى، يرجى استخدام",
         "SUB_SALLA_DASHBOARD": "لوحة تحكم سلة",
-        "SUB_UPDATE_SALLA_PRODUCT": "تحديث منتج سلة",
-        "SUB_RECENTLY_UPDATED": "تم التحديث مؤخرًا"
+        "SUB_UPDATE_SALLA_PRODUCT": "تحديث منتج سلة",        "SUB_RECENTLY_UPDATED": "تم التحديث مؤخرًا",
+        "CG_SALLA_INTEGRATION": "تكامل سلة",
+        "CG_SALLA_CLIENT_ID": "معرف العميل لسلة",
+        "CG_SALLA_CLIENT_SECRET": "سر العميل لسلة",
+        "CG_SALLA_WEBHOOK_SECRET": "سر الويب هوك لسلة",
+        "CG_SALLA_CLIENT_ID_INFO": "أدخل معرف العميل الخاص بتطبيق سلة من بوابة شركاء سلة",
+        "CG_SALLA_CLIENT_SECRET_INFO": "أدخل سر العميل الخاص بتطبيق سلة من بوابة شركاء سلة",
+        "CG_SALLA_WEBHOOK_SECRET_INFO": "أدخل سر الويب هوك الخاص بسلة للتحقق من طلبات الويب هوك"
     }
 }
