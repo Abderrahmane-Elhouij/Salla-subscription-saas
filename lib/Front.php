@@ -574,7 +574,8 @@
                 if ($mailer->send()) {
                     $json['type'] = 'success';
                     $json['title'] = Language::$word->SUCCESS;
-                    $json['redirect'] = Url::url('/page', $core->page_slugs->home[0]->page_type);
+                    //$json['redirect'] = Url::url('/page', $core->page_slugs->home[0]->page_type);
+                    $json['redirect'] = Url::url('');
                     $json['message'] = Language::$word->CNT_OK;
                 } else {
                     $json['type'] = 'error';

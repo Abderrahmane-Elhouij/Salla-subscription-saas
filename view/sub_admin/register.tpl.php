@@ -66,9 +66,11 @@
             </div>
             <div class="formRow">
                <input type="password" class="fadeIn fourth" name="password2" placeholder="Confirm Password">
-            </div>
-            <input type="hidden" name="dosubmit" value="1">
+            </div>            <input type="hidden" name="dosubmit" value="1">
             <button type="submit" name="submit" class="fadeIn fifth">Register</button>
+            <a href="<?php echo SITEURL; ?>" class="fadeIn sixth homepageBtn">
+               <i class="icon home"></i> <?php echo Language::$word->HOME; ?>
+            </a>
          </form>
          <div class="formFooter">
             <p>Already have an account? <a href="<?php echo SITEURL; ?>/sub_admin/login" class="underlineHover">Login</a></p>

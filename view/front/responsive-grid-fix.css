@@ -1,0 +1,28 @@
+/* Custom responsive grid fixes for feature cards */
+
+/* Base responsive grid adjustments for tablets */
+@media only screen and (max-width: 768px) {
+    /* Ensure grid displays 2 items per row on tablets */
+    .row.gutters.screen-3.tablet-2 > .columns {
+        width: 50% !important;
+        flex: 0 0 50% !important;
+    }
+}
+
+/* Small Tablets and Large Mobile */
+@media only screen and (max-width: 600px) {
+    /* Reinforce 2 items per row on mobile */
+    .row.gutters.screen-3.tablet-2.mobile-2 > .columns {
+        width: 50% !important;
+        flex: 0 0 50% !important;
+    }
+}
+
+/* Small Mobile Phones */
+@media only screen and (max-width: 480px) {
+    /* Ensure phone displays 1 item per row */
+    .row.gutters.screen-3.tablet-2.mobile-2.phone-1 > .columns {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+    }
+}

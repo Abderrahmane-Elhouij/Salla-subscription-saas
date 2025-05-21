@@ -124,10 +124,10 @@ input[type="password"] {
    text-decoration: none;
    display: inline-block;
    font-size: .875rem;
-   width: 85%;
-   outline: none;
+   width: 85%;   outline: none;
    margin: 0.5rem 0;
    -webkit-appearance: none;
+   appearance: none;
    border: 0 solid #dee2e6;
    transition: all 0.15s ease 0s;
    border-radius: .250rem;
@@ -322,4 +322,45 @@ button.loading:after {
 
 .wojo.small.secondary.button:hover {
    background-color: #2d3748;
+}
+
+/* Homepage Button Styling */
+.homepageBtn {
+   display: block;
+   width: 85%;
+   margin: 0 auto 1.5rem;
+   padding: 0.75rem 0;
+   background-color: #4a5568;
+   color: white;
+   border-radius: 0.25rem;
+   text-align: center;
+   font-size: 0.875rem;
+   font-weight: 500;
+   transition: all 0.3s ease;
+   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.homepageBtn:hover {
+   background-color: #2d3748;
+   color: white;
+   transform: translateY(-2px);
+   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.homepageBtn .icon {
+   margin-right: 0.5rem;
+}
+
+/* Ensure responsiveness */
+@media screen and (max-width: 480px) {
+   .homepageBtn {
+      width: 90%;
+      padding: 0.625rem 0;
+      font-size: 0.8125rem;
+   }
+   
+   button[name=submit],
+   button[name=doopass] {
+      padding: 0.875rem 1rem;
+   }
 }

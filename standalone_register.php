@@ -74,10 +74,40 @@ $registration_html = '<!DOCTYPE html>
         .wojo.message .header {
             font-weight: bold;
             margin-bottom: 0.5rem;
-        }
-        .wojo.message ul {
+        }        .wojo.message ul {
             margin: 0.5em 0;
             padding-left: 1em;
+        }
+        /* Homepage Button Styling */
+        .homepageBtn {
+            display: block;
+            width: 85%;
+            margin: 0 auto 1.5rem;
+            padding: 0.75rem 0;
+            background-color: #4a5568;
+            color: white;
+            border-radius: 0.25rem;
+            text-align: center;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .homepageBtn:hover {
+            background-color: #2d3748;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .homepageBtn .icon {
+            margin-right: 0.5rem;
+        }
+        @media screen and (max-width: 480px) {
+            .homepageBtn {
+                width: 90%;
+                padding: 0.625rem 0;
+                font-size: 0.8125rem;
+            }
         }
     </style>
 </head>
@@ -90,13 +120,17 @@ $registration_html = '<!DOCTYPE html>
         </div>
         
         <!-- Display success message if registration successful -->
-        <?php if(isset($success) && $success): ?>
-        <div class="wojo success message">
+        <?php if(isset($success) && $success): ?>        <div class="wojo success message">
             <div class="header">Success</div>
             <p><?php echo $message; ?></p>
         </div>
         <div class="formFooter">
             <a href="<?php echo $siteurl; ?>/sub_admin/login" class="underlineHover">Go to Login</a>
+            <div style="margin-top: 15px;">
+                <a href="<?php echo $siteurl; ?>" class="fadeIn fifth homepageBtn">
+                    <i class="icon home"></i> Home
+                </a>
+            </div>
         </div>
         <?php else: ?>
         
@@ -133,9 +167,11 @@ $registration_html = '<!DOCTYPE html>
                 <div class="formRow">
                     <input type="password" class="fadeIn fourth" name="password2" placeholder="Confirm Password">
                 </div>
-                
-                <input type="hidden" name="dosubmit" value="1">
+                  <input type="hidden" name="dosubmit" value="1">
                 <button type="submit" name="submit" class="fadeIn fifth">Register</button>
+                <a href="<?php echo $siteurl; ?>" class="fadeIn sixth homepageBtn">
+                    <i class="icon home"></i> Home
+                </a>
             </form>
             
             <div class="formFooter">

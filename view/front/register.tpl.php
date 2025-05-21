@@ -120,16 +120,19 @@
                                  </a>
                               </label>
                            </div>
-                        </div>
-                        <div class="field ">
+                        </div>                        <div class="field ">
                            <button class="wojo primary fluid button" data-action="register" name="dosubmit" type="button"><?php echo Language::$word->M_SUB30; ?></button>
+                        </div>
+                        <div class="field">
+                           <a href="<?php echo SITEURL; ?>" class="homepageBtn">
+                              <i class="icon home"></i> <?php echo Language::$word->HOME; ?>
+                           </a>
                         </div>
                         <div class="field basic">
                            <?php echo Language::$word->M_SUB29; ?>
                            <a href="<?php echo Url::url('/login'); ?>">
                               <span class="text-weight-500"><?php echo Language::$word->LOGIN_1; ?>.</span>
                            </a>
-
                         </div>
                      </div>
                   </div>

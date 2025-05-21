@@ -12,96 +12,90 @@
       die('Direct access to this location is not allowed.');
    }
 ?>
-<h2>Edit Salla Product</h2>
-<p class="wojo small text">Update your product details on Salla</p>
+<h2><?php echo Language::$word->SUB_EDIT_SALLA_PRODUCT; ?></h2>
+<p class="wojo small text"><?php echo Language::$word->SUB_EDIT_SALLA_PRODUCT_DESC; ?></p>
 
 <div class="wojo simple segment form margin-bottom">
    <div class="row gutters">
-      <div class="columns screen-70 tablet-60 mobile-100 phone-100 padding">
-         <div class="wojo fields align-middle">
+      <div class="columns screen-70 tablet-60 mobile-100 phone-100 padding">         <div class="wojo fields align-middle">
             <div class="field four wide labeled">
-               <label>Product Name
+               <label><?php echo Language::$word->SUB_PRODUCT_NAME; ?>
                   <i class="icon asterisk"></i>
                </label>
             </div>
             <div class="field">
-               <input type="text" id="product_name" placeholder="Product Name" value="<?php echo $this->product->name; ?>">
+               <input type="text" id="product_name" placeholder="<?php echo Language::$word->SUB_PRODUCT_NAME; ?>" value="<?php echo $this->product->name; ?>">
             </div>
          </div>
          <div class="wojo fields align-middle">
             <div class="field four wide labeled">
-               <label>Description
+               <label><?php echo Language::$word->SUB_DESCRIPTION; ?>
                   <i class="icon asterisk"></i>
                </label>
             </div>
             <div class="field">
-               <textarea id="product_description" placeholder="Product Description" rows="4"><?php echo $this->product->description; ?></textarea>
+               <textarea id="product_description" placeholder="<?php echo Language::$word->SUB_DESCRIPTION; ?>" rows="4"><?php echo $this->product->description; ?></textarea>
             </div>
-         </div>
-         <div class="wojo fields align-middle">
+         </div>         <div class="wojo fields align-middle">
             <div class="field four wide labeled">
-               <label>Price
+               <label><?php echo Language::$word->SUB_PRICE; ?>
                   <i class="icon asterisk"></i>
                </label>
             </div>
             <div class="field">
                <div class="wojo labeled input">
                   <div class="wojo simple label"><?php echo isset($this->product->price->currency) ? $this->product->price->currency : Utility::currencySymbol(); ?></div>
-                  <input type="text" id="product_price" placeholder="Price" value="<?php echo $this->product->price->amount; ?>">
+                  <input type="text" id="product_price" placeholder="<?php echo Language::$word->SUB_PRICE; ?>" value="<?php echo $this->product->price->amount; ?>">
                </div>
             </div>
-         </div>
-         <div class="wojo fields align-middle">
+         </div>         <div class="wojo fields align-middle">
             <div class="field four wide labeled">
-               <label>Sale Price</label>
+               <label><?php echo Language::$word->SUB_SALE_PRICE; ?></label>
             </div>
             <div class="field">
                <div class="wojo labeled input">
                   <div class="wojo simple label"><?php echo isset($this->product->price->currency) ? $this->product->price->currency : Utility::currencySymbol(); ?></div>
-                  <input type="text" id="product_sale_price" placeholder="Sale Price" value="<?php echo isset($this->product->sale_price) ? $this->product->sale_price->amount : ''; ?>">
+                  <input type="text" id="product_sale_price" placeholder="<?php echo Language::$word->SUB_SALE_PRICE; ?>" value="<?php echo isset($this->product->sale_price) ? $this->product->sale_price->amount : ''; ?>">
                </div>
             </div>
-         </div>
-         <div class="wojo fields align-middle">
+         </div>         <div class="wojo fields align-middle">
             <div class="field four wide labeled">
-               <label>Quantity</label>
+               <label><?php echo Language::$word->SUB_QUANTITY; ?></label>
             </div>
             <div class="field">
-               <input type="number" id="product_quantity" placeholder="Quantity" value="<?php echo $this->product->quantity; ?>" min="0">
-            </div>
-         </div>
-         <div class="wojo fields align-middle">
-            <div class="field four wide labeled">
-               <label>SKU</label>
-            </div>
-            <div class="field">
-               <input type="text" id="product_sku" placeholder="SKU" value="<?php echo $this->product->sku; ?>">
+               <input type="number" id="product_quantity" placeholder="<?php echo Language::$word->SUB_QUANTITY; ?>" value="<?php echo $this->product->quantity; ?>" min="0">
             </div>
          </div>
          <div class="wojo fields align-middle">
             <div class="field four wide labeled">
-               <label>Subtitle</label>
+               <label><?php echo Language::$word->SUB_SKU; ?></label>
             </div>
             <div class="field">
-               <input type="text" id="product_subtitle" placeholder="Subtitle" value="<?php echo $this->product->subtitle; ?>">
+               <input type="text" id="product_sku" placeholder="<?php echo Language::$word->SUB_SKU; ?>" value="<?php echo $this->product->sku; ?>">
             </div>
          </div>
-         <div class="wojo fields">
+         <div class="wojo fields align-middle">
             <div class="field four wide labeled">
-               <label>Product Status</label>
+               <label><?php echo Language::$word->SUB_SUBTITLE; ?></label>
+            </div>
+            <div class="field">
+               <input type="text" id="product_subtitle" placeholder="<?php echo Language::$word->SUB_SUBTITLE; ?>" value="<?php echo $this->product->subtitle; ?>">
+            </div>
+         </div>         <div class="wojo fields">
+            <div class="field four wide labeled">
+               <label><?php echo Language::$word->SUB_PRODUCT_STATUS; ?></label>
             </div>
             <div class="field">
                <div class="wojo checkbox disabled">
                   <input type="checkbox" id="product_status" <?php echo ($this->product->status == 'active') ? 'checked' : ''; ?> disabled>
-                  <label for="product_status">Active on Salla</label>
-                  <div class="wojo small text">(Status can only be changed in Salla dashboard)</div>
+                  <label for="product_status"><?php echo Language::$word->SUB_ACTIVE_ON_SALLA; ?></label>
+                  <div class="wojo small text"><?php echo Language::$word->SUB_STATUS_CHANGE_NOTE; ?></div>
                </div>
             </div>
          </div>
-      </div>
-      <div class="columns screen-30 tablet-40 mobile-100 phone-100">
+      </div>      <div class="columns screen-30 tablet-40 mobile-100 phone-100">
          <div class="wojo segment">
-            <h4>Product Preview</h4>
+            <h4><?php echo Language::$word->SUB_PRODUCT_PREVIEW; ?></h4>
             <div class="wojo basic segment center aligned">
                <?php if (!empty($this->product->main_image)): ?>
                   <img src="<?php echo $this->product->main_image; ?>" alt="<?php echo $this->product->name; ?>" class="wojo medium image">
@@ -114,13 +108,13 @@
             <div class="margin-top">
                <div class="wojo fields">
                   <div class="field">
-                     <label>Salla Product ID:</label>
+                     <label><?php echo Language::$word->SUB_SALLA_PRODUCT_ID; ?>:</label>
                      <div class="wojo small text"><?php echo $this->product->id; ?></div>
                   </div>
                </div>
                <div class="wojo fields">
                   <div class="field">
-                     <label>Last Updated:</label>
+                     <label><?php echo Language::$word->SUB_LAST_UPDATED; ?>:</label>
                      <div class="wojo small text">
                         <?php 
                         if (isset($this->product->updated_at)) {
@@ -133,15 +127,13 @@
                                 echo Date::doDate('long_date', (int)$this->product->updated_at);
                             }
                             // Otherwise try to parse it as a date string
-                            else {
-                                try {
+                            else {                                try {
                                     echo Date::doDate('long_date', $this->product->updated_at);
                                 } catch (Exception $e) {
-                                    echo "Recently updated";
-                                }
-                            }
+                                    echo Language::$word->SUB_RECENTLY_UPDATED;
+                                }                            }
                         } else {
-                            echo 'N/A';
+                            echo Language::$word->SUB_NA;
                         }
                         ?>
                      </div>
@@ -149,7 +141,7 @@
                </div>
                <div class="wojo divider"></div>
                <div class="wojo small text">
-                  <p>To change product images, categories, or other advanced settings, please use the <a href="https://s.salla.sa" target="_blank">Salla Dashboard</a>.</p>
+                  <p><?php echo Language::$word->SUB_SALLA_DASHBOARD_NOTE; ?> <a href="https://s.salla.sa" target="_blank"><?php echo Language::$word->SUB_SALLA_DASHBOARD; ?></a>.</p>
                </div>
             </div>
          </div>
@@ -160,7 +152,7 @@
 <div class="center-align margin-bottom-large">
    <div id="response_message" class="wojo message" style="display: none;"></div>
    <a href="<?php echo Url::url('/sub_admin/memberships'); ?>" class="wojo small simple button"><?php echo Language::$word->CANCEL; ?></a>
-   <button type="button" id="update_salla_product" class="wojo primary button">Update Salla Product</button>
+   <button type="button" id="update_salla_product" class="wojo primary button"><?php echo Language::$word->SUB_UPDATE_SALLA_PRODUCT; ?></button>
 </div>
 
 <!-- JavaScript for Salla API integration -->
@@ -227,8 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Display response message
             messageDiv.style.display = 'block';
             
-            if (data.status === 'success') {
-                messageDiv.className = 'wojo positive message';
+            if (data.status === 'success') {                messageDiv.className = 'wojo positive message';
                 messageDiv.innerHTML = '<i class="icon check circle"></i><div class="content"><div class="header">Success!</div><p>' + data.message + '</p></div>';
                 
                 // After successful update, refresh the page after 2 seconds
@@ -243,9 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
             // Reset button state
             updateButton.classList.remove('loading');
-            updateButton.disabled = false;
-            
-            // Display error message
+            updateButton.disabled = false;            // Display error message
             messageDiv.style.display = 'block';
             messageDiv.className = 'wojo negative message';
             messageDiv.innerHTML = '<i class="icon exclamation circle"></i><div class="content"><div class="header">Error</div><p>An error occurred while updating the product. Please try again.</p></div>';

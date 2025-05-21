@@ -48,9 +48,13 @@
                            <p class="right-align">
                               <a id="passreset" class="text-size-small text-weight-500"><?php echo Language::$word->M_PASSWORD_RES; ?>?</a>
                            </p>
+                        </div>                        <div class="field">
+                           <button id="doSubmit" type="button" class="wojo primary fluid button" name="submit"><?php echo Language::$word->LOGIN; ?></button>
                         </div>
                         <div class="field">
-                           <button id="doSubmit" type="button" class="wojo primary fluid button" name="submit"><?php echo Language::$word->LOGIN; ?></button>
+                           <a href="<?php echo SITEURL; ?>" class="homepageBtn">
+                              <i class="icon home"></i> <?php echo Language::$word->HOME; ?>
+                           </a>
                         </div>
                         <?php if (App::Core()->reg_allowed): ?>
                            <div class="field basic">
@@ -70,9 +74,13 @@
                            <i class="icon envelope"></i>
                            <input type="text" name="pEmail" id="pEmail" placeholder="<?php echo Language::$word->M_EMAIL1; ?>">
                         </div>
+                     </div>                     <div class="field">
+                        <button id="dopass" type="button" class="wojo fluid primary button" name="doopass"><?php echo Language::$word->SUBMIT; ?></button>
                      </div>
                      <div class="field">
-                        <button id="dopass" type="button" class="wojo fluid primary button" name="doopass"><?php echo Language::$word->SUBMIT; ?></button>
+                        <a href="<?php echo SITEURL; ?>" class="homepageBtn">
+                           <i class="icon home"></i> <?php echo Language::$word->HOME; ?>
+                        </a>
                      </div>
                   </div>
                   <div class="center-align">

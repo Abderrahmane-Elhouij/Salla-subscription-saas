@@ -61,9 +61,9 @@ class Core
     public int $is_ssl;
 
     // Add Salla credentials
-    public ?string $salla_client_id = "a09dcfec-90ae-40d4-9209-195dc515f74f";
-    public ?string $salla_client_secret = "a09dcfec-90ae-40d4-9209-195dc515f74f";
-    public ?string $salla_webhook_secret = "ebf13c55071a208426eece14b31b6f94";
+    public ?string $salla_client_id = null;
+    public ?string $salla_client_secret = null;
+    public ?string $salla_webhook_secret = null;
 
     public string $backup;
     public string $wojov;

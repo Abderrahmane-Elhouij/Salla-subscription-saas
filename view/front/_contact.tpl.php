@@ -11,11 +11,13 @@
    if (!defined('_WOJO')) {
       die('Direct access to this location is not allowed.');
    }
+   // Detect if current language is Arabic for RTL support
+   $is_arabic = (isset(Core::$language) && Core::$language == 'ar');
 ?>
-<div class="row justify-center">
+<div class="row justify-center" <?php if($is_arabic) echo 'dir="rtl" lang="ar"'; ?>>
    <div class="columns screen-50 tablet-60 mobile-100 phone-100">
-      <form method="post" id="wojo_form" name="wojo_form">
-         <div class="wojo card form">
+      <form method="post" id="wojo_form" name="wojo_form" <?php if($is_arabic) echo 'dir="rtl" lang="ar"'; ?>>
+         <div class="wojo card form<?php if($is_arabic) echo ' rtl-form'; ?>">
             <div class="content">
                <div class="wojo block fields">
                   <div class="field">

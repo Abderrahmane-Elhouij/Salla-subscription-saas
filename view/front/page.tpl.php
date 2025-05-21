@@ -37,7 +37,7 @@
                <?php endif; ?>
             <?php endif; ?>
          <?php else: ?>
-            <?php echo Url::out_url($this->row->body); ?>
+            <?php //echo Url::out_url($this->row->body); ?>
             <?php if ($this->row->page_type == 'contact'): ?>
                <?php include_once '_contact.tpl.php'; ?>
             <?php endif; ?>

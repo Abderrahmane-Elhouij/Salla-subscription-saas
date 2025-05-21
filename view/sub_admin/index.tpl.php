@@ -62,14 +62,6 @@ if (!defined('_WOJO')) {
                     </a>
                 </div>
                 <div class="item">
-                    <a href="<?php echo Url::url('/sub_admin/users/new'); ?>"
-                       class="wojo small secondary button"><?php echo Language::$word->SUB_ADMIN_NEW_USER; ?></a>
-                </div>
-                <div class="item">
-                    <a href="<?php echo Url::url('/sub_admin/memberships/new'); ?>"
-                       class="wojo small secondary button"><?php echo Language::$word->SUB_ADMIN_NEW_MEMBERSHIP; ?></a>
-                </div>
-                <div class="item">
                     <a href="<?php echo Url::url('/sub_admin/users'); ?>"
                        class="wojo small secondary button"><?php echo Language::$word->SUB_ADMIN_VIEW_USERS; ?></a>
                 </div>

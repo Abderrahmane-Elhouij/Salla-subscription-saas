@@ -41,12 +41,14 @@
       <div class="fadeIn first">
          <img src="<?php echo UPLOADURL; ?>/avatars/default.svg" id="avatar" alt="User Icon"/>
       </div>
-      <div id="loginform">
-         <form id="admin_form" name="admin_form" method="post">
+      <div id="loginform">         <form id="admin_form" name="admin_form" method="post">
             <input type="text" class="fadeIn second" name="username" placeholder="<?php echo Language::$word->USERNAME; ?>">
             <input type="password" class="fadeIn third" name="password" placeholder="<?php echo Language::$word->M_PASSWORD; ?>">
             <button id="doSubmit" type="button" name="submit"
                     class="fadeIn fourth"><?php echo Language::$word->LOGIN; ?></button>
+            <a href="<?php echo SITEURL; ?>" class="fadeIn fifth homepageBtn">
+               <i class="icon home"></i> <?php echo Language::$word->HOME; ?>
+            </a>
          </form>
          <div class="formFooter">
             <a id="passreset" class="underlineHover"><?php echo Language::$word->M_PASSWORD_RES; ?>?</a>
@@ -56,11 +58,13 @@
             </div>
             <?php endif; ?>
          </div>
-      </div>
-      <div id="passform" class="hide-all">
+      </div>      <div id="passform" class="hide-all">
          <input type="text" name="pEmail" id="pEmail" class="input-container"
                 placeholder="<?php echo Language::$word->M_EMAIL; ?>">
          <button id="dopass" type="button" name="doopass"><?php echo Language::$word->SUBMIT; ?></button>
+         <a href="<?php echo SITEURL; ?>" class="fadeIn fifth homepageBtn">
+            <i class="icon home"></i> <?php echo Language::$word->HOME; ?>
+         </a>
          <div class="formFooter">
             <a id="backto" class="underlineHover"><?php echo Language::$word->M_SUB14; ?></a>
          </div>

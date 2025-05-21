@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <!-- Main background -->
+  <rect width="800" height="600" fill="#ffffff" rx="10" ry="10"/>
+  
+  <!-- Salla platform (left) -->
+  <rect x="50" y="100" width="280" height="400" fill="#f8f9fa" rx="10" ry="10" stroke="#e0e0e0" stroke-width="2"/>
+  <text x="150" y="70" font-family="Arial" font-size="20" font-weight="bold" fill="#333333">Salla Store</text>
+  
+  <!-- Our platform (right) -->
+  <rect x="470" y="100" width="280" height="400" fill="#f0f7fc" rx="10" ry="10" stroke="#0088cc" stroke-width="2"/>
+  <text x="520" y="70" font-family="Arial" font-size="20" font-weight="bold" fill="#0088cc">Subscription SaaS</text>
+  
+  <!-- Connection lines -->
+  <path d="M 330 200 C 370 200, 390 200, 470 200" stroke="#0088cc" stroke-width="3" fill="transparent"/>
+  <path d="M 330 300 C 370 300, 390 300, 470 300" stroke="#0088cc" stroke-width="3" fill="transparent"/>
+  <path d="M 330 400 C 370 400, 390 400, 470 400" stroke="#0088cc" stroke-width="3" fill="transparent"/>
+  
+  <!-- Connection arrows -->
+  <polygon points="460,195 470,200 460,205" fill="#0088cc"/>
+  <polygon points="340,195 330,200 340,205" fill="#0088cc"/>
+  <polygon points="460,295 470,300 460,305" fill="#0088cc"/>
+  <polygon points="340,295 330,300 340,305" fill="#0088cc"/>
+  <polygon points="460,395 470,400 460,405" fill="#0088cc"/>
+  <polygon points="340,395 330,400 340,405" fill="#0088cc"/>
+  
+  <!-- Data types -->
+  <text x="370" y="185" font-family="Arial" font-size="12" fill="#666666">Products</text>
+  <text x="370" y="285" font-family="Arial" font-size="12" fill="#666666">Customers</text>
+  <text x="360" y="385" font-family="Arial" font-size="12" fill="#666666">Subscriptions</text>
+  
+  <!-- Salla Content -->
+  <rect x="80" y="150" width="220" height="80" fill="#ffffff" rx="5" ry="5" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="110" y="180" font-family="Arial" font-size="16" font-weight="bold" fill="#333333">Product Catalog</text>
+  <text x="110" y="205" font-family="Arial" font-size="12" fill="#666666">Your Salla products</text>
+  
+  <rect x="80" y="250" width="220" height="80" fill="#ffffff" rx="5" ry="5" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="110" y="280" font-family="Arial" font-size="16" font-weight="bold" fill="#333333">Customer Database</text>
+  <text x="110" y="305" font-family="Arial" font-size="12" fill="#666666">Your Salla customers</text>
+  
+  <rect x="80" y="350" width="220" height="80" fill="#ffffff" rx="5" ry="5" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="110" y="380" font-family="Arial" font-size="16" font-weight="bold" fill="#333333">Orders</text>
+  <text x="110" y="405" font-family="Arial" font-size="12" fill="#666666">One-time purchases</text>
+  
+  <!-- Our Platform Content -->
+  <rect x="500" y="150" width="220" height="80" fill="#ffffff" rx="5" ry="5" stroke="#0088cc" stroke-width="1"/>
+  <text x="530" y="180" font-family="Arial" font-size="16" font-weight="bold" fill="#0088cc">Subscription Products</text>
+  <text x="530" y="205" font-family="Arial" font-size="12" fill="#666666">Recurring offerings</text>
+  
+  <rect x="500" y="250" width="220" height="80" fill="#ffffff" rx="5" ry="5" stroke="#0088cc" stroke-width="1"/>
+  <text x="530" y="280" font-family="Arial" font-size="16" font-weight="bold" fill="#0088cc">Subscribers</text>
+  <text x="530" y="305" font-family="Arial" font-size="12" fill="#666666">Recurring customers</text>
+  
+  <rect x="500" y="350" width="220" height="80" fill="#ffffff" rx="5" ry="5" stroke="#0088cc" stroke-width="1"/>
+  <text x="530" y="380" font-family="Arial" font-size="16" font-weight="bold" fill="#0088cc">Recurring Billing</text>
+  <text x="530" y="405" font-family="Arial" font-size="12" fill="#666666">Subscription management</text>
+  
+  <!-- Central connection icon -->
+  <circle cx="400" cy="300" r="30" fill="#0088cc"/>
+  <line x1="385" y1="300" x2="415" y2="300" stroke="#ffffff" stroke-width="4"/>
+  <line x1="400" y1="285" x2="400" y2="315" stroke="#ffffff" stroke-width="4"/>
+</svg>
