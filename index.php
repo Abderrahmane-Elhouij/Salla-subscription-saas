@@ -207,7 +207,7 @@
         $router->get('/salla/callback', 'SubAdmin@handleSallaCallback');
         
         // Add Salla webhook endpoint
-        $router->post('/salla/webhook', 'SubAdmin@handleSallaWebhook');
+        $router->post('/notificatios', 'SubAdmin@handleSallaWebhook');
         
         //sub-admin index
         $router->get('/', 'SubAdmin@index');
