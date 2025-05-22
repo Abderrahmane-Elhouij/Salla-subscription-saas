@@ -160,34 +160,48 @@ if (!defined('_WOJO')) {
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="padding-vertical-big bg-primary">
+    </section>    <!-- Stats Section -->
+    <section class="padding-vertical-big bg-stats-gradient">
         <div class="wojo-grid">
+            <div class="center-align margin-bottom">
+                <h2 class="wojo white text"><?php echo Language::$word->HOME_STATS_TITLE ?? "Our Impact in Numbers"; ?></h2>
+                <p class="wojo white dimmed text"><?php echo Language::$word->HOME_STATS_SUBTITLE ?? "Trusted by merchants across Saudi Arabia"; ?></p>
+            </div>
             <div class="row gutters screen-4 tablet-2 mobile-2 phone-1">
                 <div class="columns">
-                    <div class="center-align">
-                        <h2 class="wojo white text text-size-massive">100+</h2>
-                        <p class="wojo white text"><?php echo Language::$word->HOME_STAT1 ?? "Active Merchants"; ?></p>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="icon bag"></i></div>
+                        <div class="stat-content">
+                            <h2 class="stat-number counter-anim" data-count="100">100+</h2>
+                            <p class="stat-label"><?php echo Language::$word->HOME_STAT1 ?? "Active Merchants"; ?></p>
+                        </div>
                     </div>
                 </div>
                 <div class="columns">
-                    <div class="center-align">
-                        <h2 class="wojo white text text-size-massive">10k+</h2>
-                        <p class="wojo white text"><?php echo Language::$word->HOME_STAT2 ?? "Subscriptions Managed"; ?></p>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="icon repeat"></i></div>
+                        <div class="stat-content">
+                            <h2 class="stat-number counter-anim" data-count="10000">10k+</h2>
+                            <p class="stat-label"><?php echo Language::$word->HOME_STAT2 ?? "Subscriptions Managed"; ?></p>
+                        </div>
                     </div>
                 </div>
                 <div class="columns">
-                    <div class="center-align">
-                        <h2 class="wojo white text text-size-massive">99.9%</h2>
-                        <p class="wojo white text"><?php echo Language::$word->HOME_STAT3 ?? "Uptime"; ?></p>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="icon server"></i></div>
+                        <div class="stat-content">
+                            <h2 class="stat-number counter-anim" data-count="99.9">99.9%</h2>
+                            <p class="stat-label"><?php echo Language::$word->HOME_STAT3 ?? "Uptime"; ?></p>
+                        </div>
                     </div>
                 </div>
                 <div class="columns">
-                    <div class="center-align">
-                        <h2 class="wojo white text text-size-massive">24/7</h2>
-                        <p class="wojo white text"><?php echo Language::$word->HOME_STAT4 ?? "Customer Support"; ?></p>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="icon person"></i></div>
+                        <div class="stat-content">
+                            <h2 class="stat-number">24/7</h2>
+                            <p class="stat-label"><?php echo Language::$word->HOME_STAT4 ?? "Customer Support"; ?></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -312,10 +326,128 @@ if (!defined('_WOJO')) {
     }
 
     .cta-section .shadow-hover:hover {
-        box-shadow: 0 8px 25px var(--shadow-color);
-        transform: translateY(-5px);
+        box-shadow: 0 8px 25px var(--shadow-color);        transform: translateY(-5px);
     }
 
+    /* Stats Section Styles */
+    .bg-stats-gradient {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-dark, #0056b3) 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .bg-stats-gradient::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        opacity: 0.6;
+    }
+    
+    .wojo.white.dimmed.text {
+        opacity: 0.8;
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
+    }
+      .stat-card {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        margin-bottom: 0;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .stat-icon {
+        background-color: rgba(255, 255, 255, 0.2);
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+    }
+    
+    .stat-icon i {
+        font-size: 2rem;
+        color: white;
+    }
+    
+    .stat-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stat-number {
+        font-size: 3rem !important;
+        font-weight: 700;
+        color: white;
+        margin: 0 0 0.5rem;
+        position: relative;
+        display: inline-block;
+    }
+    
+    .stat-number::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 3px;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+    }
+    
+    .stat-label {
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin-top: 1rem;
+        margin-bottom: 0;
+    }
+    
+    /* Counter Animation */
+    .counter-anim {
+        position: relative;
+        display: inline-block;
+    }
+      /* Counter Animation Script */
+    
+    /* Fix for any horizontal overflow issues */
+    .wojo-grid {
+        overflow-x: hidden;
+    }
+    
+    /* Fix for stats section spacing */
+    .row.gutters.screen-4.tablet-2.mobile-2.phone-1 {
+        margin-left: -1rem;
+        margin-right: -1rem;
+    }
+    
+    .row.gutters.screen-4.tablet-2.mobile-2.phone-1 > .columns {
+        padding: 0 1rem;
+    }
+    
     /* Spacing utilities */
     .padding-top-huge {
         padding-top: 6rem;
@@ -621,15 +753,18 @@ if (!defined('_WOJO')) {
 
     html[dir="rtl"] .text-align-left {
         text-align: right;
-    }
-
-    html[dir="rtl"] .text-align-right {
+    }    html[dir="rtl"] .text-align-right {
         text-align: left;
     }
 
     /* Fix icon placement in RTL */
     html[dir="rtl"] .wojo.button.with-icon {
         flex-direction: row-reverse;
+    }
+    
+    /* RTL support for stats section */
+    html[dir="rtl"] .stat-card {
+        direction: rtl;
     }
 
     /* Enhanced RTL responsive support */
@@ -647,9 +782,7 @@ if (!defined('_WOJO')) {
 
         html[dir="rtl"] .wojo.relaxed.divided.list .content {
             padding-right: 0.5rem;
-        }
-
-        html[dir="rtl"] .row.align-center {
+        }        html[dir="rtl"] .row.align-center {
             text-align: center;
         }
     }    /* Print media query for better printing */
@@ -693,12 +826,143 @@ if (!defined('_WOJO')) {
             flex: 0 0 50% !important;
         }
     }
-    
-    @media only screen and (max-width: 480px) {
+      @media only screen and (max-width: 480px) {
         /* Phones - 1 card per row */
-        .row.gutters.screen-3.tablet-2.mobile-2.phone-1 > .columns {
+        .row.gutters.screen-3.tablet-2.mobile-2.phone-1 > .columns,
+        .row.gutters.screen-4.tablet-2.mobile-2.phone-1 > .columns {
             width: 100% !important;
             flex: 0 0 100% !important;
         }
     }
+      /* Stats Section Responsive Styles */
+    @media only screen and (max-width: 991px) {
+        .stat-card {
+            margin-bottom: 1rem;
+        }
+    }
+    
+    @media only screen and (max-width: 768px) {
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .stat-icon i {
+            font-size: 1.6rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem !important;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+        }
+        
+        .stat-card {
+            padding: 1.5rem 1rem;
+        }
+        
+        .bg-stats-gradient .wojo.white.dimmed.text {
+            font-size: 1rem;
+        }
+    }
+    
+    @media only screen and (max-width: 480px) {
+        .stat-number {
+            font-size: 2.2rem !important;
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-icon i {
+            font-size: 1.4rem;
+        }
+        
+        .stat-card {
+            padding: 1.2rem 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .row.gutters.screen-4.tablet-2.mobile-2.phone-1 > .columns {
+            margin-bottom: 1rem;
+        }
+    }
 </style>
+
+<!-- Stats Counter Animation Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.bottom >= 0
+        );
+    }
+    
+    // Handle counter animation
+    function animateCounters() {
+        const statsSection = document.querySelector('.bg-stats-gradient');
+        if (statsSection && isInViewport(statsSection)) {
+            const counters = statsSection.querySelectorAll('.counter-anim');
+            
+            // If counters are already animated, don't animate again
+            if (statsSection.getAttribute('data-animated') === 'true') {
+                return;
+            }
+            
+            statsSection.setAttribute('data-animated', 'true');
+            
+            counters.forEach(counter => {
+                const target = parseFloat(counter.getAttribute('data-count'));
+                const duration = 2000; // 2 seconds
+                let suffix = '';
+                
+                // Check if the number contains a suffix
+                if (counter.textContent.includes('k+')) {
+                    suffix = 'k+';
+                } else if (counter.textContent.includes('%')) {
+                    suffix = '%';
+                }
+                
+                const startTime = performance.now();
+                
+                function updateCounter(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    const progress = Math.min(elapsedTime / duration, 1);
+                    
+                    // Easing function for smoother animation
+                    const easedProgress = 1 - Math.pow(1 - progress, 3);
+                    
+                    let currentValue = Math.floor(easedProgress * target);
+                    if (suffix === '%' && target < 100) {
+                        // For percentage with decimal points
+                        currentValue = (easedProgress * target).toFixed(1);
+                    }
+                    
+                    counter.textContent = currentValue + suffix;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    }
+                }
+                
+                requestAnimationFrame(updateCounter);
+            });
+        }
+    }
+    
+    // Check on scroll and initial load
+    window.addEventListener('scroll', animateCounters, { passive: true });
+    window.addEventListener('resize', animateCounters, { passive: true });
+    
+    // Initial check
+    animateCounters();
+});
+</script>
