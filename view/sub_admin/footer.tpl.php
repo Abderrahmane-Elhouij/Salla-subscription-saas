@@ -16,7 +16,7 @@
 </div>
 </div>
 </main>
-<footer><p class="icon-text"><i class="icon wojologo"></i>Copyright &copy;<?php echo date('Y') . ' ' . $this->core->company; ?> | Powered by <small> [wojo::works]v.<?php echo $this->core->wojov; ?></small></p></footer>
+<footer><p class="icon-text"><i class="icon wojologo"></i>Copyright &copy;<?php echo date('Y') . ' ' . $this->core->company; ?> | Powered by BidayaDev</p></footer>
 <?php Debug::displayInfo(); ?>
 <script src="<?php echo SITEURL; ?>/assets/editor/editor.js"></script>
 <script src="<?php echo SITEURL; ?>/assets/editor/alignment.js"></script>
